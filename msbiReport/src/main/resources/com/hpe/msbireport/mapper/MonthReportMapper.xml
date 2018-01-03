@@ -1302,9 +1302,14 @@
     </select>
 
     <select id="selectAllMonthReportsByMonth" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select
+        SELECT
         <include refid="Base_Column_List"/>
-        from month_report
-        where month_indicator = #{monthIndicator,jdbcType=INTEGER}
+        FROM month_report
+        WHERE month_indicator = #{monthIndicator,jdbcType=INTEGER}
     </select>
+
+    <select id="selectAllAvaiableMonthFromDB" resultType="java.lang.Integer">
+        SELECT DISTINCT month_indicator FROM month_report
+    </select>
+
 </mapper>

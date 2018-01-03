@@ -24,4 +24,9 @@ public class MonthReportServiceImpl implements MonthReportService {
     public List<MonthReport> selectAllMonthReportsByMonth(Integer monthIndicator) {
         return this.monthReportMapper.selectAllMonthReportsByMonth(monthIndicator);
     }
+
+    @Override
+    public List<Integer> selectAllAvaiableMonthFromDB() {
+        return this.monthReportMapper.selectAllAvaiableMonthFromDB();
+    }
 }

@@ -1,9 +1,10 @@
 package com.hpe.msbireport.controller;
 
-import com.hpe.msbireport.domain.Lookup;
 import com.hpe.msbireport.domain.MonthReport;
+import com.hpe.msbireport.domain.TotalTitle;
 import com.hpe.msbireport.service.LookupService;
 import com.hpe.msbireport.service.MonthReportService;
+import com.hpe.msbireport.service.TotalTitleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,15 @@ public class MsbiReportController {
     @Autowired
     MonthReportService monthReportService;
 
+    @Autowired
+    TotalTitleService totalTitleService;
+
+
+    /*
+    *
+    * export .xlsx file, user can download it to their local machine.
+    *
+    * */
     @RequestMapping(value = "/export.xlsx", method = RequestMethod.GET)
     public String download(Model model) {
         model.addAttribute("lookups", this.lookupService.selectAllLookup());
@@ -41,14 +51,49 @@ public class MsbiReportController {
         return "";
     }
 
+    /*
+    *
+    * prepare data.
+    *
+    * */
     @RequestMapping(value = "/lookup/fetch", method = RequestMethod.GET)
     public @ResponseBody List<com.hpe.msbireport.domain.Lookup> selectAlllookup() {
         return this.lookupService.selectAllLookup();
     }
 
+    /*
+    *
+    * prepare main report content data.
+    *
+    * */
     @RequestMapping(value = "/monthReport/fetch", method = RequestMethod.GET)
     public @ResponseBody List<MonthReport> selectAllMonthReport(Integer month) {
         return this.monthReportService.selectAllMonthReportsByMonth(month);
     }
+
+    /*
+    *
+    * total summary category.
+    *
+    * */
+    @RequestMapping(value = "/totalTitle/fetch", method = RequestMethod.GET)
+    public @ResponseBody List<TotalTitle> selectAllTotalTitle(){
+        return this.totalTitleService.selectAllTotalTitle();
+    }
+
+    /**
+     *
+     * query all available month from DB,
+     * @return List[Integer] format: 201801,201802,201803
+     *
+     * */
+    @RequestMapping(value = "/allAvaiableMonth/fetch", method = RequestMethod.GET)
+    public @ResponseBody List<Integer> selectAllAvaiableMonthFromDB(){
+        return this.monthReportService.selectAllAvaiableMonthFromDB();
+    }
+
+
+
+
 
 }

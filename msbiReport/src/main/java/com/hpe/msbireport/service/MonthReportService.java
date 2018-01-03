@@ -13,4 +13,6 @@ import java.util.List;
 public interface MonthReportService {
 
     List<MonthReport> selectAllMonthReportsByMonth(Integer monthIndicator);
+
+    List<Integer> selectAllAvaiableMonthFromDB();
 }
