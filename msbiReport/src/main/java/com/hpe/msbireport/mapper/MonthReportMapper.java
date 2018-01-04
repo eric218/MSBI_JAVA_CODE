@@ -35,4 +35,6 @@ public interface MonthReportMapper {
     List<MonthReport> selectAllMonthReportsByMonth(Integer monthIndicator);
     
     List<MonthReport> selectAll();
+    
+    List<Integer> selectAllAvaiableMonthFromDB();
 }

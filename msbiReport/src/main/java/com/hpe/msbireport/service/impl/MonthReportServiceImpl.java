@@ -504,4 +504,9 @@ public class MonthReportServiceImpl implements MonthReportService {
 		}
 		return null;
 	}
+	
+	@Override
+    public List<Integer> selectAllAvaiableMonthFromDB() {
+        return this.monthReportMapper.selectAllAvaiableMonthFromDB();
+    }
 }

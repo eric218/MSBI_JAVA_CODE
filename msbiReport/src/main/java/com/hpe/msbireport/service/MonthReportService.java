@@ -15,4 +15,6 @@ public interface MonthReportService {
     List<MonthReport> selectAllMonthReportsByMonth(Integer monthIndicator);
     
     public boolean formatMonthReportTable(String currentDate) throws Exception;
+    
+    List<Integer> selectAllAvaiableMonthFromDB();
 }
