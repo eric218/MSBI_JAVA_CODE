@@ -30,4 +30,7 @@ public interface TotalSummaryMapper {
     int updateByPrimaryKeySelective(TotalSummary record);
 
     int updateByPrimaryKey(TotalSummary record);
+
+    List<TotalSummary> selectAllTotalSummaryByMonth(Integer monthIndicator);
+
 }

@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: msbi_db
-# Generation Time: 2018-01-02 06:47:12 +0000
+# Generation Time: 2018-01-04 03:09:05 +0000
 # ************************************************************
 
 
@@ -38,16 +38,43 @@ LOCK TABLES `lookup` WRITE;
 
 INSERT INTO `lookup` (`id`, `title`, `code`, `coulor`)
 VALUES
-	(1,'Backup 1','1	','17'),
-	(2,'Backup rerun and recovered','2','60'),
-	(3,'Re-run in progress	','3','13'),
-	(4,'No Schedule','4','44'),
-	(5,'Backup Failed to recover','0','10'),
-	(6,'Administrator Action','5','9'),
-	(7,'Test','8','9'),
-	(8,'Random','9','9');
+	(1,'Backup 1','1	','1'),
+	(2,'Backup rerun and recovered','2','2'),
+	(3,'Re-run in progress	','3','3'),
+	(4,'No Schedule','4','4'),
+	(5,'Backup Failed to recover','0','5'),
+	(6,'Administrator Action','5','6');
 
 /*!40000 ALTER TABLE `lookup` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table lookup_summary
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `lookup_summary`;
+
+CREATE TABLE `lookup_summary` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `month_indicator` int(11) DEFAULT NULL,
+  `lookup_id` int(11) DEFAULT NULL,
+  `count` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `lookup_summary` WRITE;
+/*!40000 ALTER TABLE `lookup_summary` DISABLE KEYS */;
+
+INSERT INTO `lookup_summary` (`id`, `month_indicator`, `lookup_id`, `count`)
+VALUES
+	(1,201702,1,7645),
+	(2,201702,2,110),
+	(3,201702,3,0),
+	(4,201702,4,3465),
+	(5,201702,5,169),
+	(6,201702,6,373);
+
+/*!40000 ALTER TABLE `lookup_summary` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -158,6 +185,20 @@ VALUES
 UNLOCK TABLES;
 
 
+# Dump of table schedule_status
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `schedule_status`;
+
+CREATE TABLE `schedule_status` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `schedule_time` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 # Dump of table total_summary
 # ------------------------------------------------------------
 
@@ -206,12 +247,12 @@ LOCK TABLES `total_summary` WRITE;
 
 INSERT INTO `total_summary` (`id`, `month_indicator`, `total_name`, `day_01`, `day_02`, `day_03`, `day_04`, `day_05`, `day_06`, `day_07`, `day_08`, `day_09`, `day_10`, `day_11`, `day_12`, `day_13`, `day_14`, `day_15`, `day_16`, `day_17`, `day_18`, `day_19`, `day_20`, `day_21`, `day_22`, `day_23`, `day_24`, `day_25`, `day_26`, `day_27`, `day_28`, `day_29`, `day_30`, `day_31`)
 VALUES
-	(1,201702,0,7,123,123,123,123,123,3,8,8,8,8,888888888,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9),
-	(2,201702,2,123,123,123,33,2,2,2,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8),
-	(3,201702,3,123,123,123,1,1,1,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5),
-	(4,201702,4,12,123,123,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,6,6,67,6,6,7,7,6,6,5,6,6,5),
-	(5,201702,5,123,123,222,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8),
-	(6,201702,7,7,7,6,76,6,6,7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6);
+	(1,201702,1,7,123,123,123,123,123,3,8,8,8,8,888888888,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,NULL,NULL,NULL),
+	(2,201702,2,123,123,123,33,2,2,2,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,NULL,NULL,NULL),
+	(3,201702,3,123,123,123,1,1,1,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,NULL,NULL,NULL),
+	(4,201702,4,12,123,123,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,6,6,67,6,6,7,7,6,6,5,NULL,NULL,NULL),
+	(5,201702,5,123,123,222,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,NULL,NULL,NULL),
+	(6,201702,6,7,7,6,76,6,6,7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `total_summary` ENABLE KEYS */;
 UNLOCK TABLES;
