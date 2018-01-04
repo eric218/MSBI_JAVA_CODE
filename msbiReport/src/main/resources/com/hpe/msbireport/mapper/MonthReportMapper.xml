@@ -13,6 +13,7 @@
         <result column="bsr" property="bsr" jdbcType="VARCHAR"/>
         <result column="total_schedule" property="totalSchedule" jdbcType="VARCHAR"/>
         <result column="total_successful" property="totalSuccessful" jdbcType="VARCHAR"/>
+        <result column="SCHED_STYLE" property="schedStyle" jdbcType="VARCHAR" />
         <result column="day_01_1" property="day011" jdbcType="VARCHAR"/>
         <result column="day_01_2" property="day012" jdbcType="VARCHAR"/>
         <result column="day_02_1" property="day021" jdbcType="VARCHAR"/>
@@ -75,6 +76,8 @@
         <result column="day_30_2" property="day302" jdbcType="VARCHAR"/>
         <result column="day_31_1" property="day311" jdbcType="VARCHAR"/>
         <result column="day_31_2" property="day312" jdbcType="VARCHAR"/>
+        <result column="PERUNITS" property="perunits" jdbcType="VARCHAR" />
+    	<result column="PERIOD" property="period" jdbcType="INTEGER" />
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -145,7 +148,7 @@
     day_16_1, day_16_2, day_17_1, day_17_2, day_18_1, day_18_2, day_19_1, day_19_2, day_20_1, 
     day_20_2, day_21_1, day_21_2, day_22_1, day_22_2, day_23_1, day_23_2, day_24_1, day_24_2, 
     day_25_1, day_25_2, day_26_1, day_26_2, day_27_1, day_27_2, day_28_1, day_28_2, day_29_1, 
-    day_29_2, day_30_1, day_30_2, day_31_1, day_31_2
+    day_29_2, day_30_1, day_30_2, day_31_1, day_31_2, PERUNITS, PERIOD, SCHED_STYLE
   </sql>
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hpe.msbireport.domain.MonthReportExample">
         select
@@ -202,7 +205,7 @@
       day_27_1, day_27_2, day_28_1, 
       day_28_2, day_29_1, day_29_2, 
       day_30_1, day_30_2, day_31_1, 
-      day_31_2)
+      day_31_2, PERUNITS, PERIOD, SCHED_STYLE)
     values (#{id,jdbcType=INTEGER}, #{monthIndicator,jdbcType=INTEGER}, #{serverName,jdbcType=VARCHAR}, 
       #{scheduleName,jdbcType=VARCHAR}, #{dateOfWeek,jdbcType=VARCHAR}, #{eachMonth,jdbcType=VARCHAR}, 
       #{dateOfMonth,jdbcType=VARCHAR}, #{weekOfMonth,jdbcType=VARCHAR}, #{bsr,jdbcType=VARCHAR}, 
@@ -227,7 +230,8 @@
       #{day271,jdbcType=VARCHAR}, #{day272,jdbcType=VARCHAR}, #{day281,jdbcType=VARCHAR}, 
       #{day282,jdbcType=VARCHAR}, #{day291,jdbcType=VARCHAR}, #{day292,jdbcType=VARCHAR}, 
       #{day301,jdbcType=VARCHAR}, #{day302,jdbcType=VARCHAR}, #{day311,jdbcType=VARCHAR}, 
-      #{day312,jdbcType=VARCHAR})
+      #{day312,jdbcType=VARCHAR}, #{perunits,jdbcType=VARCHAR}, #{period,jdbcType=INTEGER},
+      #{schedStyle,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.hpe.msbireport.domain.MonthReport">
         insert into month_report
@@ -451,6 +455,15 @@
             <if test="day312 != null">
                 day_31_2,
             </if>
+            <if test="perunits != null" >
+				PERUNITS,
+			</if>
+			<if test="period != null" >
+		        PERIOD,
+			</if>
+			<if test="schedStyle != null" >
+        		SCHED_STYLE
+      		</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -672,6 +685,15 @@
             <if test="day312 != null">
                 #{day312,jdbcType=VARCHAR},
             </if>
+            <if test="perunits != null" >
+        		#{perunits,jdbcType=VARCHAR},
+      		</if>
+      		<if test="period != null" >
+        		#{period,jdbcType=INTEGER},
+      		</if>
+      		<if test="schedStyle != null" >
+        		#{schedStyle,jdbcType=VARCHAR}
+      		</if>
         </trim>
     </insert>
     <select id="countByExample" parameterType="com.hpe.msbireport.domain.MonthReportExample"
@@ -903,6 +925,15 @@
             <if test="record.day312 != null">
                 day_31_2 = #{record.day312,jdbcType=VARCHAR},
             </if>
+            <if test="record.perunits != null" >
+        		PERUNITS = #{record.perunits,jdbcType=VARCHAR},
+      		</if>
+      		<if test="record.period != null" >
+        		PERIOD = #{record.period,jdbcType=INTEGER},
+      		</if>
+      		<if test="record.schedStyle != null" >
+        		SCHED_STYLE = #{record.schedStyle,jdbcType=VARCHAR}
+      		</if>
         </set>
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
@@ -1282,7 +1313,10 @@
       day_30_1 = #{day301,jdbcType=VARCHAR},
       day_30_2 = #{day302,jdbcType=VARCHAR},
       day_31_1 = #{day311,jdbcType=VARCHAR},
-      day_31_2 = #{day312,jdbcType=VARCHAR}
+      day_31_2 = #{day312,jdbcType=VARCHAR},
+      SCHED_STYLE = #{schedStyle,jdbcType=VARCHAR},
+      PERUNITS = #{perunits,jdbcType=VARCHAR},
+      PERIOD = #{period,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
     <select resultMap="BaseResultMap" parameterType="com.hpe.msbireport.domain.MonthReportExample"
@@ -1307,4 +1341,10 @@
         from month_report
         where month_indicator = #{monthIndicator,jdbcType=INTEGER}
     </select>
+    
+	<select id="selectAll" resultMap="BaseResultMap"  >
+		select 
+	    <include refid="Base_Column_List" />
+	    from month_report
+	</select>
 </mapper>

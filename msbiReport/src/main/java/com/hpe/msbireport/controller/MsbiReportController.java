@@ -4,6 +4,7 @@ import com.hpe.msbireport.domain.Lookup;
 import com.hpe.msbireport.domain.MonthReport;
 import com.hpe.msbireport.service.LookupService;
 import com.hpe.msbireport.service.MonthReportService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,6 +50,17 @@ public class MsbiReportController {
     @RequestMapping(value = "/monthReport/fetch", method = RequestMethod.GET)
     public @ResponseBody List<MonthReport> selectAllMonthReport(Integer month) {
         return this.monthReportService.selectAllMonthReportsByMonth(month);
+    }
+    
+    @RequestMapping(value = "/monthReport/format", method = RequestMethod.GET)
+    public @ResponseBody boolean selectAllMonthReport(String month) {
+        try {
+        	month = "2017-4-18";
+			return this.monthReportService.formatMonthReportTable(month);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        return false;
     }
 
 }

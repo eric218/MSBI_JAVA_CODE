@@ -3,7 +3,6 @@ package com.hpe.msbireport.mapper;
 import com.hpe.msbireport.domain.MonthReport;
 import com.hpe.msbireport.domain.MonthReportExample;
 
-import java.time.Month;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
@@ -34,4 +33,6 @@ public interface MonthReportMapper {
     int updateByPrimaryKey(MonthReport record);
 
     List<MonthReport> selectAllMonthReportsByMonth(Integer monthIndicator);
+    
+    List<MonthReport> selectAll();
 }

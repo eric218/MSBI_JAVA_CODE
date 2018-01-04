@@ -146,8 +146,38 @@ public class MonthReport {
     private String day311;
 
     private String day312;
+    
+    private String schedStyle;
+    
+    private String perunits;
 
-    public Integer getId() {
+    private Integer period;
+
+    public String getSchedStyle() {
+		return schedStyle;
+	}
+
+	public void setSchedStyle(String schedStyle) {
+		this.schedStyle = schedStyle;
+	}
+
+	public String getPerunits() {
+		return perunits;
+	}
+
+	public void setPerunits(String perunits) {
+		this.perunits = perunits;
+	}
+
+	public Integer getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(Integer period) {
+		this.period = period;
+	}
+
+	public Integer getId() {
         return id;
     }
 
