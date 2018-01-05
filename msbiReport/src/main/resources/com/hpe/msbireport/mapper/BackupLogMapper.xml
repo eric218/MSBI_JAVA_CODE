@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hpe.msbireport.mapper.BackupLogMapper" >
+  <resultMap id="BaseResultMap" type="com.hpe.msbireport.domain.BackupLog" >
+    <id column="MESSAGE" property="message" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="SERVER_NAME" property="serverName" jdbcType="VARCHAR" />
+    <result column="DOMAIN_NAME" property="domainName" jdbcType="VARCHAR" />
+    <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+    <result column="SCHEDULE_NAME" property="scheduleName" jdbcType="VARCHAR" />
+    <result column="START_DATE" property="startDate" jdbcType="DATE" />
+    <result column="DONE_DATE" property="doneDate" jdbcType="DATE" />
+    <result column="START_DATE_TIME" property="startDateTime" jdbcType="TIMESTAMP" />
+    <result column="DONE_DATE_TIME" property="doneDateTime" jdbcType="TIMESTAMP" />
+    <result column="LOG_DATE" property="logDate" jdbcType="DATE" />
+    <result column="LOG_DATE_TIME" property="logDateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_SUCCESS" property="isSuccess" jdbcType="INTEGER" />
+    <result column="INSERT_DATE_TIME" property="insertDateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE_TIME" property="updateDateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MESSAGE, id, SERVER_NAME, DOMAIN_NAME, NODE_NAME, SCHEDULE_NAME, START_DATE, DONE_DATE, 
+    START_DATE_TIME, DONE_DATE_TIME, LOG_DATE, LOG_DATE_TIME, IS_SUCCESS, INSERT_DATE_TIME, 
+    UPDATE_DATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from backup_log
+    where MESSAGE = #{message,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from backup_log
+    where MESSAGE = #{message,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hpe.msbireport.domain.BackupLog" >
+    insert into backup_log (MESSAGE, id, SERVER_NAME, 
+      DOMAIN_NAME, NODE_NAME, SCHEDULE_NAME, 
+      START_DATE, DONE_DATE, START_DATE_TIME, 
+      DONE_DATE_TIME, LOG_DATE, LOG_DATE_TIME, 
+      IS_SUCCESS, INSERT_DATE_TIME, UPDATE_DATE_TIME
+      )
+    values (#{message,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{serverName,jdbcType=VARCHAR}, 
+      #{domainName,jdbcType=VARCHAR}, #{nodeName,jdbcType=VARCHAR}, #{scheduleName,jdbcType=VARCHAR}, 
+      #{startDate,jdbcType=DATE}, #{doneDate,jdbcType=DATE}, #{startDateTime,jdbcType=TIMESTAMP}, 
+      #{doneDateTime,jdbcType=TIMESTAMP}, #{logDate,jdbcType=DATE}, #{logDateTime,jdbcType=TIMESTAMP}, 
+      #{isSuccess,jdbcType=INTEGER}, #{insertDateTime,jdbcType=TIMESTAMP}, #{updateDateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hpe.msbireport.domain.BackupLog" >
+    insert into backup_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="message != null" >
+        MESSAGE,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="serverName != null" >
+        SERVER_NAME,
+      </if>
+      <if test="domainName != null" >
+        DOMAIN_NAME,
+      </if>
+      <if test="nodeName != null" >
+        NODE_NAME,
+      </if>
+      <if test="scheduleName != null" >
+        SCHEDULE_NAME,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="doneDate != null" >
+        DONE_DATE,
+      </if>
+      <if test="startDateTime != null" >
+        START_DATE_TIME,
+      </if>
+      <if test="doneDateTime != null" >
+        DONE_DATE_TIME,
+      </if>
+      <if test="logDate != null" >
+        LOG_DATE,
+      </if>
+      <if test="logDateTime != null" >
+        LOG_DATE_TIME,
+      </if>
+      <if test="isSuccess != null" >
+        IS_SUCCESS,
+      </if>
+      <if test="insertDateTime != null" >
+        INSERT_DATE_TIME,
+      </if>
+      <if test="updateDateTime != null" >
+        UPDATE_DATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serverName != null" >
+        #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="domainName != null" >
+        #{domainName,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeName != null" >
+        #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="scheduleName != null" >
+        #{scheduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="doneDate != null" >
+        #{doneDate,jdbcType=DATE},
+      </if>
+      <if test="startDateTime != null" >
+        #{startDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="doneDateTime != null" >
+        #{doneDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logDate != null" >
+        #{logDate,jdbcType=DATE},
+      </if>
+      <if test="logDateTime != null" >
+        #{logDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isSuccess != null" >
+        #{isSuccess,jdbcType=INTEGER},
+      </if>
+      <if test="insertDateTime != null" >
+        #{insertDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDateTime != null" >
+        #{updateDateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hpe.msbireport.domain.BackupLog" >
+    update backup_log
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serverName != null" >
+        SERVER_NAME = #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="domainName != null" >
+        DOMAIN_NAME = #{domainName,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeName != null" >
+        NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="scheduleName != null" >
+        SCHEDULE_NAME = #{scheduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        START_DATE = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="doneDate != null" >
+        DONE_DATE = #{doneDate,jdbcType=DATE},
+      </if>
+      <if test="startDateTime != null" >
+        START_DATE_TIME = #{startDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="doneDateTime != null" >
+        DONE_DATE_TIME = #{doneDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logDate != null" >
+        LOG_DATE = #{logDate,jdbcType=DATE},
+      </if>
+      <if test="logDateTime != null" >
+        LOG_DATE_TIME = #{logDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isSuccess != null" >
+        IS_SUCCESS = #{isSuccess,jdbcType=INTEGER},
+      </if>
+      <if test="insertDateTime != null" >
+        INSERT_DATE_TIME = #{insertDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDateTime != null" >
+        UPDATE_DATE_TIME = #{updateDateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MESSAGE = #{message,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hpe.msbireport.domain.BackupLog" >
+    update backup_log
+    set id = #{id,jdbcType=INTEGER},
+      SERVER_NAME = #{serverName,jdbcType=VARCHAR},
+      DOMAIN_NAME = #{domainName,jdbcType=VARCHAR},
+      NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+      SCHEDULE_NAME = #{scheduleName,jdbcType=VARCHAR},
+      START_DATE = #{startDate,jdbcType=DATE},
+      DONE_DATE = #{doneDate,jdbcType=DATE},
+      START_DATE_TIME = #{startDateTime,jdbcType=TIMESTAMP},
+      DONE_DATE_TIME = #{doneDateTime,jdbcType=TIMESTAMP},
+      LOG_DATE = #{logDate,jdbcType=DATE},
+      LOG_DATE_TIME = #{logDateTime,jdbcType=TIMESTAMP},
+      IS_SUCCESS = #{isSuccess,jdbcType=INTEGER},
+      INSERT_DATE_TIME = #{insertDateTime,jdbcType=TIMESTAMP},
+      UPDATE_DATE_TIME = #{updateDateTime,jdbcType=TIMESTAMP}
+    where MESSAGE = #{message,jdbcType=VARCHAR}
+  </update>
+  
+  <resultMap id="RunTimeByDate" type="com.hpe.msbireport.domain.RunTimeByDate" >
+    <result column="runnum" property="runnum" jdbcType="VARCHAR" />
+    <result column="schedulename" property="schedulename" jdbcType="VARCHAR" />
+    <result column="startdate" property="startdate" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectRunTimeByDate" resultMap="RunTimeByDate" parameterType="java.lang.String">
+  	select count(1) as runnum,bl.SCHEDULE_NAME as schedulename,DATE_FORMAT(bl.START_DATE,'%e') as startdate from backup_log bl where bl.SCHEDULE_NAME not like '%@%'
+	and bl.START_DATE &lt;= #{endDate} and bl.START_DATE &gt;= #{startDate}
+	GROUP BY bl.SCHEDULE_NAME,bl.START_DATE
+  </select>
+</mapper>

@@ -1,12 +1,5 @@
 package com.hpe.msbireport.service.impl;
 
-import com.hpe.msbireport.domain.MonthReport;
-import com.hpe.msbireport.mapper.MonthReportMapper;
-import com.hpe.msbireport.service.MonthReportService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +9,15 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.hpe.msbireport.domain.MonthReport;
+import com.hpe.msbireport.domain.RunTimeByDate;
+import com.hpe.msbireport.mapper.BackupLogMapper;
+import com.hpe.msbireport.mapper.MonthReportMapper;
+import com.hpe.msbireport.service.MonthReportService;
 
 /**
  * Project:
@@ -28,6 +30,9 @@ public class MonthReportServiceImpl implements MonthReportService {
 
     @Autowired
     MonthReportMapper monthReportMapper;
+    
+    @Autowired
+    BackupLogMapper backupLogMapper;
 
     @Override
     public List<MonthReport> selectAllMonthReportsByMonth(Integer monthIndicator) {
@@ -53,11 +58,13 @@ public class MonthReportServiceImpl implements MonthReportService {
 		try {
 			//查询数据库，所有数据
 			List<MonthReport> list = monthReportMapper.selectAll();
+			//查询backuplog表所有数据，用来写入monthreport表中的执行次数字段
+			List<RunTimeByDate> blList = backupLogMapper.selectRunTimeByDate(currentDates[0]+"-"+currentDates[1]+"-1",currentDate);
 
 			for (MonthReport monthReport : list) {
 				//获得数据类型
 				String schedStyle = monthReport.getSchedStyle();
-
+				String schedName = monthReport.getScheduleName();
 				//根据CLASSIC类型处理
 				if (schedStyle.equals("CLASSIC") ) {
 					
@@ -74,134 +81,134 @@ public class MonthReportServiceImpl implements MonthReportService {
 					
 					//DateOfWeek类型为 Any，直接处理
 					if(monthReport.getDateOfWeek().equals("Any")){
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay012(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay022(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay032(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay042(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay052(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay062(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay072(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay082(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay092(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay102(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay112(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay122(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay132(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay142(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay152(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay162(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay172(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay182(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay192(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay202(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay212(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay222(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay232(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay242(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay252(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay262(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay272(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay282(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay292(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay302(null);};
-						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay312(null);};
+						if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "1")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay012(null);};
+						if(currentDay>=2){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "2")+";null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay022(null);};
+						if(currentDay>=3){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "3")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay032(null);};
+						if(currentDay>=4){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "4")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay042(null);};
+						if(currentDay>=5){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "5")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay052(null);};
+						if(currentDay>=6){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "6")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay062(null);};
+						if(currentDay>=7){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "7")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay072(null);};
+						if(currentDay>=8){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "8")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay082(null);};
+						if(currentDay>=9){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "9")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay092(null);};
+						if(currentDay>=10){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "10")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay102(null);};
+						if(currentDay>=11){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "11")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay112(null);};
+						if(currentDay>=12){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "12")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay122(null);};
+						if(currentDay>=13){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "13")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay132(null);};
+						if(currentDay>=14){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "14")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay142(null);};
+						if(currentDay>=15){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "15")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay152(null);};
+						if(currentDay>=16){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "16")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay162(null);};
+						if(currentDay>=17){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "17")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay172(null);};
+						if(currentDay>=18){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "18")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay182(null);};
+						if(currentDay>=19){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "19")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay192(null);};
+						if(currentDay>=20){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "20")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay202(null);};
+						if(currentDay>=21){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "21")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay212(null);};
+						if(currentDay>=22){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "22")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay222(null);};
+						if(currentDay>=23){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "23")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay232(null);};
+						if(currentDay>=24){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "24")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay242(null);};
+						if(currentDay>=25){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "25")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay252(null);};
+						if(currentDay>=26){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "26")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay262(null);};
+						if(currentDay>=27){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "27")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay272(null);};
+						if(currentDay>=28){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "28")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay282(null);};
+						if(currentDay>=29){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "29")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay292(null);};
+						if(currentDay>=30){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "30")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay302(null);};
+						if(currentDay>=31){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "31")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay312(null);};
 						//更新数据
 						monthReportMapper.updateByPrimaryKey(monthReport);
 					}else{
 						//write 方法，返回布尔类型List，通过判断是否为真，执行写入1  或  写入4
 						List<Boolean> writeList = write(currentDate,Day.get(monthReport.getDateOfWeek()),"CLASSIC",null,null);
 						if(currentDay>=1){
-							if(writeList.get(0)){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay012(null);}
+							if(writeList.get(0)){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "1")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay012(null);}
 						}else{monthReport.setDay011("4");monthReport.setDay012(null);};
 						if(currentDay>=2){
-							if(writeList.get(1)){monthReport.setDay021("1");monthReport.setDay022("null;null;"+jobNums);}else{monthReport.setDay021("4");monthReport.setDay022(null);}
+							if(writeList.get(1)){monthReport.setDay021("1");monthReport.setDay022(runNum(blList, schedName, "2")+";null;"+jobNums);}else{monthReport.setDay021("4");monthReport.setDay022(null);}
 						}else{monthReport.setDay021("4");monthReport.setDay022(null);};
 						if(currentDay>=3){
-							if(writeList.get(2)){monthReport.setDay031("1");monthReport.setDay032("null;null;"+jobNums);}else{monthReport.setDay031("4");monthReport.setDay032(null);};
+							if(writeList.get(2)){monthReport.setDay031("1");monthReport.setDay032(runNum(blList, schedName, "3")+";null;"+jobNums);}else{monthReport.setDay031("4");monthReport.setDay032(null);};
 						}else{monthReport.setDay031("4");monthReport.setDay032(null);};
 						if(currentDay>=4){
-							if(writeList.get(3)){monthReport.setDay041("1");monthReport.setDay042("null;null;"+jobNums);}else{monthReport.setDay041("4");monthReport.setDay042(null);};
+							if(writeList.get(3)){monthReport.setDay041("1");monthReport.setDay042(runNum(blList, schedName, "4")+";null;"+jobNums);}else{monthReport.setDay041("4");monthReport.setDay042(null);};
 						}else{monthReport.setDay041("4");monthReport.setDay042(null);};
 						if(currentDay>=5){
-							if(writeList.get(4)){monthReport.setDay051("1");monthReport.setDay052("null;null;"+jobNums);}else{monthReport.setDay051("4");monthReport.setDay052(null);};
+							if(writeList.get(4)){monthReport.setDay051("1");monthReport.setDay052(runNum(blList, schedName, "5")+";null;"+jobNums);}else{monthReport.setDay051("4");monthReport.setDay052(null);};
 						}else{monthReport.setDay051("4");monthReport.setDay052(null);};
 						if(currentDay>=6){
-							if(writeList.get(5)){monthReport.setDay061("1");monthReport.setDay062("null;null;"+jobNums);}else{monthReport.setDay061("4");monthReport.setDay062(null);};
+							if(writeList.get(5)){monthReport.setDay061("1");monthReport.setDay062(runNum(blList, schedName, "6")+";null;"+jobNums);}else{monthReport.setDay061("4");monthReport.setDay062(null);};
 						}else{monthReport.setDay061("4");monthReport.setDay062(null);};
 						if(currentDay>=7){
-							if(writeList.get(6)){monthReport.setDay071("1");monthReport.setDay072("null;null;"+jobNums);}else{monthReport.setDay071("4");monthReport.setDay072(null);};
+							if(writeList.get(6)){monthReport.setDay071("1");monthReport.setDay072(runNum(blList, schedName, "7")+";null;"+jobNums);}else{monthReport.setDay071("4");monthReport.setDay072(null);};
 						}else{monthReport.setDay071("4");monthReport.setDay072(null);};
 						if(currentDay>=8){
-							if(writeList.get(7)){monthReport.setDay081("1");monthReport.setDay082("null;null;"+jobNums);}else{monthReport.setDay081("4");monthReport.setDay082(null);};
+							if(writeList.get(7)){monthReport.setDay081("1");monthReport.setDay082(runNum(blList, schedName, "8")+";null;"+jobNums);}else{monthReport.setDay081("4");monthReport.setDay082(null);};
 						}else{monthReport.setDay081("4");monthReport.setDay082(null);};
 						if(currentDay>=9){
-							if(writeList.get(8)){monthReport.setDay091("1");monthReport.setDay092("null;null;"+jobNums);}else{monthReport.setDay091("4");monthReport.setDay092(null);};
+							if(writeList.get(8)){monthReport.setDay091("1");monthReport.setDay092(runNum(blList, schedName, "9")+";null;"+jobNums);}else{monthReport.setDay091("4");monthReport.setDay092(null);};
 						}else{monthReport.setDay091("4");monthReport.setDay092(null);};
 						if(currentDay>=10){
-							if(writeList.get(9)){monthReport.setDay101("1");monthReport.setDay102("null;null;"+jobNums);}else{monthReport.setDay101("4");monthReport.setDay102(null);};
+							if(writeList.get(9)){monthReport.setDay101("1");monthReport.setDay102(runNum(blList, schedName, "10")+";null;"+jobNums);}else{monthReport.setDay101("4");monthReport.setDay102(null);};
 						}else{monthReport.setDay101("4");monthReport.setDay102(null);};
 						if(currentDay>=11){
-							if(writeList.get(10)){monthReport.setDay111("1");monthReport.setDay112("null;null;"+jobNums);}else{monthReport.setDay111("4");monthReport.setDay112(null);};
+							if(writeList.get(10)){monthReport.setDay111("1");monthReport.setDay112(runNum(blList, schedName, "11")+";null;"+jobNums);}else{monthReport.setDay111("4");monthReport.setDay112(null);};
 						}else{monthReport.setDay111("4");monthReport.setDay112(null);};
 						if(currentDay>=12){
-							if(writeList.get(11)){monthReport.setDay121("1");monthReport.setDay122("null;null;"+jobNums);}else{monthReport.setDay121("4");monthReport.setDay122(null);};
+							if(writeList.get(11)){monthReport.setDay121("1");monthReport.setDay122(runNum(blList, schedName, "12")+";null;"+jobNums);}else{monthReport.setDay121("4");monthReport.setDay122(null);};
 						}else{monthReport.setDay121("4");monthReport.setDay122(null);};
 						if(currentDay>=13){
-							if(writeList.get(12)){monthReport.setDay131("1");monthReport.setDay132("null;null;"+jobNums);}else{monthReport.setDay131("4");monthReport.setDay132(null);};
+							if(writeList.get(12)){monthReport.setDay131("1");monthReport.setDay132(runNum(blList, schedName, "13")+";null;"+jobNums);}else{monthReport.setDay131("4");monthReport.setDay132(null);};
 						}else{monthReport.setDay131("4");monthReport.setDay132(null);};
 						if(currentDay>=14){
-							if(writeList.get(13)){monthReport.setDay141("1");monthReport.setDay142("null;null;"+jobNums);}else{monthReport.setDay141("4");monthReport.setDay142(null);};
+							if(writeList.get(13)){monthReport.setDay141("1");monthReport.setDay142(runNum(blList, schedName, "14")+";null;"+jobNums);}else{monthReport.setDay141("4");monthReport.setDay142(null);};
 						}else{monthReport.setDay141("4");monthReport.setDay142(null);};
 						if(currentDay>=15){
-							if(writeList.get(14)){monthReport.setDay151("1");monthReport.setDay152("null;null;"+jobNums);}else{monthReport.setDay151("4");monthReport.setDay152(null);};
+							if(writeList.get(14)){monthReport.setDay151("1");monthReport.setDay152(runNum(blList, schedName, "15")+";null;"+jobNums);}else{monthReport.setDay151("4");monthReport.setDay152(null);};
 						}else{monthReport.setDay151("4");monthReport.setDay152(null);};
 						if(currentDay>=16){
-							if(writeList.get(15)){monthReport.setDay161("1");monthReport.setDay162("null;null;"+jobNums);}else{monthReport.setDay161("4");monthReport.setDay162(null);};
+							if(writeList.get(15)){monthReport.setDay161("1");monthReport.setDay162(runNum(blList, schedName, "16")+";null;"+jobNums);}else{monthReport.setDay161("4");monthReport.setDay162(null);};
 						}else{monthReport.setDay161("4");monthReport.setDay162(null);};
 						if(currentDay>=17){
-							if(writeList.get(16)){monthReport.setDay171("1");monthReport.setDay172("null;null;"+jobNums);}else{monthReport.setDay171("4");monthReport.setDay172(null);};
+							if(writeList.get(16)){monthReport.setDay171("1");monthReport.setDay172(runNum(blList, schedName, "17")+";null;"+jobNums);}else{monthReport.setDay171("4");monthReport.setDay172(null);};
 						}else{monthReport.setDay171("4");monthReport.setDay172(null);};
 						if(currentDay>=18){
-							if(writeList.get(17)){monthReport.setDay181("1");monthReport.setDay182("null;null;"+jobNums);}else{monthReport.setDay181("4");monthReport.setDay182(null);};
+							if(writeList.get(17)){monthReport.setDay181("1");monthReport.setDay182(runNum(blList, schedName, "18")+";null;"+jobNums);}else{monthReport.setDay181("4");monthReport.setDay182(null);};
 						}else{monthReport.setDay181("4");monthReport.setDay182(null);};
 						if(currentDay>=19){
-							if(writeList.get(18)){monthReport.setDay191("1");monthReport.setDay192("null;null;"+jobNums);}else{monthReport.setDay191("4");monthReport.setDay192(null);};
+							if(writeList.get(18)){monthReport.setDay191("1");monthReport.setDay192(runNum(blList, schedName, "19")+";null;"+jobNums);}else{monthReport.setDay191("4");monthReport.setDay192(null);};
 						}else{monthReport.setDay191("4");monthReport.setDay192(null);};
 						if(currentDay>=20){
-							if(writeList.get(19)){monthReport.setDay201("1");monthReport.setDay202("null;null;"+jobNums);}else{monthReport.setDay201("4");monthReport.setDay202(null);};
+							if(writeList.get(19)){monthReport.setDay201("1");monthReport.setDay202(runNum(blList, schedName, "20")+";null;"+jobNums);}else{monthReport.setDay201("4");monthReport.setDay202(null);};
 						}else{monthReport.setDay201("4");monthReport.setDay202(null);};
 						if(currentDay>=21){
-							if(writeList.get(20)){monthReport.setDay211("1");monthReport.setDay212("null;null;"+jobNums);}else{monthReport.setDay211("4");monthReport.setDay212(null);};
+							if(writeList.get(20)){monthReport.setDay211("1");monthReport.setDay212(runNum(blList, schedName, "21")+";null;"+jobNums);}else{monthReport.setDay211("4");monthReport.setDay212(null);};
 						}else{monthReport.setDay211("4");monthReport.setDay212(null);};
 						if(currentDay>=22){
-							if(writeList.get(21)){monthReport.setDay221("1");monthReport.setDay222("null;null;"+jobNums);}else{monthReport.setDay221("4");monthReport.setDay222(null);};
+							if(writeList.get(21)){monthReport.setDay221("1");monthReport.setDay222(runNum(blList, schedName, "22")+";null;"+jobNums);}else{monthReport.setDay221("4");monthReport.setDay222(null);};
 						}else{monthReport.setDay221("4");monthReport.setDay222(null);};
 						if(currentDay>=23){
-							if(writeList.get(22)){monthReport.setDay231("1");monthReport.setDay232("null;null;"+jobNums);}else{monthReport.setDay231("4");monthReport.setDay232(null);};
+							if(writeList.get(22)){monthReport.setDay231("1");monthReport.setDay232(runNum(blList, schedName, "23")+";null;"+jobNums);}else{monthReport.setDay231("4");monthReport.setDay232(null);};
 						}else{monthReport.setDay231("4");monthReport.setDay232(null);};
 						if(currentDay>=24){
-							if(writeList.get(23)){monthReport.setDay241("1");monthReport.setDay242("null;null;"+jobNums);}else{monthReport.setDay241("4");monthReport.setDay242(null);};
+							if(writeList.get(23)){monthReport.setDay241("1");monthReport.setDay242(runNum(blList, schedName, "24")+";null;"+jobNums);}else{monthReport.setDay241("4");monthReport.setDay242(null);};
 						}else{monthReport.setDay241("4");monthReport.setDay242(null);};
 						if(currentDay>=25){
-							if(writeList.get(24)){monthReport.setDay251("1");monthReport.setDay252("null;null;"+jobNums);}else{monthReport.setDay251("4");monthReport.setDay252(null);};
+							if(writeList.get(24)){monthReport.setDay251("1");monthReport.setDay252(runNum(blList, schedName, "25")+";null;"+jobNums);}else{monthReport.setDay251("4");monthReport.setDay252(null);};
 						}else{monthReport.setDay251("4");monthReport.setDay252(null);};
 						if(currentDay>=26){
-							if(writeList.get(25)){monthReport.setDay261("1");monthReport.setDay262("null;null;"+jobNums);}else{monthReport.setDay261("4");monthReport.setDay262(null);};
+							if(writeList.get(25)){monthReport.setDay261("1");monthReport.setDay262(runNum(blList, schedName, "26")+";null;"+jobNums);}else{monthReport.setDay261("4");monthReport.setDay262(null);};
 						}else{monthReport.setDay261("4");monthReport.setDay262(null);};
 						if(currentDay>=27){
-							if(writeList.get(26)){monthReport.setDay271("1");monthReport.setDay272("null;null;"+jobNums);}else{monthReport.setDay271("4");monthReport.setDay272(null);};
+							if(writeList.get(26)){monthReport.setDay271("1");monthReport.setDay272(runNum(blList, schedName, "27")+";null;"+jobNums);}else{monthReport.setDay271("4");monthReport.setDay272(null);};
 						}else{monthReport.setDay271("4");monthReport.setDay272(null);};
 						if(currentDay>=28){
-							if(writeList.get(27)){monthReport.setDay281("1");monthReport.setDay282("null;null;"+jobNums);}else{monthReport.setDay281("4");monthReport.setDay282(null);};
+							if(writeList.get(27)){monthReport.setDay281("1");monthReport.setDay282(runNum(blList, schedName, "28")+";null;"+jobNums);}else{monthReport.setDay281("4");monthReport.setDay282(null);};
 						}else{monthReport.setDay281("4");monthReport.setDay282(null);};
 						if(currentDay>=29){
-							if(writeList.get(28)){monthReport.setDay291("1");monthReport.setDay292("null;null;"+jobNums);}else{monthReport.setDay291("4");monthReport.setDay292(null);};
+							if(writeList.get(28)){monthReport.setDay291("1");monthReport.setDay292(runNum(blList, schedName, "29")+";null;"+jobNums);}else{monthReport.setDay291("4");monthReport.setDay292(null);};
 						}else{monthReport.setDay291("4");monthReport.setDay292(null);};
 						if(currentDay>=30){
-							if(writeList.get(29)){monthReport.setDay301("1");monthReport.setDay302("null;null;"+jobNums);}else{monthReport.setDay301("4");monthReport.setDay302(null);};
+							if(writeList.get(29)){monthReport.setDay301("1");monthReport.setDay302(runNum(blList, schedName, "30")+";null;"+jobNums);}else{monthReport.setDay301("4");monthReport.setDay302(null);};
 						}else{monthReport.setDay301("4");monthReport.setDay302(null);};
 						if(currentDay>=31){
-							if(writeList.get(30)){monthReport.setDay311("1");monthReport.setDay312("null;null;"+jobNums);}else{monthReport.setDay311("4");monthReport.setDay312(null);};
+							if(writeList.get(30)){monthReport.setDay311("1");monthReport.setDay312(runNum(blList, schedName, "31")+";null;"+jobNums);}else{monthReport.setDay311("4");monthReport.setDay312(null);};
 						}else{monthReport.setDay311("4");monthReport.setDay312(null);};
 						monthReportMapper.updateByPrimaryKey(monthReport);
 					}
@@ -211,97 +218,97 @@ public class MonthReportServiceImpl implements MonthReportService {
 					List<Boolean> writeList = write(currentDate,0,"ENHANCED",monthReport.getDateOfWeek(),monthReport.getWeekOfMonth());
 					String jobNums = "1";
 					if(currentDay>=1){
-						if(writeList.get(0)){monthReport.setDay011("1");monthReport.setDay012("null;null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay012(null);}
+						if(writeList.get(0)){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "1")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay012(null);}
 					}else{monthReport.setDay011("4");monthReport.setDay012(null);};
 					if(currentDay>=2){
-						if(writeList.get(1)){monthReport.setDay021("1");monthReport.setDay022("null;null;"+jobNums);}else{monthReport.setDay021("4");monthReport.setDay022(null);}
+						if(writeList.get(1)){monthReport.setDay021("1");monthReport.setDay022(runNum(blList, schedName, "2")+";null;"+jobNums);}else{monthReport.setDay021("4");monthReport.setDay022(null);}
 					}else{monthReport.setDay021("4");monthReport.setDay022(null);};
 					if(currentDay>=3){
-						if(writeList.get(2)){monthReport.setDay031("1");monthReport.setDay032("null;null;"+jobNums);}else{monthReport.setDay031("4");monthReport.setDay032(null);};
+						if(writeList.get(2)){monthReport.setDay031("1");monthReport.setDay032(runNum(blList, schedName, "3")+";null;"+jobNums);}else{monthReport.setDay031("4");monthReport.setDay032(null);};
 					}else{monthReport.setDay031("4");monthReport.setDay032(null);};
 					if(currentDay>=4){
-						if(writeList.get(3)){monthReport.setDay041("1");monthReport.setDay042("null;null;"+jobNums);}else{monthReport.setDay041("4");monthReport.setDay042(null);};
+						if(writeList.get(3)){monthReport.setDay041("1");monthReport.setDay042(runNum(blList, schedName, "4")+";null;"+jobNums);}else{monthReport.setDay041("4");monthReport.setDay042(null);};
 					}else{monthReport.setDay041("4");monthReport.setDay042(null);};
 					if(currentDay>=5){
-						if(writeList.get(4)){monthReport.setDay051("1");monthReport.setDay052("null;null;"+jobNums);}else{monthReport.setDay051("4");monthReport.setDay052(null);};
+						if(writeList.get(4)){monthReport.setDay051("1");monthReport.setDay052(runNum(blList, schedName, "5")+";null;"+jobNums);}else{monthReport.setDay051("4");monthReport.setDay052(null);};
 					}else{monthReport.setDay051("4");monthReport.setDay052(null);};
 					if(currentDay>=6){
-						if(writeList.get(5)){monthReport.setDay061("1");monthReport.setDay062("null;null;"+jobNums);}else{monthReport.setDay061("4");monthReport.setDay062(null);};
+						if(writeList.get(5)){monthReport.setDay061("1");monthReport.setDay062(runNum(blList, schedName, "6")+";null;"+jobNums);}else{monthReport.setDay061("4");monthReport.setDay062(null);};
 					}else{monthReport.setDay061("4");monthReport.setDay062(null);};
 					if(currentDay>=7){
-						if(writeList.get(6)){monthReport.setDay071("1");monthReport.setDay072("null;null;"+jobNums);}else{monthReport.setDay071("4");monthReport.setDay072(null);};
+						if(writeList.get(6)){monthReport.setDay071("1");monthReport.setDay072(runNum(blList, schedName, "7")+";null;"+jobNums);}else{monthReport.setDay071("4");monthReport.setDay072(null);};
 					}else{monthReport.setDay071("4");monthReport.setDay072(null);};
 					if(currentDay>=8){
-						if(writeList.get(7)){monthReport.setDay081("1");monthReport.setDay082("null;null;"+jobNums);}else{monthReport.setDay081("4");monthReport.setDay082(null);};
+						if(writeList.get(7)){monthReport.setDay081("1");monthReport.setDay082(runNum(blList, schedName, "8")+";null;"+jobNums);}else{monthReport.setDay081("4");monthReport.setDay082(null);};
 					}else{monthReport.setDay081("4");monthReport.setDay082(null);};
 					if(currentDay>=9){
-						if(writeList.get(8)){monthReport.setDay091("1");monthReport.setDay092("null;null;"+jobNums);}else{monthReport.setDay091("4");monthReport.setDay092(null);};
+						if(writeList.get(8)){monthReport.setDay091("1");monthReport.setDay092(runNum(blList, schedName, "9")+";null;"+jobNums);}else{monthReport.setDay091("4");monthReport.setDay092(null);};
 					}else{monthReport.setDay091("4");monthReport.setDay092(null);};
 					if(currentDay>=10){
-						if(writeList.get(9)){monthReport.setDay101("1");monthReport.setDay102("null;null;"+jobNums);}else{monthReport.setDay101("4");monthReport.setDay102(null);};
+						if(writeList.get(9)){monthReport.setDay101("1");monthReport.setDay102(runNum(blList, schedName, "10")+";null;"+jobNums);}else{monthReport.setDay101("4");monthReport.setDay102(null);};
 					}else{monthReport.setDay101("4");monthReport.setDay102(null);};
 					if(currentDay>=11){
-						if(writeList.get(10)){monthReport.setDay111("1");monthReport.setDay112("null;null;"+jobNums);}else{monthReport.setDay111("4");monthReport.setDay112(null);};
+						if(writeList.get(10)){monthReport.setDay111("1");monthReport.setDay112(runNum(blList, schedName, "11")+";null;"+jobNums);}else{monthReport.setDay111("4");monthReport.setDay112(null);};
 					}else{monthReport.setDay111("4");monthReport.setDay112(null);};
 					if(currentDay>=12){
-						if(writeList.get(11)){monthReport.setDay121("1");monthReport.setDay122("null;null;"+jobNums);}else{monthReport.setDay121("4");monthReport.setDay122(null);};
+						if(writeList.get(11)){monthReport.setDay121("1");monthReport.setDay122(runNum(blList, schedName, "12")+";null;"+jobNums);}else{monthReport.setDay121("4");monthReport.setDay122(null);};
 					}else{monthReport.setDay121("4");monthReport.setDay122(null);};
 					if(currentDay>=13){
-						if(writeList.get(12)){monthReport.setDay131("1");monthReport.setDay132("null;null;"+jobNums);}else{monthReport.setDay131("4");monthReport.setDay132(null);};
+						if(writeList.get(12)){monthReport.setDay131("1");monthReport.setDay132(runNum(blList, schedName, "13")+";null;"+jobNums);}else{monthReport.setDay131("4");monthReport.setDay132(null);};
 					}else{monthReport.setDay131("4");monthReport.setDay132(null);};
 					if(currentDay>=14){
-						if(writeList.get(13)){monthReport.setDay141("1");monthReport.setDay142("null;null;"+jobNums);}else{monthReport.setDay141("4");monthReport.setDay142(null);};
+						if(writeList.get(13)){monthReport.setDay141("1");monthReport.setDay142(runNum(blList, schedName, "14")+";null;"+jobNums);}else{monthReport.setDay141("4");monthReport.setDay142(null);};
 					}else{monthReport.setDay141("4");monthReport.setDay142(null);};
 					if(currentDay>=15){
-						if(writeList.get(14)){monthReport.setDay151("1");monthReport.setDay152("null;null;"+jobNums);}else{monthReport.setDay151("4");monthReport.setDay152(null);};
+						if(writeList.get(14)){monthReport.setDay151("1");monthReport.setDay152(runNum(blList, schedName, "15")+";null;"+jobNums);}else{monthReport.setDay151("4");monthReport.setDay152(null);};
 					}else{monthReport.setDay151("4");monthReport.setDay152(null);};
 					if(currentDay>=16){
-						if(writeList.get(15)){monthReport.setDay161("1");monthReport.setDay162("null;null;"+jobNums);}else{monthReport.setDay161("4");monthReport.setDay162(null);};
+						if(writeList.get(15)){monthReport.setDay161("1");monthReport.setDay162(runNum(blList, schedName, "16")+";null;"+jobNums);}else{monthReport.setDay161("4");monthReport.setDay162(null);};
 					}else{monthReport.setDay161("4");monthReport.setDay162(null);};
 					if(currentDay>=17){
-						if(writeList.get(16)){monthReport.setDay171("1");monthReport.setDay172("null;null;"+jobNums);}else{monthReport.setDay171("4");monthReport.setDay172(null);};
+						if(writeList.get(16)){monthReport.setDay171("1");monthReport.setDay172(runNum(blList, schedName, "17")+";null;"+jobNums);}else{monthReport.setDay171("4");monthReport.setDay172(null);};
 					}else{monthReport.setDay171("4");monthReport.setDay172(null);};
 					if(currentDay>=18){
-						if(writeList.get(17)){monthReport.setDay181("1");monthReport.setDay182("null;null;"+jobNums);}else{monthReport.setDay181("4");monthReport.setDay182(null);};
+						if(writeList.get(17)){monthReport.setDay181("1");monthReport.setDay182(runNum(blList, schedName, "18")+";null;"+jobNums);}else{monthReport.setDay181("4");monthReport.setDay182(null);};
 					}else{monthReport.setDay181("4");monthReport.setDay182(null);};
 					if(currentDay>=19){
-						if(writeList.get(18)){monthReport.setDay191("1");monthReport.setDay192("null;null;"+jobNums);}else{monthReport.setDay191("4");monthReport.setDay192(null);};
+						if(writeList.get(18)){monthReport.setDay191("1");monthReport.setDay192(runNum(blList, schedName, "19")+";null;"+jobNums);}else{monthReport.setDay191("4");monthReport.setDay192(null);};
 					}else{monthReport.setDay191("4");monthReport.setDay192(null);};
 					if(currentDay>=20){
-						if(writeList.get(19)){monthReport.setDay201("1");monthReport.setDay202("null;null;"+jobNums);}else{monthReport.setDay201("4");monthReport.setDay202(null);};
+						if(writeList.get(19)){monthReport.setDay201("1");monthReport.setDay202(runNum(blList, schedName, "20")+";null;"+jobNums);}else{monthReport.setDay201("4");monthReport.setDay202(null);};
 					}else{monthReport.setDay201("4");monthReport.setDay202(null);};
 					if(currentDay>=21){
-						if(writeList.get(20)){monthReport.setDay211("1");monthReport.setDay212("null;null;"+jobNums);}else{monthReport.setDay211("4");monthReport.setDay212(null);};
+						if(writeList.get(20)){monthReport.setDay211("1");monthReport.setDay212(runNum(blList, schedName, "21")+";null;"+jobNums);}else{monthReport.setDay211("4");monthReport.setDay212(null);};
 					}else{monthReport.setDay211("4");monthReport.setDay212(null);};
 					if(currentDay>=22){
-						if(writeList.get(21)){monthReport.setDay221("1");monthReport.setDay222("null;null;"+jobNums);}else{monthReport.setDay221("4");monthReport.setDay222(null);};
+						if(writeList.get(21)){monthReport.setDay221("1");monthReport.setDay222(runNum(blList, schedName, "22")+";null;"+jobNums);}else{monthReport.setDay221("4");monthReport.setDay222(null);};
 					}else{monthReport.setDay221("4");monthReport.setDay222(null);};
 					if(currentDay>=23){
-						if(writeList.get(22)){monthReport.setDay231("1");monthReport.setDay232("null;null;"+jobNums);}else{monthReport.setDay231("4");monthReport.setDay232(null);};
+						if(writeList.get(22)){monthReport.setDay231("1");monthReport.setDay232(runNum(blList, schedName, "23")+";null;"+jobNums);}else{monthReport.setDay231("4");monthReport.setDay232(null);};
 					}else{monthReport.setDay231("4");monthReport.setDay232(null);};
 					if(currentDay>=24){
-						if(writeList.get(23)){monthReport.setDay241("1");monthReport.setDay242("null;null;"+jobNums);}else{monthReport.setDay241("4");monthReport.setDay242(null);};
+						if(writeList.get(23)){monthReport.setDay241("1");monthReport.setDay242(runNum(blList, schedName, "24")+";null;"+jobNums);}else{monthReport.setDay241("4");monthReport.setDay242(null);};
 					}else{monthReport.setDay241("4");monthReport.setDay242(null);};
 					if(currentDay>=25){
-						if(writeList.get(24)){monthReport.setDay251("1");monthReport.setDay252("null;null;"+jobNums);}else{monthReport.setDay251("4");monthReport.setDay252(null);};
+						if(writeList.get(24)){monthReport.setDay251("1");monthReport.setDay252(runNum(blList, schedName, "25")+";null;"+jobNums);}else{monthReport.setDay251("4");monthReport.setDay252(null);};
 					}else{monthReport.setDay251("4");monthReport.setDay252(null);};
 					if(currentDay>=26){
-						if(writeList.get(25)){monthReport.setDay261("1");monthReport.setDay262("null;null;"+jobNums);}else{monthReport.setDay261("4");monthReport.setDay262(null);};
+						if(writeList.get(25)){monthReport.setDay261("1");monthReport.setDay262(runNum(blList, schedName, "26")+";null;"+jobNums);}else{monthReport.setDay261("4");monthReport.setDay262(null);};
 					}else{monthReport.setDay261("4");monthReport.setDay262(null);};
 					if(currentDay>=27){
-						if(writeList.get(26)){monthReport.setDay271("1");monthReport.setDay272("null;null;"+jobNums);}else{monthReport.setDay271("4");monthReport.setDay272(null);};
+						if(writeList.get(26)){monthReport.setDay271("1");monthReport.setDay272(runNum(blList, schedName, "27")+";null;"+jobNums);}else{monthReport.setDay271("4");monthReport.setDay272(null);};
 					}else{monthReport.setDay271("4");monthReport.setDay272(null);};
 					if(currentDay>=28){
-						if(writeList.get(27)){monthReport.setDay281("1");monthReport.setDay282("null;null;"+jobNums);}else{monthReport.setDay281("4");monthReport.setDay282(null);};
+						if(writeList.get(27)){monthReport.setDay281("1");monthReport.setDay282(runNum(blList, schedName, "28")+";null;"+jobNums);}else{monthReport.setDay281("4");monthReport.setDay282(null);};
 					}else{monthReport.setDay281("4");monthReport.setDay282(null);};
 					if(currentDay>=29){
-						if(writeList.get(28)){monthReport.setDay291("1");monthReport.setDay292("null;null;"+jobNums);}else{monthReport.setDay291("4");monthReport.setDay292(null);};
+						if(writeList.get(28)){monthReport.setDay291("1");monthReport.setDay292(runNum(blList, schedName, "29")+";null;"+jobNums);}else{monthReport.setDay291("4");monthReport.setDay292(null);};
 					}else{monthReport.setDay291("4");monthReport.setDay292(null);};
 					if(currentDay>=30){
-						if(writeList.get(29)){monthReport.setDay301("1");monthReport.setDay302("null;null;"+jobNums);}else{monthReport.setDay301("4");monthReport.setDay302(null);};
+						if(writeList.get(29)){monthReport.setDay301("1");monthReport.setDay302(runNum(blList, schedName, "30")+";null;"+jobNums);}else{monthReport.setDay301("4");monthReport.setDay302(null);};
 					}else{monthReport.setDay301("4");monthReport.setDay302(null);};
 					if(currentDay>=31){
-						if(writeList.get(30)){monthReport.setDay311("1");monthReport.setDay312("null;null;"+jobNums);}else{monthReport.setDay311("4");monthReport.setDay312(null);};
+						if(writeList.get(30)){monthReport.setDay311("1");monthReport.setDay312(runNum(blList, schedName, "31")+";null;"+jobNums);}else{monthReport.setDay311("4");monthReport.setDay312(null);};
 					}else{monthReport.setDay311("4");monthReport.setDay312(null);};
 					//更新数据
 					monthReportMapper.updateByPrimaryKey(monthReport);
@@ -503,6 +510,22 @@ public class MonthReportServiceImpl implements MonthReportService {
 			System.err.println(e);
 		}
 		return null;
+	}
+	
+	/**
+	 * 返回执行次数
+	 * @param list backuplog表所有数据
+	 * @param name Schedulename
+	 * @param date 日期：天数
+	 * @return 执行次数
+	 */
+	public String runNum(List<RunTimeByDate> list,String name,String date) {
+		for (RunTimeByDate runTimeByDate : list) {
+			if(runTimeByDate.getSchedulename().equals(name) && runTimeByDate.getStartdate().equals(date)){
+				return runTimeByDate.getRunnum();
+			}
+		}
+		return "null";
 	}
 	
 	@Override
