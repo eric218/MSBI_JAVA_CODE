@@ -4,6 +4,7 @@ import com.hpe.msbireport.domain.Lookup;
 import com.hpe.msbireport.domain.LookupSummary;
 import com.hpe.msbireport.domain.MonthReport;
 import com.hpe.msbireport.domain.TotalSummary;
+import com.hpe.msbireport.utils.CommonUtils;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.view.document.AbstractXlsxStreamingView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+//import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,16 +29,6 @@ public class ExcelView extends AbstractXlsxStreamingView {
 
     private final String[] weekOfDays = {"", "(Monday)", "(Tuesday)", "(Wednesday)", "(Thursday)", "(Friday)", "(Saturday)", "(Sunday)"};
 
-    private static int getDaysByYearMonth(int year, int month) {
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month - 1);
-        calendar.set(Calendar.DATE, 1);
-        calendar.roll(Calendar.DATE, -1);
-        return calendar.get(Calendar.DATE);
-    }
-
     /*
      * Main Section to generate a mbsi report excel file.
      */
@@ -47,7 +39,7 @@ public class ExcelView extends AbstractXlsxStreamingView {
                                       HttpServletResponse httpServletResponse) throws Exception {
 
         // change the file name to MonthReport_daily11.xlsx
-        httpServletResponse.setHeader("Content-Disposition", "attachment; filename=\"MonthReport_daily11.xlsx\"");
+        httpServletResponse.setHeader("Content-Disposition", "attachment; filename=\"MonthReport_daily.xlsx\"");
 
         @SuppressWarnings("unchecked")
         List<Lookup> lookups = (List<Lookup>) map.get("lookups");
@@ -60,6 +52,8 @@ public class ExcelView extends AbstractXlsxStreamingView {
 
         @SuppressWarnings("unchecked")
         List<LookupSummary> lookupSummaries = (List<LookupSummary>) map.get("lookupSummaries");
+
+        CommonUtils commonUtils = new CommonUtils();
 
         // get month
         String month = (String) map.get("month");
@@ -161,7 +155,6 @@ public class ExcelView extends AbstractXlsxStreamingView {
         lookupCountStyle.setAlignment(HorizontalAlignment.CENTER);
 
 
-
         //main content variables, these variables are used for performing month calculation.
         //-------- Start --------
         //find reference point :  #Content Month Header
@@ -173,7 +166,7 @@ public class ExcelView extends AbstractXlsxStreamingView {
         String dateCellValueInput;
         int t_year = Integer.parseInt(month.substring(0, 4));
         int t_month = Integer.parseInt(month.substring(4, 6));
-        int maxDate = getDaysByYearMonth(t_year, t_month);
+        int maxDate = commonUtils.getDaysByYearMonth(t_year, t_month);
         Calendar instance = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         Date monthInput = sdf.parse(month);
@@ -1475,6 +1468,15 @@ public class ExcelView extends AbstractXlsxStreamingView {
             tempIndicator++;
         }
 
+//        try {
+//            //save with the default palette
+//            FileOutputStream out = new FileOutputStream("/Users/liuke/Downloads/1_Write_File_MonthReport_daily.xlsx");
+//            workbook.write(out);
+//           // out.close();
+//        } catch (Exception e) {
+//
+//
+//        }
     }
 
 }
