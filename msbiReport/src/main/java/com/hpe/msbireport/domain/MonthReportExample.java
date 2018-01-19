@@ -364,6 +364,76 @@ public class MonthReportExample {
             return (Criteria) this;
         }
 
+        public Criteria andSchedStyleIsNull() {
+            addCriterion("sched_style is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchedStyleIsNotNull() {
+            addCriterion("sched_style is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchedStyleEqualTo(String value) {
+            addCriterion("sched_style =", value, "schedStyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchedStyleNotEqualTo(String value) {
+            addCriterion("sched_style <>", value, "schedStyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchedStyleGreaterThan(String value) {
+            addCriterion("sched_style >", value, "schedStyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchedStyleGreaterThanOrEqualTo(String value) {
+            addCriterion("sched_style >=", value, "schedStyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchedStyleLessThan(String value) {
+            addCriterion("sched_style <", value, "schedStyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchedStyleLessThanOrEqualTo(String value) {
+            addCriterion("sched_style <=", value, "schedStyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchedStyleLike(String value) {
+            addCriterion("sched_style like", value, "schedStyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchedStyleNotLike(String value) {
+            addCriterion("sched_style not like", value, "schedStyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchedStyleIn(List<String> values) {
+            addCriterion("sched_style in", values, "schedStyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchedStyleNotIn(List<String> values) {
+            addCriterion("sched_style not in", values, "schedStyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchedStyleBetween(String value1, String value2) {
+            addCriterion("sched_style between", value1, value2, "schedStyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchedStyleNotBetween(String value1, String value2) {
+            addCriterion("sched_style not between", value1, value2, "schedStyle");
+            return (Criteria) this;
+        }
+
         public Criteria andDateOfWeekIsNull() {
             addCriterion("date_of_week is null");
             return (Criteria) this;
@@ -641,6 +711,136 @@ public class MonthReportExample {
 
         public Criteria andWeekOfMonthNotBetween(String value1, String value2) {
             addCriterion("week_of_month not between", value1, value2, "weekOfMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andPerunitsIsNull() {
+            addCriterion("perunits is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPerunitsIsNotNull() {
+            addCriterion("perunits is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPerunitsEqualTo(String value) {
+            addCriterion("perunits =", value, "perunits");
+            return (Criteria) this;
+        }
+
+        public Criteria andPerunitsNotEqualTo(String value) {
+            addCriterion("perunits <>", value, "perunits");
+            return (Criteria) this;
+        }
+
+        public Criteria andPerunitsGreaterThan(String value) {
+            addCriterion("perunits >", value, "perunits");
+            return (Criteria) this;
+        }
+
+        public Criteria andPerunitsGreaterThanOrEqualTo(String value) {
+            addCriterion("perunits >=", value, "perunits");
+            return (Criteria) this;
+        }
+
+        public Criteria andPerunitsLessThan(String value) {
+            addCriterion("perunits <", value, "perunits");
+            return (Criteria) this;
+        }
+
+        public Criteria andPerunitsLessThanOrEqualTo(String value) {
+            addCriterion("perunits <=", value, "perunits");
+            return (Criteria) this;
+        }
+
+        public Criteria andPerunitsLike(String value) {
+            addCriterion("perunits like", value, "perunits");
+            return (Criteria) this;
+        }
+
+        public Criteria andPerunitsNotLike(String value) {
+            addCriterion("perunits not like", value, "perunits");
+            return (Criteria) this;
+        }
+
+        public Criteria andPerunitsIn(List<String> values) {
+            addCriterion("perunits in", values, "perunits");
+            return (Criteria) this;
+        }
+
+        public Criteria andPerunitsNotIn(List<String> values) {
+            addCriterion("perunits not in", values, "perunits");
+            return (Criteria) this;
+        }
+
+        public Criteria andPerunitsBetween(String value1, String value2) {
+            addCriterion("perunits between", value1, value2, "perunits");
+            return (Criteria) this;
+        }
+
+        public Criteria andPerunitsNotBetween(String value1, String value2) {
+            addCriterion("perunits not between", value1, value2, "perunits");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeriodIsNull() {
+            addCriterion("period is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeriodIsNotNull() {
+            addCriterion("period is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeriodEqualTo(Integer value) {
+            addCriterion("period =", value, "period");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeriodNotEqualTo(Integer value) {
+            addCriterion("period <>", value, "period");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeriodGreaterThan(Integer value) {
+            addCriterion("period >", value, "period");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeriodGreaterThanOrEqualTo(Integer value) {
+            addCriterion("period >=", value, "period");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeriodLessThan(Integer value) {
+            addCriterion("period <", value, "period");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeriodLessThanOrEqualTo(Integer value) {
+            addCriterion("period <=", value, "period");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeriodIn(List<Integer> values) {
+            addCriterion("period in", values, "period");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeriodNotIn(List<Integer> values) {
+            addCriterion("period not in", values, "period");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeriodBetween(Integer value1, Integer value2) {
+            addCriterion("period between", value1, value2, "period");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeriodNotBetween(Integer value1, Integer value2) {
+            addCriterion("period not between", value1, value2, "period");
             return (Criteria) this;
         }
 

@@ -1,11 +1,7 @@
 package com.hpe.msbireport.controller;
 
-import com.hpe.msbireport.domain.LookupSummary;
-import com.hpe.msbireport.domain.MonthReport;
-import com.hpe.msbireport.domain.TotalSummary;
-import com.hpe.msbireport.domain.TotalTitle;
+import com.hpe.msbireport.domain.*;
 import com.hpe.msbireport.service.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +22,7 @@ import java.util.List;
  * So that the view resolver can recognize the resource which we want to access.
  */
 @Controller
-@RequestMapping("/api/")
+@RequestMapping("/api")
 public class MsbiReportController {
 
     @Autowired
@@ -44,6 +40,9 @@ public class MsbiReportController {
     @Autowired
     LookupSummaryService lookupSummaryService;
 
+    @Autowired
+    PoiExcelService poiExcelService;
+
 
     /*
      *
@@ -51,7 +50,7 @@ public class MsbiReportController {
      *
      * */
     @RequestMapping(value = "/export.xlsx", method = RequestMethod.GET)
-    public String download(Model model) {
+    public String downloadSelectedMonthReportFromBrowser(Model model) {
 
         model.addAttribute("month", "20170201");
         model.addAttribute("lookups", this.lookupService.selectAllLookup());
@@ -60,6 +59,19 @@ public class MsbiReportController {
         model.addAttribute("lookupSummaries", this.lookupSummaryService.selectAllLookupSummaryCountByMonth(201702));
 
         return "";
+    }
+
+    /*
+     *
+     * write excel file to a fixed path location.
+     *
+     * */
+    @RequestMapping(value = "/excel/autoGenerate", method = RequestMethod.GET)
+    public @ResponseBody
+    String generateExcelFileToTheFixedPath(Integer monthIndicator) throws Exception {
+
+        return this.poiExcelService.generateExcelFileToAFixedPath(monthIndicator, "/Users/liuke/Downloads/");
+
     }
 
     /*
@@ -95,17 +107,6 @@ public class MsbiReportController {
     List<MonthReport> selectAllMonthReport(Integer month) {
         return this.monthReportService.selectAllMonthReportsByMonth(month);
     }
-    
-    @RequestMapping(value = "/monthReport/format", method = RequestMethod.GET)
-    public @ResponseBody boolean selectAllMonthReport(String month) {
-        try {
-        	month = "2017-4-18";
-			return this.monthReportService.formatMonthReportTable(month);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        return false;
-    }
 
     /*
      *
@@ -139,4 +140,5 @@ public class MsbiReportController {
     List<Integer> selectAllAvailableMonthFromDB() {
         return this.monthReportService.selectAllAvaiableMonthFromDB();
     }
+
 }

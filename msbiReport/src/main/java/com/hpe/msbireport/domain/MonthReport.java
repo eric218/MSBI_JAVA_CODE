@@ -9,6 +9,8 @@ public class MonthReport {
 
     private String scheduleName;
 
+    private String schedStyle;
+
     private String dateOfWeek;
 
     private String eachMonth;
@@ -16,6 +18,10 @@ public class MonthReport {
     private String dateOfMonth;
 
     private String weekOfMonth;
+
+    private String perunits;
+
+    private Integer period;
 
     private String bsr;
 
@@ -146,38 +152,8 @@ public class MonthReport {
     private String day311;
 
     private String day312;
-    
-    private String schedStyle;
-    
-    private String perunits;
 
-    private Integer period;
-
-    public String getSchedStyle() {
-		return schedStyle;
-	}
-
-	public void setSchedStyle(String schedStyle) {
-		this.schedStyle = schedStyle;
-	}
-
-	public String getPerunits() {
-		return perunits;
-	}
-
-	public void setPerunits(String perunits) {
-		this.perunits = perunits;
-	}
-
-	public Integer getPeriod() {
-		return period;
-	}
-
-	public void setPeriod(Integer period) {
-		this.period = period;
-	}
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -207,6 +183,14 @@ public class MonthReport {
 
     public void setScheduleName(String scheduleName) {
         this.scheduleName = scheduleName == null ? null : scheduleName.trim();
+    }
+
+    public String getSchedStyle() {
+        return schedStyle;
+    }
+
+    public void setSchedStyle(String schedStyle) {
+        this.schedStyle = schedStyle == null ? null : schedStyle.trim();
     }
 
     public String getDateOfWeek() {
@@ -239,6 +223,22 @@ public class MonthReport {
 
     public void setWeekOfMonth(String weekOfMonth) {
         this.weekOfMonth = weekOfMonth == null ? null : weekOfMonth.trim();
+    }
+
+    public String getPerunits() {
+        return perunits;
+    }
+
+    public void setPerunits(String perunits) {
+        this.perunits = perunits == null ? null : perunits.trim();
+    }
+
+    public Integer getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Integer period) {
+        this.period = period;
     }
 
     public String getBsr() {
