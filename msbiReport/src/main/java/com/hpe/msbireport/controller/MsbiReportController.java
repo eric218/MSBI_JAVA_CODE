@@ -97,10 +97,11 @@ public class MsbiReportController {
     }
     
     @RequestMapping(value = "/monthReport/format", method = RequestMethod.GET)
-    public @ResponseBody boolean selectAllMonthReport(String month) {
+    public @ResponseBody boolean selectAllMonthReport(String month,int size) {
         try {
         	month = "2017-4-18";
-			return this.monthReportService.formatMonthReportTable(month);
+        	size = 100;
+			return this.monthReportService.formatMonthReportTable(null,month,false, size);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

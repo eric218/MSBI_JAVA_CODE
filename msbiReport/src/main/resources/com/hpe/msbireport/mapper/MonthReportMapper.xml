@@ -1351,4 +1351,86 @@
 	    <include refid="Base_Column_List" />
 	    from month_report
 	</select>
+	
+	<select id="selectAllForUpate" resultMap="BaseResultMap">
+		SELECT
+			ta.SERVER_NAME AS server_name,
+			ta.SCHEDULE_NAME AS schedule_name,
+			sn.SCHED_STYLE AS SCHED_STYLE,
+			sn.DATE_OF_WEEK AS date_of_week,
+			sn.EACH_MONTH AS each_month,
+			sn.DATE_OF_MONTH AS date_of_month,
+			sn.WEEK_OF_MONTH AS week_of_month,
+			sn.PERUNITS AS PERUNITS,
+			sn.PERIOD AS PERIOD
+		from (select SCHEDULE_NAME,SERVER_NAME from main a WHERE SCHEDULE_NAME NOT REGEXP '@'
+		and SERVER_NAME &lt;&gt;'RBITBUR7' and exists(select 1 from schedule_newest b where a.SCHEDULE_NAME = b.SCHEDULE_NAME)
+		GROUP BY SCHEDULE_NAME,SERVER_NAME) ta LEFT JOIN schedule_newest sn on ta.SCHEDULE_NAME = sn.SCHEDULE_NAME;
+	</select>
+	
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">  
+	    <selectKey resultType="int" keyProperty="id" order="AFTER">  
+	        SELECT  
+	        LAST_INSERT_ID()  
+	    </selectKey>  
+	    insert into month_report (month_indicator, server_name, 
+	      schedule_name, date_of_week, each_month, 
+	      date_of_month, week_of_month, bsr, 
+	      total_schedule, total_successful, day_01_1, 
+	      day_01_2, day_02_1, day_02_2, 
+	      day_03_1, day_03_2, day_04_1, 
+	      day_04_2, day_05_1, day_05_2, 
+	      day_06_1, day_06_2, day_07_1, 
+	      day_07_2, day_08_1, day_08_2, 
+	      day_09_1, day_09_2, day_10_1, 
+	      day_10_2, day_11_1, day_11_2, 
+	      day_12_1, day_12_2, day_13_1, 
+	      day_13_2, day_14_1, day_14_2, 
+	      day_15_1, day_15_2, day_16_1, 
+	      day_16_2, day_17_1, day_17_2, 
+	      day_18_1, day_18_2, day_19_1, 
+	      day_19_2, day_20_1, day_20_2, 
+	      day_21_1, day_21_2, day_22_1, 
+	      day_22_2, day_23_1, day_23_2, 
+	      day_24_1, day_24_2, day_25_1, 
+	      day_25_2, day_26_1, day_26_2, 
+	      day_27_1, day_27_2, day_28_1, 
+	      day_28_2, day_29_1, day_29_2, 
+	      day_30_1, day_30_2, day_31_1, 
+	      day_31_2, PERUNITS, PERIOD, SCHED_STYLE)
+	    values  
+	    <foreach collection="list" item="item" index="index" separator="," >  
+        ( #{item.monthIndicator,jdbcType=INTEGER}, #{item.serverName,jdbcType=VARCHAR}, 
+	      #{item.scheduleName,jdbcType=VARCHAR}, #{item.dateOfWeek,jdbcType=VARCHAR}, #{item.eachMonth,jdbcType=VARCHAR}, 
+	      #{item.dateOfMonth,jdbcType=VARCHAR}, #{item.weekOfMonth,jdbcType=VARCHAR}, #{item.bsr,jdbcType=VARCHAR}, 
+	      #{item.totalSchedule,jdbcType=VARCHAR}, #{item.totalSuccessful,jdbcType=VARCHAR}, #{item.day011,jdbcType=VARCHAR}, 
+	      #{item.day012,jdbcType=VARCHAR}, #{item.day021,jdbcType=VARCHAR}, #{item.day022,jdbcType=VARCHAR}, 
+	      #{item.day031,jdbcType=VARCHAR}, #{item.day032,jdbcType=VARCHAR}, #{item.day041,jdbcType=VARCHAR}, 
+	      #{item.day042,jdbcType=VARCHAR}, #{item.day051,jdbcType=VARCHAR}, #{item.day052,jdbcType=VARCHAR}, 
+	      #{item.day061,jdbcType=VARCHAR}, #{item.day062,jdbcType=VARCHAR}, #{item.day071,jdbcType=VARCHAR}, 
+	      #{item.day072,jdbcType=VARCHAR}, #{item.day081,jdbcType=VARCHAR}, #{item.day082,jdbcType=VARCHAR}, 
+	      #{item.day091,jdbcType=VARCHAR}, #{item.day092,jdbcType=VARCHAR}, #{item.day101,jdbcType=VARCHAR}, 
+	      #{item.day102,jdbcType=VARCHAR}, #{item.day111,jdbcType=VARCHAR}, #{item.day112,jdbcType=VARCHAR}, 
+	      #{item.day121,jdbcType=VARCHAR}, #{item.day122,jdbcType=VARCHAR}, #{item.day131,jdbcType=VARCHAR}, 
+	      #{item.day132,jdbcType=VARCHAR}, #{item.day141,jdbcType=VARCHAR}, #{item.day142,jdbcType=VARCHAR}, 
+	      #{item.day151,jdbcType=VARCHAR}, #{item.day152,jdbcType=VARCHAR}, #{item.day161,jdbcType=VARCHAR}, 
+	      #{item.day162,jdbcType=VARCHAR}, #{item.day171,jdbcType=VARCHAR}, #{item.day172,jdbcType=VARCHAR}, 
+	      #{item.day181,jdbcType=VARCHAR}, #{item.day182,jdbcType=VARCHAR}, #{item.day191,jdbcType=VARCHAR}, 
+	      #{item.day192,jdbcType=VARCHAR}, #{item.day201,jdbcType=VARCHAR}, #{item.day202,jdbcType=VARCHAR}, 
+	      #{item.day211,jdbcType=VARCHAR}, #{item.day212,jdbcType=VARCHAR}, #{item.day221,jdbcType=VARCHAR}, 
+	      #{item.day222,jdbcType=VARCHAR}, #{item.day231,jdbcType=VARCHAR}, #{item.day232,jdbcType=VARCHAR}, 
+	      #{item.day241,jdbcType=VARCHAR}, #{item.day242,jdbcType=VARCHAR}, #{item.day251,jdbcType=VARCHAR}, 
+	      #{item.day252,jdbcType=VARCHAR}, #{item.day261,jdbcType=VARCHAR}, #{item.day262,jdbcType=VARCHAR}, 
+	      #{item.day271,jdbcType=VARCHAR}, #{item.day272,jdbcType=VARCHAR}, #{item.day281,jdbcType=VARCHAR}, 
+	      #{item.day282,jdbcType=VARCHAR}, #{item.day291,jdbcType=VARCHAR}, #{item.day292,jdbcType=VARCHAR}, 
+	      #{item.day301,jdbcType=VARCHAR}, #{item.day302,jdbcType=VARCHAR}, #{item.day311,jdbcType=VARCHAR}, 
+	      #{item.day312,jdbcType=VARCHAR}, #{item.perunits,jdbcType=VARCHAR}, #{item.period,jdbcType=INTEGER},
+	      #{item.schedStyle,jdbcType=VARCHAR})
+	    </foreach>  
+	</insert>
+	<delete id="deleteByMonth" parameterType="java.lang.Integer">
+		delete from month_report
+	    where month_indicator = #{month,jdbcType=INTEGER}
+	</delete>
+	
 </mapper>

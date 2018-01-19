@@ -37,4 +37,10 @@ public interface MonthReportMapper {
     List<MonthReport> selectAll();
     
     List<Integer> selectAllAvaiableMonthFromDB();
+    
+    List<MonthReport> selectAllForUpate();
+    
+    void insertBatch(List<MonthReport> list);
+    
+    void deleteByMonth(Integer month);
 }
