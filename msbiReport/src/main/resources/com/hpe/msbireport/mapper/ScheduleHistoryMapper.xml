@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hpe.msbireport.mapper.ScheduleHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.hpe.msbireport.domain.ScheduleHistory" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="DOMAIN_NAME" property="domainName" jdbcType="VARCHAR" />
+    <result column="SCHEDULE_NAME" property="scheduleName" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="ACTIONS" property="actions" jdbcType="VARCHAR" />
+    <result column="SUBACTION" property="subaction" jdbcType="VARCHAR" />
+    <result column="PRIORITY" property="priority" jdbcType="INTEGER" />
+    <result column="START_DATE" property="startDate" jdbcType="DATE" />
+    <result column="START_DATE_TIME" property="startDateTime" jdbcType="TIMESTAMP" />
+    <result column="DURATION" property="duration" jdbcType="INTEGER" />
+    <result column="DURUNITS" property="durunits" jdbcType="VARCHAR" />
+    <result column="MAXRUNTIME" property="maxruntime" jdbcType="INTEGER" />
+    <result column="PERIOD" property="period" jdbcType="INTEGER" />
+    <result column="PERUNITS" property="perunits" jdbcType="VARCHAR" />
+    <result column="DATE_OF_WEEK" property="dateOfWeek" jdbcType="VARCHAR" />
+    <result column="EACH_MONTH" property="eachMonth" jdbcType="VARCHAR" />
+    <result column="DATE_OF_MONTH" property="dateOfMonth" jdbcType="VARCHAR" />
+    <result column="WEEK_OF_MONTH" property="weekOfMonth" jdbcType="VARCHAR" />
+    <result column="SCHED_STYLE" property="schedStyle" jdbcType="VARCHAR" />
+    <result column="OPTIONES" property="optiones" jdbcType="VARCHAR" />
+    <result column="OBJECT" property="object" jdbcType="VARCHAR" />
+    <result column="INSERT_TIME" property="insertTime" jdbcType="VARCHAR" />
+    <result column="MESSAGE" property="message" jdbcType="VARCHAR" />
+    <result column="ENABLED" property="enabled" jdbcType="INTEGER" />
+    <result column="INSERT_DATE" property="insertDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, DOMAIN_NAME, SCHEDULE_NAME, DESCRIPTION, ACTIONS, SUBACTION, PRIORITY, START_DATE, 
+    START_DATE_TIME, DURATION, DURUNITS, MAXRUNTIME, PERIOD, PERUNITS, DATE_OF_WEEK, 
+    EACH_MONTH, DATE_OF_MONTH, WEEK_OF_MONTH, SCHED_STYLE, OPTIONES, OBJECT, INSERT_TIME, 
+    MESSAGE, ENABLED, INSERT_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from schedule_history
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from schedule_history
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hpe.msbireport.domain.ScheduleHistory" >
+    insert into schedule_history (id, DOMAIN_NAME, SCHEDULE_NAME, 
+      DESCRIPTION, ACTIONS, SUBACTION, 
+      PRIORITY, START_DATE, START_DATE_TIME, 
+      DURATION, DURUNITS, MAXRUNTIME, 
+      PERIOD, PERUNITS, DATE_OF_WEEK, 
+      EACH_MONTH, DATE_OF_MONTH, WEEK_OF_MONTH, 
+      SCHED_STYLE, OPTIONES, OBJECT, 
+      INSERT_TIME, MESSAGE, ENABLED, 
+      INSERT_DATE)
+    values (#{id,jdbcType=INTEGER}, #{domainName,jdbcType=VARCHAR}, #{scheduleName,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{actions,jdbcType=VARCHAR}, #{subaction,jdbcType=VARCHAR}, 
+      #{priority,jdbcType=INTEGER}, #{startDate,jdbcType=DATE}, #{startDateTime,jdbcType=TIMESTAMP}, 
+      #{duration,jdbcType=INTEGER}, #{durunits,jdbcType=VARCHAR}, #{maxruntime,jdbcType=INTEGER}, 
+      #{period,jdbcType=INTEGER}, #{perunits,jdbcType=VARCHAR}, #{dateOfWeek,jdbcType=VARCHAR}, 
+      #{eachMonth,jdbcType=VARCHAR}, #{dateOfMonth,jdbcType=VARCHAR}, #{weekOfMonth,jdbcType=VARCHAR}, 
+      #{schedStyle,jdbcType=VARCHAR}, #{optiones,jdbcType=VARCHAR}, #{object,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{enabled,jdbcType=INTEGER}, 
+      #{insertDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hpe.msbireport.domain.ScheduleHistory" >
+    insert into schedule_history
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="domainName != null" >
+        DOMAIN_NAME,
+      </if>
+      <if test="scheduleName != null" >
+        SCHEDULE_NAME,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="actions != null" >
+        ACTIONS,
+      </if>
+      <if test="subaction != null" >
+        SUBACTION,
+      </if>
+      <if test="priority != null" >
+        PRIORITY,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="startDateTime != null" >
+        START_DATE_TIME,
+      </if>
+      <if test="duration != null" >
+        DURATION,
+      </if>
+      <if test="durunits != null" >
+        DURUNITS,
+      </if>
+      <if test="maxruntime != null" >
+        MAXRUNTIME,
+      </if>
+      <if test="period != null" >
+        PERIOD,
+      </if>
+      <if test="perunits != null" >
+        PERUNITS,
+      </if>
+      <if test="dateOfWeek != null" >
+        DATE_OF_WEEK,
+      </if>
+      <if test="eachMonth != null" >
+        EACH_MONTH,
+      </if>
+      <if test="dateOfMonth != null" >
+        DATE_OF_MONTH,
+      </if>
+      <if test="weekOfMonth != null" >
+        WEEK_OF_MONTH,
+      </if>
+      <if test="schedStyle != null" >
+        SCHED_STYLE,
+      </if>
+      <if test="optiones != null" >
+        OPTIONES,
+      </if>
+      <if test="object != null" >
+        OBJECT,
+      </if>
+      <if test="insertTime != null" >
+        INSERT_TIME,
+      </if>
+      <if test="message != null" >
+        MESSAGE,
+      </if>
+      <if test="enabled != null" >
+        ENABLED,
+      </if>
+      <if test="insertDate != null" >
+        INSERT_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="domainName != null" >
+        #{domainName,jdbcType=VARCHAR},
+      </if>
+      <if test="scheduleName != null" >
+        #{scheduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="actions != null" >
+        #{actions,jdbcType=VARCHAR},
+      </if>
+      <if test="subaction != null" >
+        #{subaction,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="startDateTime != null" >
+        #{startDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="durunits != null" >
+        #{durunits,jdbcType=VARCHAR},
+      </if>
+      <if test="maxruntime != null" >
+        #{maxruntime,jdbcType=INTEGER},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=INTEGER},
+      </if>
+      <if test="perunits != null" >
+        #{perunits,jdbcType=VARCHAR},
+      </if>
+      <if test="dateOfWeek != null" >
+        #{dateOfWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="eachMonth != null" >
+        #{eachMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="dateOfMonth != null" >
+        #{dateOfMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="weekOfMonth != null" >
+        #{weekOfMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="schedStyle != null" >
+        #{schedStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="optiones != null" >
+        #{optiones,jdbcType=VARCHAR},
+      </if>
+      <if test="object != null" >
+        #{object,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="insertDate != null" >
+        #{insertDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hpe.msbireport.domain.ScheduleHistory" >
+    update schedule_history
+    <set >
+      <if test="domainName != null" >
+        DOMAIN_NAME = #{domainName,jdbcType=VARCHAR},
+      </if>
+      <if test="scheduleName != null" >
+        SCHEDULE_NAME = #{scheduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="actions != null" >
+        ACTIONS = #{actions,jdbcType=VARCHAR},
+      </if>
+      <if test="subaction != null" >
+        SUBACTION = #{subaction,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        PRIORITY = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        START_DATE = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="startDateTime != null" >
+        START_DATE_TIME = #{startDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="duration != null" >
+        DURATION = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="durunits != null" >
+        DURUNITS = #{durunits,jdbcType=VARCHAR},
+      </if>
+      <if test="maxruntime != null" >
+        MAXRUNTIME = #{maxruntime,jdbcType=INTEGER},
+      </if>
+      <if test="period != null" >
+        PERIOD = #{period,jdbcType=INTEGER},
+      </if>
+      <if test="perunits != null" >
+        PERUNITS = #{perunits,jdbcType=VARCHAR},
+      </if>
+      <if test="dateOfWeek != null" >
+        DATE_OF_WEEK = #{dateOfWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="eachMonth != null" >
+        EACH_MONTH = #{eachMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="dateOfMonth != null" >
+        DATE_OF_MONTH = #{dateOfMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="weekOfMonth != null" >
+        WEEK_OF_MONTH = #{weekOfMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="schedStyle != null" >
+        SCHED_STYLE = #{schedStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="optiones != null" >
+        OPTIONES = #{optiones,jdbcType=VARCHAR},
+      </if>
+      <if test="object != null" >
+        OBJECT = #{object,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        INSERT_TIME = #{insertTime,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        MESSAGE = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        ENABLED = #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="insertDate != null" >
+        INSERT_DATE = #{insertDate,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hpe.msbireport.domain.ScheduleHistory" >
+    update schedule_history
+    set DOMAIN_NAME = #{domainName,jdbcType=VARCHAR},
+      SCHEDULE_NAME = #{scheduleName,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      ACTIONS = #{actions,jdbcType=VARCHAR},
+      SUBACTION = #{subaction,jdbcType=VARCHAR},
+      PRIORITY = #{priority,jdbcType=INTEGER},
+      START_DATE = #{startDate,jdbcType=DATE},
+      START_DATE_TIME = #{startDateTime,jdbcType=TIMESTAMP},
+      DURATION = #{duration,jdbcType=INTEGER},
+      DURUNITS = #{durunits,jdbcType=VARCHAR},
+      MAXRUNTIME = #{maxruntime,jdbcType=INTEGER},
+      PERIOD = #{period,jdbcType=INTEGER},
+      PERUNITS = #{perunits,jdbcType=VARCHAR},
+      DATE_OF_WEEK = #{dateOfWeek,jdbcType=VARCHAR},
+      EACH_MONTH = #{eachMonth,jdbcType=VARCHAR},
+      DATE_OF_MONTH = #{dateOfMonth,jdbcType=VARCHAR},
+      WEEK_OF_MONTH = #{weekOfMonth,jdbcType=VARCHAR},
+      SCHED_STYLE = #{schedStyle,jdbcType=VARCHAR},
+      OPTIONES = #{optiones,jdbcType=VARCHAR},
+      OBJECT = #{object,jdbcType=VARCHAR},
+      INSERT_TIME = #{insertTime,jdbcType=VARCHAR},
+      MESSAGE = #{message,jdbcType=VARCHAR},
+      ENABLED = #{enabled,jdbcType=INTEGER},
+      INSERT_DATE = #{insertDate,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByEnabled" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from schedule_history
+    where ENABLED = #{enabled,jdbcType=INTEGER}
+  </select>
+</mapper>

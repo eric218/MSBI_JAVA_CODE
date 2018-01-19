@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hpe.msbireport.mapper.ScheduleMainMapper" >
+  <resultMap id="BaseResultMap" type="com.hpe.msbireport.domain.ScheduleMain" >
+    <id column="MESSAGE" property="message" jdbcType="VARCHAR" />
+    <result column="SERVER_NAME" property="serverName" jdbcType="VARCHAR" />
+    <result column="DOMAIN_NAME" property="domainName" jdbcType="VARCHAR" />
+    <result column="SCHEDULE_NAME" property="scheduleName" jdbcType="VARCHAR" />
+    <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+    <result column="INSERT_DATE_TIME" property="insertDateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MESSAGE, SERVER_NAME, DOMAIN_NAME, SCHEDULE_NAME, NODE_NAME, INSERT_DATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from main
+    where MESSAGE = #{message,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from main
+    where MESSAGE = #{message,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hpe.msbireport.domain.ScheduleMain" >
+    insert into main (MESSAGE, SERVER_NAME, DOMAIN_NAME, 
+      SCHEDULE_NAME, NODE_NAME, INSERT_DATE_TIME
+      )
+    values (#{message,jdbcType=VARCHAR}, #{serverName,jdbcType=VARCHAR}, #{domainName,jdbcType=VARCHAR}, 
+      #{scheduleName,jdbcType=VARCHAR}, #{nodeName,jdbcType=VARCHAR}, #{insertDateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hpe.msbireport.domain.ScheduleMain" >
+    insert into main
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="message != null" >
+        MESSAGE,
+      </if>
+      <if test="serverName != null" >
+        SERVER_NAME,
+      </if>
+      <if test="domainName != null" >
+        DOMAIN_NAME,
+      </if>
+      <if test="scheduleName != null" >
+        SCHEDULE_NAME,
+      </if>
+      <if test="nodeName != null" >
+        NODE_NAME,
+      </if>
+      <if test="insertDateTime != null" >
+        INSERT_DATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="serverName != null" >
+        #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="domainName != null" >
+        #{domainName,jdbcType=VARCHAR},
+      </if>
+      <if test="scheduleName != null" >
+        #{scheduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeName != null" >
+        #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="insertDateTime != null" >
+        #{insertDateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hpe.msbireport.domain.ScheduleMain" >
+    update main
+    <set >
+      <if test="serverName != null" >
+        SERVER_NAME = #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="domainName != null" >
+        DOMAIN_NAME = #{domainName,jdbcType=VARCHAR},
+      </if>
+      <if test="scheduleName != null" >
+        SCHEDULE_NAME = #{scheduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeName != null" >
+        NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="insertDateTime != null" >
+        INSERT_DATE_TIME = #{insertDateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MESSAGE = #{message,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hpe.msbireport.domain.ScheduleMain" >
+    update main
+    set SERVER_NAME = #{serverName,jdbcType=VARCHAR},
+      DOMAIN_NAME = #{domainName,jdbcType=VARCHAR},
+      SCHEDULE_NAME = #{scheduleName,jdbcType=VARCHAR},
+      NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+      INSERT_DATE_TIME = #{insertDateTime,jdbcType=TIMESTAMP}
+    where MESSAGE = #{message,jdbcType=VARCHAR}
+  </update>
+</mapper>
