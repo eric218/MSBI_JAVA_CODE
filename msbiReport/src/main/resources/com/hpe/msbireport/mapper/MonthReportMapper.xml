@@ -1330,27 +1330,24 @@
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
-        <if test="orderByClause != null">
+        <if test="orderByClause != null" >
             order by ${orderByClause}
         </if>
     </select>
-
     <select id="selectAllMonthReportsByMonth" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         SELECT
         <include refid="Base_Column_List"/>
         FROM month_report
         WHERE month_indicator = #{monthIndicator,jdbcType=INTEGER}
     </select>
-
     <select id="selectAllAvaiableMonthFromDB" resultType="java.lang.Integer">
         SELECT DISTINCT month_indicator FROM month_report
     </select>
-    
-	<select id="selectAll" resultMap="BaseResultMap"  >
-		select 
-	    <include refid="Base_Column_List" />
-	    from month_report
-	</select>
+        <select id="selectAll" resultMap="BaseResultMap"  >
+        select 
+        <include refid="Base_Column_List" />
+        from month_report
+    </select>
 	
 	<select id="selectAllForUpate" resultMap="BaseResultMap">
 		SELECT
