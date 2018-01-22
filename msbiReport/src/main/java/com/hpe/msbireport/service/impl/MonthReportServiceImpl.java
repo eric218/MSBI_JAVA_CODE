@@ -187,9 +187,6 @@ public class MonthReportServiceImpl implements MonthReportService {
 			}else{
 				jobNums = 0;
 			}
-			if(monthReport.getScheduleName().equals("DCBPP0735_SYSTEMSTATE_BACKUP")){
-				System.out.println("==="+monthReport.getScheduleName());
-			}
 			//是否写入历史记录
 			if(hasHistory && null != hisMap && hisMap.size() > 0){
 				Map<Integer, MonthReport> hisSchedule = getHisSchedule(hisMap,monthReport,currentDate);

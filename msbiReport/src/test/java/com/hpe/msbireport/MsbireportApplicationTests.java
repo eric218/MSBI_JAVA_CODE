@@ -1,11 +1,13 @@
 package com.hpe.msbireport;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +38,202 @@ public class MsbireportApplicationTests {
 	@Autowired
 	private ScheduleHistoryMapper scheduleHistoryMapper;
 	
-
+	private final static Map<String, Integer> Day = new HashMap<String, Integer>();
+	private final static Map<String, Integer> Week = new HashMap<String, Integer>();
+	
 	@Test
+	public void testService(){
+		try {
+			String currentDate = "2017-4-30";
+			String sDate = "2017-3-2";
+			boolean s = monthReportService.formatMonthReportTable(sDate, currentDate, true, 200);
+			System.out.println(s);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	public void test(){
+		Day.put("Monday", 0);
+		Day.put("Tuesday", 1);
+		Day.put("Wednesday", 2);
+		Day.put("Thursday", 3);
+		Day.put("Friday", 4);
+		Day.put("Saturday", 5);
+		Day.put("Sunday", 6);
+		Day.put("Mon", 0);
+		Day.put("Tue", 1);
+		Day.put("Wed", 2);
+		Day.put("Thu", 3);
+		Day.put("Fri", 4);
+		Day.put("Sat", 5);
+		Day.put("Sun", 6);
+		
+		
+		try {
+			
+			String schedName = "DCBPP0735_WINOS_BACKUP";
+			String currentDate = "2017-4-30";
+			List<MonthReport> list = monthReportMapper.selectAllForUpate();
+			MonthReport currentMR = null;
+			for (MonthReport monthReport : list) {
+				if(monthReport.getScheduleName().equals(schedName)){
+					currentMR = monthReport;
+				}
+			}
+			
+			String dateOfWeek = currentMR.getDateOfWeek();
+			String weekOfMonth = currentMR.getWeekOfMonth();
+			//切割时间，用来拼装每周对应每日的日期
+			String[] cd = currentDate.split("-");
+			String date = cd[0]+"-"+cd[1];
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
+			Date date1 = dateFormat.parse(date);
+			Calendar calendar = new GregorianCalendar();
+			calendar.setTime(date1);
+			int days = Integer.parseInt(cd[2]);
+
+			//Map类型，数据类型为，判断当前月份有几周，每周开始日期-结束日期
+			//数据例如：   第一周：{1号，2号}，第二周：{3号，9号}...
+			Map<Integer, String> weekInDay = new HashMap<Integer, String>();
+			int week_s_num = 0;
+			int week_e_num = 0;
+			int count = 0;
+			for (int i = 1; i <= days; i++) {
+				DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+				Date date2 = dateFormat1.parse(date + "-" + i);
+				calendar.clear();
+				calendar.setTime(date2);
+				int k = new Integer(calendar.get(Calendar.DAY_OF_WEEK));
+				
+				if (k == 1) {// 若当天是周日
+					count++;
+					if (i - 6 <= 1) {
+						week_s_num = 1;
+					} else {
+						week_s_num = i - 6;
+					}
+					week_e_num = i;
+				}
+				if (k != 1 && i == days) {// 若是本月最好一天，且不是周日
+					count++;
+					week_s_num = i - k + 2;
+					week_e_num = i;
+				}
+				
+				if(count != 0){
+					weekInDay.put(count, week_s_num+","+week_e_num);
+				}
+			}
+			
+			Week.put("First", 1);
+			Week.put("Second", 2);
+			Week.put("Third", 3);
+			Week.put("Fourth", 4);
+			Week.put("Last", 5);
+			if(count >= 6){
+				Week.put("Last", count);
+			}
+			
+			//在weekInDay类型数据中，填充时间
+			//数据例如：    第1周：{1，2，3，4，5，6，7}， 第2周：{8，9，10，11，12，13，14}类似数据
+			Map<Integer, List<Integer>> newWeekInDay = new HashMap<Integer, List<Integer>>();
+			for (Map.Entry<Integer, String> entry : weekInDay.entrySet()) {
+				//System.out.println("key= " + entry.getKey() + " and value= "+ entry.getValue());
+				
+				String[] day = entry.getValue().split(",");
+				
+				List<Integer> dayInWeek = new ArrayList<Integer>();
+				Integer first_dayInWeek = Integer.parseInt(day[0]);
+				dayInWeek.add(0,first_dayInWeek);
+				for (int i = 1; i < 7; i++) {
+					if(first_dayInWeek < Integer.parseInt(day[1])){
+						first_dayInWeek++;
+						dayInWeek.add(i,first_dayInWeek);
+					}
+				}
+				newWeekInDay.put(entry.getKey(), dayInWeek);
+			}
+			
+			//修改第一周，第一周如不是从周一开始，则在第一周数组中补充0
+			//数据例如:第一周：{0，0，0，0，0，1，2}，第二周：{3，4，5，6，7，8，9}...
+			List<Integer> firstWeek = newWeekInDay.get(1);
+			List<Integer> newFirstWeek = new ArrayList<Integer>();
+			if(firstWeek.size() < 7){
+				for (int i = 0; i < 7; i++) {
+					if(i >= (7-firstWeek.size())){
+						int sign = i - (7-firstWeek.size());
+						newFirstWeek.add(i,firstWeek.get(sign));
+					}else{
+						newFirstWeek.add(i,0);
+					}
+				}
+				newWeekInDay.put(1, newFirstWeek);
+			}
+			
+			
+			List<Boolean> signWrite = new ArrayList<Boolean>();
+			int weekSign = 0;
+			
+			//根据week_of_month  和 date_of_week判断，某周的某一天是否需要写入
+				
+			//把英文Mon，Tue等星期转化为对应 数字 0，1...
+			List<Integer> dateOfWeekSign = new ArrayList<Integer>();
+			
+			dateOfWeek = dateOfWeek.replace("\"","");
+			String [] dateOfWeeks = dateOfWeek.split(";");
+			for (int i = 0; i < dateOfWeeks.length; i++) {
+				dateOfWeekSign.add(i,Day.get(dateOfWeeks[i]));
+			}
+			
+			weekOfMonth = weekOfMonth.replace("\r", "");
+			if(weekOfMonth.equals("Any") ){
+				for (Map.Entry<Integer, List<Integer>> entry : newWeekInDay.entrySet()) {
+					List<Integer> day = entry.getValue();
+					for (int i = 0; i < day.size(); i++) {
+						if(day.get(i) != 0){
+							if(dateOfWeekSign.contains(i)){
+								signWrite.add(weekSign,true);
+							}else{
+								signWrite.add(weekSign,false);
+							}
+							weekSign++;
+						}
+					}
+				}
+			}else{
+				for (Map.Entry<Integer, List<Integer>> entry : newWeekInDay.entrySet()) {
+					List<Integer> day = entry.getValue();
+					//当weekOfMonth有值，并等于当前星期数时，进入此方法，获得当前月份的布尔List
+					if(entry.getKey().equals(Week.get(weekOfMonth))){
+						for (int i = 0; i < day.size(); i++) {
+							if(day.get(i) != 0){
+								if(dateOfWeekSign.contains(i)){
+									signWrite.add(weekSign,true);
+								}else{
+									signWrite.add(weekSign,false);
+								}
+								weekSign++;
+							}
+						}
+					}else{
+						for (int i = 0; i < day.size(); i++) {
+							if(day.get(i) != 0){
+								signWrite.add(weekSign,false);
+								weekSign++;
+							}
+						}
+					}
+				}
+			}
+			
+			System.out.println(signWrite);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
 	public void contextLoads() {
 		try {
 			String schedName = "LBITARC2_MONTHLY_15M_BACKUP";
@@ -150,35 +346,33 @@ public class MsbireportApplicationTests {
 			//System.out.println(newDates);
 			
 			SimpleDateFormat newDatas = new SimpleDateFormat("yyyy-MM-dd");
-			List<Integer> testlist = new ArrayList<Integer>();
-			Integer testi = 0;
-			Integer testa = 0;
+			Integer dayOfMonth = 0;
 			Map<Integer, MonthReport> map = new HashMap<Integer, MonthReport>();
 			if(newDates.size() > 0){
 				for (int i = 0; i < Integer.parseInt(currnetDateS[2]); i++) {
-					testa++;
+					dayOfMonth++;
 					if(newDates.size() > 0){
-						if(newDatas.parse(currnetDateS[0]+"-"+currnetDateS[1]+"-"+testa).getTime() > newDates.get(testi).getTime()){
+						if(newDatas.parse(currnetDateS[0]+"-"+currnetDateS[1]+"-"+dayOfMonth).getTime() > newDates.get(0).getTime()){
 							newDates.remove(0);
 						}
 					}
 					
 					if(newDates.size() > 0){
-						if(newDatas.parse(currnetDateS[0]+"-"+currnetDateS[1]+"-"+testa).getTime() <= newDates.get(testi).getTime()){
+						if(newDatas.parse(currnetDateS[0]+"-"+currnetDateS[1]+"-"+dayOfMonth).getTime() <= newDates.get(0).getTime()){
 							for (int j = 0; j < scheduleHistorys.size(); j++) {
-								if(scheduleHistorys.get(j).getInsertDate().getTime() == newDates.get(testi).getTime()){
+								if(scheduleHistorys.get(j).getInsertDate().getTime() == newDates.get(0).getTime()){
 									MonthReport his = new MonthReport();
 									his.setDateOfWeek(scheduleHistorys.get(j).getDateOfWeek());
 									his.setDateOfMonth(scheduleHistorys.get(j).getDateOfMonth());
 									his.setWeekOfMonth(scheduleHistorys.get(j).getWeekOfMonth());
 									his.setPerunits(scheduleHistorys.get(j).getPerunits());
 									his.setPeriod(scheduleHistorys.get(j).getPeriod());
-									map.put(testa, his);
+									map.put(dayOfMonth, his);
 								}
 							}
 						}
 					}else{
-						map.put(testa, currentMR);
+						map.put(dayOfMonth, currentMR);
 						//System.out.println(testa);
 					}
 					
@@ -245,20 +439,16 @@ public class MsbireportApplicationTests {
 	}
 	
 	public static void main(String[] args) {
-		/*String nums = "null;null;1";
-		int sign = 0;
-		int num = 0;
-		if("" != nums && "null" != nums && null != nums){
-			String[] numString = nums.split(";");
-			if("" != numString[sign] && !"null".equals(numString[sign]) && null != numString[sign]){
-				num = Integer.parseInt(numString[sign]);
-			}
-		}*/
-		String i = "2";
-;
 		
-		System.out.println(i.indexOf("1"));
+		String s = "123(0)/1";
 		
+		
+		
+		int a = s.indexOf("(");
+		
+		String l = s.substring(0, a);
+		
+		System.out.println(l);
 		/*try {
 			Date d1 = new SimpleDateFormat("yyyy-MM").parse("2015-6-10");//定义起始日期
 			Date d2 = new SimpleDateFormat("yyyy-MM").parse("2016-5-20");//定义结束日期
@@ -293,3 +483,5 @@ public class MsbireportApplicationTests {
 	}
 
 }
+
+
