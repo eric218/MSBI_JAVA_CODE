@@ -75,45 +75,47 @@ public class MonthReportServiceImpl implements MonthReportService {
 		//查询所有最新scheduleName数据
 		List<MonthReport> list = monthReportMapper.selectAllForUpate();
 		
-		//历史记录
-		List<ScheduleHistory> hisList = scheduleHistoryMapper.selectByEnabled(1);
+		//历史记录 hasHistory为true ， 则查询历史
 		Map<String,List<ScheduleHistory>> hisMap = new HashMap<String,List<ScheduleHistory>>();
-		List<ScheduleHistory> repeatHisList = new ArrayList<ScheduleHistory>();
-		for (ScheduleHistory scheduleHistory : hisList) {
-			if(hisMap.containsKey(scheduleHistory.getScheduleName())){
-				repeatHisList.add(scheduleHistory);
-				Collections.sort(repeatHisList, new Comparator<ScheduleHistory>() {
-
-					@Override
-					public int compare(ScheduleHistory o1, ScheduleHistory o2) {
-						if(o1.getInsertDate().getTime() > o2.getInsertDate().getTime()){
-							return 1;
+		if(hasHistory){
+			List<ScheduleHistory> hisList = scheduleHistoryMapper.selectByEnabled(1);
+			List<ScheduleHistory> repeatHisList = new ArrayList<ScheduleHistory>();
+			for (ScheduleHistory scheduleHistory : hisList) {
+				if(hisMap.containsKey(scheduleHistory.getScheduleName())){
+					repeatHisList.add(scheduleHistory);
+					Collections.sort(repeatHisList, new Comparator<ScheduleHistory>() {
+						
+						@Override
+						public int compare(ScheduleHistory o1, ScheduleHistory o2) {
+							if(o1.getInsertDate().getTime() > o2.getInsertDate().getTime()){
+								return 1;
+							}
+							if(o1.getInsertDate().getTime() == o2.getInsertDate().getTime()){
+								return 0;
+							}
+							return -1;
 						}
-						if(o1.getInsertDate().getTime() == o2.getInsertDate().getTime()){
-							return 0;
+					});
+					hisMap.put(scheduleHistory.getScheduleName(), repeatHisList);
+				}else{
+					repeatHisList = new ArrayList<ScheduleHistory>();
+					repeatHisList.add(scheduleHistory);
+					Collections.sort(repeatHisList, new Comparator<ScheduleHistory>() {
+						
+						@Override
+						public int compare(ScheduleHistory o1, ScheduleHistory o2) {
+							if(o1.getInsertDate().getTime() > o2.getInsertDate().getTime()){
+								return 1;
+							}
+							if(o1.getInsertDate().getTime() == o2.getInsertDate().getTime()){
+								return 0;
+							}
+							return -1;
 						}
-						return -1;
-					}
-				});
-				hisMap.put(scheduleHistory.getScheduleName(), repeatHisList);
-            }else{
-            	repeatHisList = new ArrayList<ScheduleHistory>();
-            	repeatHisList.add(scheduleHistory);
-            	Collections.sort(repeatHisList, new Comparator<ScheduleHistory>() {
-
-					@Override
-					public int compare(ScheduleHistory o1, ScheduleHistory o2) {
-						if(o1.getInsertDate().getTime() > o2.getInsertDate().getTime()){
-							return 1;
-						}
-						if(o1.getInsertDate().getTime() == o2.getInsertDate().getTime()){
-							return 0;
-						}
-						return -1;
-					}
-				});
-            	hisMap.put(scheduleHistory.getScheduleName(), repeatHisList);
-            }
+					});
+					hisMap.put(scheduleHistory.getScheduleName(), repeatHisList);
+				}
+			}
 		}
 		
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -131,22 +133,19 @@ public class MonthReportServiceImpl implements MonthReportService {
     			dd.set(Calendar.DAY_OF_MONTH, 0);
     			String str = sdf.format(dd.getTime());
     			//System.out.println(str);//输出日期结果
-    			formatMonthReport(list,hisMap,str,insertSize);
+    			formatMonthReport(list,hisMap,str,insertSize,hasHistory);
     			dd.add(Calendar.MONTH, 1);//进行当前日期月份加1
     		}
     	}
-    	formatMonthReport(list,hisMap,sdf.format(d3),insertSize);
+    	formatMonthReport(list,hisMap,sdf.format(d3),insertSize,hasHistory);
     	result = true;
     	return result;
 	}
     
-    public void formatMonthReport(List<MonthReport> list,Map<String,List<ScheduleHistory>> hisMap,String currentDate,int insertSize) throws Exception{
+    public void formatMonthReport(List<MonthReport> list,Map<String,List<ScheduleHistory>> hisMap,String currentDate,int insertSize,boolean hasHistory) throws Exception{
 		//入参currentDate 格式：yyyy-mm-dd
 		//String currentDate = "2017-04-27";
-    	Date cDate = new SimpleDateFormat("yyyy-MM-dd").parse(currentDate);
 		String [] currentDates = currentDate.split("-");
-		//入参日期:天数
-		Integer currentDay = Integer.parseInt(currentDates[2]);
 		
 		//删除当月记录
 		monthReportMapper.deleteByMonth(Integer.parseInt(currentDates[0]+currentDates[1]));
@@ -168,12 +167,8 @@ public class MonthReportServiceImpl implements MonthReportService {
             }
 		}
 		
-
+		//便利monthreport List，设置此对象中day_0X_1,day_X_2的值
 		for (MonthReport monthReport : list) {
-			//获得数据类型
-			String schedStyle = monthReport.getSchedStyle();
-			//获得名称
-			String schedName = monthReport.getScheduleName();
 			//保存年-月
 			monthReport.setMonthIndicator(Integer.parseInt(currentDates[0]+currentDates[1]));
 			
@@ -192,309 +187,176 @@ public class MonthReportServiceImpl implements MonthReportService {
 			}else{
 				jobNums = 0;
 			}
-			
-			//获得历史记录
-			List<ScheduleHistory> scheduleHistorys = hisMap.get(schedName);
-			SimpleDateFormat sdfHis = new SimpleDateFormat("yyyy-MM");
-			List<Date> hisDate = new ArrayList<Date>();
-			Date cHisDate = new Date();
-			//先取当月日期，在取小于当月日期
-			if(null != scheduleHistorys && scheduleHistorys.size() > 0){
-				for (ScheduleHistory scheduleHistory : scheduleHistorys) {
-					if(sdfHis.format(scheduleHistory.getInsertDate()).equals(sdfHis.format(cDate))){
-						hisDate.add(scheduleHistory.getInsertDate());
-					}else{
-						if(cDate.getTime() < scheduleHistory.getInsertDate().getTime()){
-							cHisDate = scheduleHistory.getInsertDate();
-							break;
-						}
-					}
-				}
+			if(monthReport.getScheduleName().equals("DCBPP0735_SYSTEMSTATE_BACKUP")){
+				System.out.println("==="+monthReport.getScheduleName());
 			}
-			
-			//DateOfMonth有值，则根据此数值确定当前月份需要更新的天数
-			if(null != monthReport.getDateOfMonth() && !monthReport.getDateOfMonth().equals("Any") && !monthReport.getDateOfMonth().equals("")){
-				String dateOfMontht = monthReport.getDateOfMonth();
-				if(dateOfMontht.indexOf("1") != -1){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "1")+"(0)/"+jobNums);}
-				if(dateOfMontht.indexOf("2") != -1){}
-				if(dateOfMontht.indexOf("3") != -1){}
-				if(dateOfMontht.indexOf("4") != -1){}
-				if(dateOfMontht.indexOf("5") != -1){}
-				if(dateOfMontht.indexOf("6") != -1){}
-				if(dateOfMontht.indexOf("7") != -1){}
-				if(dateOfMontht.indexOf("8") != -1){}
-				if(dateOfMontht.indexOf("9") != -1){}
-				if(dateOfMontht.indexOf("10") != -1){}
-				if(dateOfMontht.indexOf("11") != -1){}
-				if(dateOfMontht.indexOf("12") != -1){}
-				if(dateOfMontht.indexOf("13") != -1){}
-				if(dateOfMontht.indexOf("14") != -1){}
-				if(dateOfMontht.indexOf("15") != -1){}
-				if(dateOfMontht.indexOf("16") != -1){}
-				if(dateOfMontht.indexOf("17") != -1){}
-				if(dateOfMontht.indexOf("18") != -1){}
-				if(dateOfMontht.indexOf("19") != -1){}
-				if(dateOfMontht.indexOf("20") != -1){}
-				if(dateOfMontht.indexOf("21") != -1){}
-				if(dateOfMontht.indexOf("22") != -1){}
-				if(dateOfMontht.indexOf("23") != -1){}
-				if(dateOfMontht.indexOf("24") != -1){}
-				if(dateOfMontht.indexOf("25") != -1){}
-				if(dateOfMontht.indexOf("26") != -1){}
-				if(dateOfMontht.indexOf("27") != -1){}
-				if(dateOfMontht.indexOf("28") != -1){}
-				if(dateOfMontht.indexOf("29") != -1){}
-				if(dateOfMontht.indexOf("30") != -1){}
-				if(dateOfMontht.indexOf("31") != -1){}
-			}else {
-				
+			//是否写入历史记录
+			if(hasHistory && null != hisMap && hisMap.size() > 0){
+				Map<Integer, MonthReport> hisSchedule = getHisSchedule(hisMap,monthReport,currentDate);
+				//DateOfMonth有值，则根据此数值确定当前月份需要更新的天数
+				if(Integer.parseInt(currentDates[2]) >= 1 && write(currentDate,1,hisSchedule.get(1))){monthReport.setDay011("1");monthReport.setDay012("0(0)/"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay012(null);}
+				if(Integer.parseInt(currentDates[2]) >= 2 && write(currentDate,2,hisSchedule.get(2))){monthReport.setDay021("1");monthReport.setDay022("0(0)/"+jobNums);}else{monthReport.setDay021("4");monthReport.setDay022(null);}
+				if(Integer.parseInt(currentDates[2]) >= 3 && write(currentDate,3,hisSchedule.get(3))){monthReport.setDay031("1");monthReport.setDay032("0(0)/"+jobNums);}else{monthReport.setDay031("4");monthReport.setDay032(null);}
+				if(Integer.parseInt(currentDates[2]) >= 4 && write(currentDate,4,hisSchedule.get(4))){monthReport.setDay041("1");monthReport.setDay042("0(0)/"+jobNums);}else{monthReport.setDay041("4");monthReport.setDay042(null);}
+				if(Integer.parseInt(currentDates[2]) >= 5 && write(currentDate,5,hisSchedule.get(5))){monthReport.setDay051("1");monthReport.setDay052("0(0)/"+jobNums);}else{monthReport.setDay051("4");monthReport.setDay052(null);}
+				if(Integer.parseInt(currentDates[2]) >= 6 && write(currentDate,6,hisSchedule.get(6))){monthReport.setDay061("1");monthReport.setDay062("0(0)/"+jobNums);}else{monthReport.setDay061("4");monthReport.setDay062(null);}
+				if(Integer.parseInt(currentDates[2]) >= 7 && write(currentDate,7,hisSchedule.get(7))){monthReport.setDay071("1");monthReport.setDay072("0(0)/"+jobNums);}else{monthReport.setDay071("4");monthReport.setDay072(null);}
+				if(Integer.parseInt(currentDates[2]) >= 8 && write(currentDate,8,hisSchedule.get(8))){monthReport.setDay081("1");monthReport.setDay082("0(0)/"+jobNums);}else{monthReport.setDay081("4");monthReport.setDay082(null);}
+				if(Integer.parseInt(currentDates[2]) >= 9 && write(currentDate,9,hisSchedule.get(9))){monthReport.setDay091("1");monthReport.setDay092("0(0)/"+jobNums);}else{monthReport.setDay091("4");monthReport.setDay092(null);}
+				if(Integer.parseInt(currentDates[2]) >= 10 && write(currentDate,10,hisSchedule.get(10))){monthReport.setDay101("1");monthReport.setDay102("0(0)/"+jobNums);}else{monthReport.setDay101("4");monthReport.setDay102(null);}
+				if(Integer.parseInt(currentDates[2]) >= 11 && write(currentDate,11,hisSchedule.get(11))){monthReport.setDay111("1");monthReport.setDay112("0(0)/"+jobNums);}else{monthReport.setDay111("4");monthReport.setDay112(null);}
+				if(Integer.parseInt(currentDates[2]) >= 12 && write(currentDate,12,hisSchedule.get(12))){monthReport.setDay121("1");monthReport.setDay122("0(0)/"+jobNums);}else{monthReport.setDay121("4");monthReport.setDay122(null);}
+				if(Integer.parseInt(currentDates[2]) >= 13 && write(currentDate,13,hisSchedule.get(13))){monthReport.setDay131("1");monthReport.setDay132("0(0)/"+jobNums);}else{monthReport.setDay131("4");monthReport.setDay132(null);}
+				if(Integer.parseInt(currentDates[2]) >= 14 && write(currentDate,14,hisSchedule.get(14))){monthReport.setDay141("1");monthReport.setDay142("0(0)/"+jobNums);}else{monthReport.setDay141("4");monthReport.setDay142(null);}
+				if(Integer.parseInt(currentDates[2]) >= 15 && write(currentDate,15,hisSchedule.get(15))){monthReport.setDay151("1");monthReport.setDay152("0(0)/"+jobNums);}else{monthReport.setDay151("4");monthReport.setDay152(null);}
+				if(Integer.parseInt(currentDates[2]) >= 16 && write(currentDate,16,hisSchedule.get(16))){monthReport.setDay161("1");monthReport.setDay162("0(0)/"+jobNums);}else{monthReport.setDay161("4");monthReport.setDay162(null);}
+				if(Integer.parseInt(currentDates[2]) >= 17 && write(currentDate,17,hisSchedule.get(17))){monthReport.setDay171("1");monthReport.setDay172("0(0)/"+jobNums);}else{monthReport.setDay171("4");monthReport.setDay172(null);}
+				if(Integer.parseInt(currentDates[2]) >= 18 && write(currentDate,18,hisSchedule.get(18))){monthReport.setDay181("1");monthReport.setDay182("0(0)/"+jobNums);}else{monthReport.setDay181("4");monthReport.setDay182(null);}
+				if(Integer.parseInt(currentDates[2]) >= 19 && write(currentDate,19,hisSchedule.get(19))){monthReport.setDay191("1");monthReport.setDay192("0(0)/"+jobNums);}else{monthReport.setDay191("4");monthReport.setDay192(null);}
+				if(Integer.parseInt(currentDates[2]) >= 20 && write(currentDate,20,hisSchedule.get(20))){monthReport.setDay201("1");monthReport.setDay202("0(0)/"+jobNums);}else{monthReport.setDay201("4");monthReport.setDay202(null);}
+				if(Integer.parseInt(currentDates[2]) >= 21 && write(currentDate,21,hisSchedule.get(21))){monthReport.setDay211("1");monthReport.setDay212("0(0)/"+jobNums);}else{monthReport.setDay211("4");monthReport.setDay212(null);}
+				if(Integer.parseInt(currentDates[2]) >= 22 && write(currentDate,22,hisSchedule.get(22))){monthReport.setDay221("1");monthReport.setDay222("0(0)/"+jobNums);}else{monthReport.setDay221("4");monthReport.setDay222(null);}
+				if(Integer.parseInt(currentDates[2]) >= 23 && write(currentDate,23,hisSchedule.get(23))){monthReport.setDay231("1");monthReport.setDay232("0(0)/"+jobNums);}else{monthReport.setDay231("4");monthReport.setDay232(null);}
+				if(Integer.parseInt(currentDates[2]) >= 24 && write(currentDate,24,hisSchedule.get(24))){monthReport.setDay241("1");monthReport.setDay242("0(0)/"+jobNums);}else{monthReport.setDay241("4");monthReport.setDay242(null);}
+				if(Integer.parseInt(currentDates[2]) >= 25 && write(currentDate,25,hisSchedule.get(25))){monthReport.setDay251("1");monthReport.setDay252("0(0)/"+jobNums);}else{monthReport.setDay251("4");monthReport.setDay252(null);}
+				if(Integer.parseInt(currentDates[2]) >= 26 && write(currentDate,26,hisSchedule.get(26))){monthReport.setDay261("1");monthReport.setDay262("0(0)/"+jobNums);}else{monthReport.setDay261("4");monthReport.setDay262(null);}
+				if(Integer.parseInt(currentDates[2]) >= 27 && write(currentDate,27,hisSchedule.get(27))){monthReport.setDay271("1");monthReport.setDay272("0(0)/"+jobNums);}else{monthReport.setDay271("4");monthReport.setDay272(null);}
+				if(Integer.parseInt(currentDates[2]) >= 28 && write(currentDate,28,hisSchedule.get(28))){monthReport.setDay281("1");monthReport.setDay282("0(0)/"+jobNums);}else{monthReport.setDay281("4");monthReport.setDay282(null);}
+				if(Integer.parseInt(currentDates[2]) >= 29 && write(currentDate,29,hisSchedule.get(29))){monthReport.setDay291("1");monthReport.setDay292("0(0)/"+jobNums);}else{monthReport.setDay291("4");monthReport.setDay292(null);}
+				if(Integer.parseInt(currentDates[2]) >= 30 && write(currentDate,30,hisSchedule.get(30))){monthReport.setDay301("1");monthReport.setDay302("0(0)/"+jobNums);}else{monthReport.setDay301("4");monthReport.setDay302(null);}
+				if(Integer.parseInt(currentDates[2]) >= 31 && write(currentDate,31,hisSchedule.get(31))){monthReport.setDay311("1");monthReport.setDay312("0(0)/"+jobNums);}else{monthReport.setDay311("4");monthReport.setDay312(null);}
+			}else{
+				if(write(currentDate,1,monthReport)){monthReport.setDay011("1");monthReport.setDay012("0(0)/"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay012(null);}
+				if(write(currentDate,2,monthReport)){monthReport.setDay021("1");monthReport.setDay022("0(0)/"+jobNums);}else{monthReport.setDay021("4");monthReport.setDay022(null);}
+				if(write(currentDate,3,monthReport)){monthReport.setDay031("1");monthReport.setDay032("0(0)/"+jobNums);}else{monthReport.setDay031("4");monthReport.setDay032(null);}
+				if(write(currentDate,4,monthReport)){monthReport.setDay041("1");monthReport.setDay042("0(0)/"+jobNums);}else{monthReport.setDay041("4");monthReport.setDay042(null);}
+				if(write(currentDate,5,monthReport)){monthReport.setDay051("1");monthReport.setDay052("0(0)/"+jobNums);}else{monthReport.setDay051("4");monthReport.setDay052(null);}
+				if(write(currentDate,6,monthReport)){monthReport.setDay061("1");monthReport.setDay062("0(0)/"+jobNums);}else{monthReport.setDay061("4");monthReport.setDay062(null);}
+				if(write(currentDate,7,monthReport)){monthReport.setDay071("1");monthReport.setDay072("0(0)/"+jobNums);}else{monthReport.setDay071("4");monthReport.setDay072(null);}
+				if(write(currentDate,8,monthReport)){monthReport.setDay081("1");monthReport.setDay082("0(0)/"+jobNums);}else{monthReport.setDay081("4");monthReport.setDay082(null);}
+				if(write(currentDate,9,monthReport)){monthReport.setDay091("1");monthReport.setDay092("0(0)/"+jobNums);}else{monthReport.setDay091("4");monthReport.setDay092(null);}
+				if(write(currentDate,10,monthReport)){monthReport.setDay101("1");monthReport.setDay102("0(0)/"+jobNums);}else{monthReport.setDay101("4");monthReport.setDay102(null);}
+				if(write(currentDate,11,monthReport)){monthReport.setDay111("1");monthReport.setDay112("0(0)/"+jobNums);}else{monthReport.setDay111("4");monthReport.setDay112(null);}
+				if(write(currentDate,12,monthReport)){monthReport.setDay121("1");monthReport.setDay122("0(0)/"+jobNums);}else{monthReport.setDay121("4");monthReport.setDay122(null);}
+				if(write(currentDate,13,monthReport)){monthReport.setDay131("1");monthReport.setDay132("0(0)/"+jobNums);}else{monthReport.setDay131("4");monthReport.setDay132(null);}
+				if(write(currentDate,14,monthReport)){monthReport.setDay141("1");monthReport.setDay142("0(0)/"+jobNums);}else{monthReport.setDay141("4");monthReport.setDay142(null);}
+				if(write(currentDate,15,monthReport)){monthReport.setDay151("1");monthReport.setDay152("0(0)/"+jobNums);}else{monthReport.setDay151("4");monthReport.setDay152(null);}
+				if(write(currentDate,16,monthReport)){monthReport.setDay161("1");monthReport.setDay162("0(0)/"+jobNums);}else{monthReport.setDay161("4");monthReport.setDay162(null);}
+				if(write(currentDate,17,monthReport)){monthReport.setDay171("1");monthReport.setDay172("0(0)/"+jobNums);}else{monthReport.setDay171("4");monthReport.setDay172(null);}
+				if(write(currentDate,18,monthReport)){monthReport.setDay181("1");monthReport.setDay182("0(0)/"+jobNums);}else{monthReport.setDay181("4");monthReport.setDay182(null);}
+				if(write(currentDate,19,monthReport)){monthReport.setDay191("1");monthReport.setDay192("0(0)/"+jobNums);}else{monthReport.setDay191("4");monthReport.setDay192(null);}
+				if(write(currentDate,20,monthReport)){monthReport.setDay201("1");monthReport.setDay202("0(0)/"+jobNums);}else{monthReport.setDay201("4");monthReport.setDay202(null);}
+				if(write(currentDate,21,monthReport)){monthReport.setDay211("1");monthReport.setDay212("0(0)/"+jobNums);}else{monthReport.setDay211("4");monthReport.setDay212(null);}
+				if(write(currentDate,22,monthReport)){monthReport.setDay221("1");monthReport.setDay222("0(0)/"+jobNums);}else{monthReport.setDay221("4");monthReport.setDay222(null);}
+				if(write(currentDate,23,monthReport)){monthReport.setDay231("1");monthReport.setDay232("0(0)/"+jobNums);}else{monthReport.setDay231("4");monthReport.setDay232(null);}
+				if(write(currentDate,24,monthReport)){monthReport.setDay241("1");monthReport.setDay242("0(0)/"+jobNums);}else{monthReport.setDay241("4");monthReport.setDay242(null);}
+				if(write(currentDate,25,monthReport)){monthReport.setDay251("1");monthReport.setDay252("0(0)/"+jobNums);}else{monthReport.setDay251("4");monthReport.setDay252(null);}
+				if(write(currentDate,26,monthReport)){monthReport.setDay261("1");monthReport.setDay262("0(0)/"+jobNums);}else{monthReport.setDay261("4");monthReport.setDay262(null);}
+				if(write(currentDate,27,monthReport)){monthReport.setDay271("1");monthReport.setDay272("0(0)/"+jobNums);}else{monthReport.setDay271("4");monthReport.setDay272(null);}
+				if(write(currentDate,28,monthReport)){monthReport.setDay281("1");monthReport.setDay282("0(0)/"+jobNums);}else{monthReport.setDay281("4");monthReport.setDay282(null);}
+				if(write(currentDate,29,monthReport)){monthReport.setDay291("1");monthReport.setDay292("0(0)/"+jobNums);}else{monthReport.setDay291("4");monthReport.setDay292(null);}
+				if(write(currentDate,30,monthReport)){monthReport.setDay301("1");monthReport.setDay302("0(0)/"+jobNums);}else{monthReport.setDay301("4");monthReport.setDay302(null);}
+				if(write(currentDate,31,monthReport)){monthReport.setDay311("1");monthReport.setDay312("0(0)/"+jobNums);}else{monthReport.setDay311("4");monthReport.setDay312(null);}
 			}
-			
-			/*if (schedStyle.equals("CLASSIC") ) {
-				
-				
-				
-				//DateOfWeek类型为 Any，直接处理
-				if(monthReport.getDateOfWeek().equals("Any")){
-					if(currentDay>=1){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "1")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay012(null);};
-					if(currentDay>=2){monthReport.setDay021("1");monthReport.setDay022(runNum(blList, schedName, "2")+";null;"+jobNums);}else{monthReport.setDay021("4");monthReport.setDay022(null);};
-					if(currentDay>=3){monthReport.setDay031("1");monthReport.setDay032(runNum(blList, schedName, "3")+";null;"+jobNums);}else{monthReport.setDay031("4");monthReport.setDay032(null);};
-					if(currentDay>=4){monthReport.setDay041("1");monthReport.setDay042(runNum(blList, schedName, "4")+";null;"+jobNums);}else{monthReport.setDay041("4");monthReport.setDay042(null);};
-					if(currentDay>=5){monthReport.setDay051("1");monthReport.setDay052(runNum(blList, schedName, "5")+";null;"+jobNums);}else{monthReport.setDay051("4");monthReport.setDay052(null);};
-					if(currentDay>=6){monthReport.setDay061("1");monthReport.setDay062(runNum(blList, schedName, "6")+";null;"+jobNums);}else{monthReport.setDay061("4");monthReport.setDay062(null);};
-					if(currentDay>=7){monthReport.setDay071("1");monthReport.setDay072(runNum(blList, schedName, "7")+";null;"+jobNums);}else{monthReport.setDay071("4");monthReport.setDay072(null);};
-					if(currentDay>=8){monthReport.setDay081("1");monthReport.setDay082(runNum(blList, schedName, "8")+";null;"+jobNums);}else{monthReport.setDay081("4");monthReport.setDay082(null);};
-					if(currentDay>=9){monthReport.setDay091("1");monthReport.setDay092(runNum(blList, schedName, "9")+";null;"+jobNums);}else{monthReport.setDay091("4");monthReport.setDay092(null);};
-					if(currentDay>=10){monthReport.setDay101("1");monthReport.setDay102(runNum(blList, schedName, "10")+";null;"+jobNums);}else{monthReport.setDay101("4");monthReport.setDay102(null);};
-					if(currentDay>=11){monthReport.setDay111("1");monthReport.setDay112(runNum(blList, schedName, "11")+";null;"+jobNums);}else{monthReport.setDay111("4");monthReport.setDay112(null);};
-					if(currentDay>=12){monthReport.setDay121("1");monthReport.setDay122(runNum(blList, schedName, "12")+";null;"+jobNums);}else{monthReport.setDay121("4");monthReport.setDay122(null);};
-					if(currentDay>=13){monthReport.setDay131("1");monthReport.setDay132(runNum(blList, schedName, "13")+";null;"+jobNums);}else{monthReport.setDay131("4");monthReport.setDay132(null);};
-					if(currentDay>=14){monthReport.setDay141("1");monthReport.setDay142(runNum(blList, schedName, "14")+";null;"+jobNums);}else{monthReport.setDay141("4");monthReport.setDay142(null);};
-					if(currentDay>=15){monthReport.setDay151("1");monthReport.setDay152(runNum(blList, schedName, "15")+";null;"+jobNums);}else{monthReport.setDay151("4");monthReport.setDay152(null);};
-					if(currentDay>=16){monthReport.setDay161("1");monthReport.setDay162(runNum(blList, schedName, "16")+";null;"+jobNums);}else{monthReport.setDay161("4");monthReport.setDay162(null);};
-					if(currentDay>=17){monthReport.setDay171("1");monthReport.setDay172(runNum(blList, schedName, "17")+";null;"+jobNums);}else{monthReport.setDay171("4");monthReport.setDay172(null);};
-					if(currentDay>=18){monthReport.setDay181("1");monthReport.setDay182(runNum(blList, schedName, "18")+";null;"+jobNums);}else{monthReport.setDay181("4");monthReport.setDay182(null);};
-					if(currentDay>=19){monthReport.setDay191("1");monthReport.setDay192(runNum(blList, schedName, "19")+";null;"+jobNums);}else{monthReport.setDay191("4");monthReport.setDay192(null);};
-					if(currentDay>=20){monthReport.setDay201("1");monthReport.setDay202(runNum(blList, schedName, "20")+";null;"+jobNums);}else{monthReport.setDay201("4");monthReport.setDay202(null);};
-					if(currentDay>=21){monthReport.setDay211("1");monthReport.setDay212(runNum(blList, schedName, "21")+";null;"+jobNums);}else{monthReport.setDay211("4");monthReport.setDay212(null);};
-					if(currentDay>=22){monthReport.setDay221("1");monthReport.setDay222(runNum(blList, schedName, "22")+";null;"+jobNums);}else{monthReport.setDay221("4");monthReport.setDay222(null);};
-					if(currentDay>=23){monthReport.setDay231("1");monthReport.setDay232(runNum(blList, schedName, "23")+";null;"+jobNums);}else{monthReport.setDay231("4");monthReport.setDay232(null);};
-					if(currentDay>=24){monthReport.setDay241("1");monthReport.setDay242(runNum(blList, schedName, "24")+";null;"+jobNums);}else{monthReport.setDay241("4");monthReport.setDay242(null);};
-					if(currentDay>=25){monthReport.setDay251("1");monthReport.setDay252(runNum(blList, schedName, "25")+";null;"+jobNums);}else{monthReport.setDay251("4");monthReport.setDay252(null);};
-					if(currentDay>=26){monthReport.setDay261("1");monthReport.setDay262(runNum(blList, schedName, "26")+";null;"+jobNums);}else{monthReport.setDay261("4");monthReport.setDay262(null);};
-					if(currentDay>=27){monthReport.setDay271("1");monthReport.setDay272(runNum(blList, schedName, "27")+";null;"+jobNums);}else{monthReport.setDay271("4");monthReport.setDay272(null);};
-					if(currentDay>=28){monthReport.setDay281("1");monthReport.setDay282(runNum(blList, schedName, "28")+";null;"+jobNums);}else{monthReport.setDay281("4");monthReport.setDay282(null);};
-					if(currentDay>=29){monthReport.setDay291("1");monthReport.setDay292(runNum(blList, schedName, "29")+";null;"+jobNums);}else{monthReport.setDay291("4");monthReport.setDay292(null);};
-					if(currentDay>=30){monthReport.setDay301("1");monthReport.setDay302(runNum(blList, schedName, "30")+";null;"+jobNums);}else{monthReport.setDay301("4");monthReport.setDay302(null);};
-					if(currentDay>=31){monthReport.setDay311("1");monthReport.setDay312(runNum(blList, schedName, "31")+";null;"+jobNums);}else{monthReport.setDay311("4");monthReport.setDay312(null);};
-					//更新数据
-					//monthReportMapper.updateByPrimaryKey(monthReport);
-				}else{
-					//write 方法，返回布尔类型List，通过判断是否为真，执行写入1  或  写入4
-					List<Boolean> writeList = write(currentDate,Day.get(monthReport.getDateOfWeek()),"CLASSIC",null,null,monthReport.getScheduleName(),hisList);
-					if(currentDay>=1){
-						if(writeList.get(0)){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "1")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay012(null);}
-					}else{monthReport.setDay011("4");monthReport.setDay012(null);};
-					if(currentDay>=2){
-						if(writeList.get(1)){monthReport.setDay021("1");monthReport.setDay022(runNum(blList, schedName, "2")+";null;"+jobNums);}else{monthReport.setDay021("4");monthReport.setDay022(null);}
-					}else{monthReport.setDay021("4");monthReport.setDay022(null);};
-					if(currentDay>=3){
-						if(writeList.get(2)){monthReport.setDay031("1");monthReport.setDay032(runNum(blList, schedName, "3")+";null;"+jobNums);}else{monthReport.setDay031("4");monthReport.setDay032(null);};
-					}else{monthReport.setDay031("4");monthReport.setDay032(null);};
-					if(currentDay>=4){
-						if(writeList.get(3)){monthReport.setDay041("1");monthReport.setDay042(runNum(blList, schedName, "4")+";null;"+jobNums);}else{monthReport.setDay041("4");monthReport.setDay042(null);};
-					}else{monthReport.setDay041("4");monthReport.setDay042(null);};
-					if(currentDay>=5){
-						if(writeList.get(4)){monthReport.setDay051("1");monthReport.setDay052(runNum(blList, schedName, "5")+";null;"+jobNums);}else{monthReport.setDay051("4");monthReport.setDay052(null);};
-					}else{monthReport.setDay051("4");monthReport.setDay052(null);};
-					if(currentDay>=6){
-						if(writeList.get(5)){monthReport.setDay061("1");monthReport.setDay062(runNum(blList, schedName, "6")+";null;"+jobNums);}else{monthReport.setDay061("4");monthReport.setDay062(null);};
-					}else{monthReport.setDay061("4");monthReport.setDay062(null);};
-					if(currentDay>=7){
-						if(writeList.get(6)){monthReport.setDay071("1");monthReport.setDay072(runNum(blList, schedName, "7")+";null;"+jobNums);}else{monthReport.setDay071("4");monthReport.setDay072(null);};
-					}else{monthReport.setDay071("4");monthReport.setDay072(null);};
-					if(currentDay>=8){
-						if(writeList.get(7)){monthReport.setDay081("1");monthReport.setDay082(runNum(blList, schedName, "8")+";null;"+jobNums);}else{monthReport.setDay081("4");monthReport.setDay082(null);};
-					}else{monthReport.setDay081("4");monthReport.setDay082(null);};
-					if(currentDay>=9){
-						if(writeList.get(8)){monthReport.setDay091("1");monthReport.setDay092(runNum(blList, schedName, "9")+";null;"+jobNums);}else{monthReport.setDay091("4");monthReport.setDay092(null);};
-					}else{monthReport.setDay091("4");monthReport.setDay092(null);};
-					if(currentDay>=10){
-						if(writeList.get(9)){monthReport.setDay101("1");monthReport.setDay102(runNum(blList, schedName, "10")+";null;"+jobNums);}else{monthReport.setDay101("4");monthReport.setDay102(null);};
-					}else{monthReport.setDay101("4");monthReport.setDay102(null);};
-					if(currentDay>=11){
-						if(writeList.get(10)){monthReport.setDay111("1");monthReport.setDay112(runNum(blList, schedName, "11")+";null;"+jobNums);}else{monthReport.setDay111("4");monthReport.setDay112(null);};
-					}else{monthReport.setDay111("4");monthReport.setDay112(null);};
-					if(currentDay>=12){
-						if(writeList.get(11)){monthReport.setDay121("1");monthReport.setDay122(runNum(blList, schedName, "12")+";null;"+jobNums);}else{monthReport.setDay121("4");monthReport.setDay122(null);};
-					}else{monthReport.setDay121("4");monthReport.setDay122(null);};
-					if(currentDay>=13){
-						if(writeList.get(12)){monthReport.setDay131("1");monthReport.setDay132(runNum(blList, schedName, "13")+";null;"+jobNums);}else{monthReport.setDay131("4");monthReport.setDay132(null);};
-					}else{monthReport.setDay131("4");monthReport.setDay132(null);};
-					if(currentDay>=14){
-						if(writeList.get(13)){monthReport.setDay141("1");monthReport.setDay142(runNum(blList, schedName, "14")+";null;"+jobNums);}else{monthReport.setDay141("4");monthReport.setDay142(null);};
-					}else{monthReport.setDay141("4");monthReport.setDay142(null);};
-					if(currentDay>=15){
-						if(writeList.get(14)){monthReport.setDay151("1");monthReport.setDay152(runNum(blList, schedName, "15")+";null;"+jobNums);}else{monthReport.setDay151("4");monthReport.setDay152(null);};
-					}else{monthReport.setDay151("4");monthReport.setDay152(null);};
-					if(currentDay>=16){
-						if(writeList.get(15)){monthReport.setDay161("1");monthReport.setDay162(runNum(blList, schedName, "16")+";null;"+jobNums);}else{monthReport.setDay161("4");monthReport.setDay162(null);};
-					}else{monthReport.setDay161("4");monthReport.setDay162(null);};
-					if(currentDay>=17){
-						if(writeList.get(16)){monthReport.setDay171("1");monthReport.setDay172(runNum(blList, schedName, "17")+";null;"+jobNums);}else{monthReport.setDay171("4");monthReport.setDay172(null);};
-					}else{monthReport.setDay171("4");monthReport.setDay172(null);};
-					if(currentDay>=18){
-						if(writeList.get(17)){monthReport.setDay181("1");monthReport.setDay182(runNum(blList, schedName, "18")+";null;"+jobNums);}else{monthReport.setDay181("4");monthReport.setDay182(null);};
-					}else{monthReport.setDay181("4");monthReport.setDay182(null);};
-					if(currentDay>=19){
-						if(writeList.get(18)){monthReport.setDay191("1");monthReport.setDay192(runNum(blList, schedName, "19")+";null;"+jobNums);}else{monthReport.setDay191("4");monthReport.setDay192(null);};
-					}else{monthReport.setDay191("4");monthReport.setDay192(null);};
-					if(currentDay>=20){
-						if(writeList.get(19)){monthReport.setDay201("1");monthReport.setDay202(runNum(blList, schedName, "20")+";null;"+jobNums);}else{monthReport.setDay201("4");monthReport.setDay202(null);};
-					}else{monthReport.setDay201("4");monthReport.setDay202(null);};
-					if(currentDay>=21){
-						if(writeList.get(20)){monthReport.setDay211("1");monthReport.setDay212(runNum(blList, schedName, "21")+";null;"+jobNums);}else{monthReport.setDay211("4");monthReport.setDay212(null);};
-					}else{monthReport.setDay211("4");monthReport.setDay212(null);};
-					if(currentDay>=22){
-						if(writeList.get(21)){monthReport.setDay221("1");monthReport.setDay222(runNum(blList, schedName, "22")+";null;"+jobNums);}else{monthReport.setDay221("4");monthReport.setDay222(null);};
-					}else{monthReport.setDay221("4");monthReport.setDay222(null);};
-					if(currentDay>=23){
-						if(writeList.get(22)){monthReport.setDay231("1");monthReport.setDay232(runNum(blList, schedName, "23")+";null;"+jobNums);}else{monthReport.setDay231("4");monthReport.setDay232(null);};
-					}else{monthReport.setDay231("4");monthReport.setDay232(null);};
-					if(currentDay>=24){
-						if(writeList.get(23)){monthReport.setDay241("1");monthReport.setDay242(runNum(blList, schedName, "24")+";null;"+jobNums);}else{monthReport.setDay241("4");monthReport.setDay242(null);};
-					}else{monthReport.setDay241("4");monthReport.setDay242(null);};
-					if(currentDay>=25){
-						if(writeList.get(24)){monthReport.setDay251("1");monthReport.setDay252(runNum(blList, schedName, "25")+";null;"+jobNums);}else{monthReport.setDay251("4");monthReport.setDay252(null);};
-					}else{monthReport.setDay251("4");monthReport.setDay252(null);};
-					if(currentDay>=26){
-						if(writeList.get(25)){monthReport.setDay261("1");monthReport.setDay262(runNum(blList, schedName, "26")+";null;"+jobNums);}else{monthReport.setDay261("4");monthReport.setDay262(null);};
-					}else{monthReport.setDay261("4");monthReport.setDay262(null);};
-					if(currentDay>=27){
-						if(writeList.get(26)){monthReport.setDay271("1");monthReport.setDay272(runNum(blList, schedName, "27")+";null;"+jobNums);}else{monthReport.setDay271("4");monthReport.setDay272(null);};
-					}else{monthReport.setDay271("4");monthReport.setDay272(null);};
-					if(currentDay>=28){
-						if(writeList.get(27)){monthReport.setDay281("1");monthReport.setDay282(runNum(blList, schedName, "28")+";null;"+jobNums);}else{monthReport.setDay281("4");monthReport.setDay282(null);};
-					}else{monthReport.setDay281("4");monthReport.setDay282(null);};
-					if(currentDay>=29){
-						if(writeList.get(28)){monthReport.setDay291("1");monthReport.setDay292(runNum(blList, schedName, "29")+";null;"+jobNums);}else{monthReport.setDay291("4");monthReport.setDay292(null);};
-					}else{monthReport.setDay291("4");monthReport.setDay292(null);};
-					if(currentDay>=30){
-						if(writeList.get(29)){monthReport.setDay301("1");monthReport.setDay302(runNum(blList, schedName, "30")+";null;"+jobNums);}else{monthReport.setDay301("4");monthReport.setDay302(null);};
-					}else{monthReport.setDay301("4");monthReport.setDay302(null);};
-					if(currentDay>=31){
-						if(writeList.get(30)){monthReport.setDay311("1");monthReport.setDay312(runNum(blList, schedName, "31")+";null;"+jobNums);}else{monthReport.setDay311("4");monthReport.setDay312(null);};
-					}else{monthReport.setDay311("4");monthReport.setDay312(null);};
-					//monthReportMapper.updateByPrimaryKey(monthReport);
-				}
-				
-			//根据ENHANCED类型处理
-			} else if (schedStyle.equals("ENHANCED")) {
-				List<Boolean> writeList = write(currentDate,0,"ENHANCED",monthReport.getDateOfWeek(),monthReport.getWeekOfMonth(),null,null);
-				String jobNums = "1";
-				if(currentDay>=1){
-					if(writeList.get(0)){monthReport.setDay011("1");monthReport.setDay012(runNum(blList, schedName, "1")+";null;"+jobNums);}else{monthReport.setDay011("4");monthReport.setDay012(null);}
-				}else{monthReport.setDay011("4");monthReport.setDay012(null);};
-				if(currentDay>=2){
-					if(writeList.get(1)){monthReport.setDay021("1");monthReport.setDay022(runNum(blList, schedName, "2")+";null;"+jobNums);}else{monthReport.setDay021("4");monthReport.setDay022(null);}
-				}else{monthReport.setDay021("4");monthReport.setDay022(null);};
-				if(currentDay>=3){
-					if(writeList.get(2)){monthReport.setDay031("1");monthReport.setDay032(runNum(blList, schedName, "3")+";null;"+jobNums);}else{monthReport.setDay031("4");monthReport.setDay032(null);};
-				}else{monthReport.setDay031("4");monthReport.setDay032(null);};
-				if(currentDay>=4){
-					if(writeList.get(3)){monthReport.setDay041("1");monthReport.setDay042(runNum(blList, schedName, "4")+";null;"+jobNums);}else{monthReport.setDay041("4");monthReport.setDay042(null);};
-				}else{monthReport.setDay041("4");monthReport.setDay042(null);};
-				if(currentDay>=5){
-					if(writeList.get(4)){monthReport.setDay051("1");monthReport.setDay052(runNum(blList, schedName, "5")+";null;"+jobNums);}else{monthReport.setDay051("4");monthReport.setDay052(null);};
-				}else{monthReport.setDay051("4");monthReport.setDay052(null);};
-				if(currentDay>=6){
-					if(writeList.get(5)){monthReport.setDay061("1");monthReport.setDay062(runNum(blList, schedName, "6")+";null;"+jobNums);}else{monthReport.setDay061("4");monthReport.setDay062(null);};
-				}else{monthReport.setDay061("4");monthReport.setDay062(null);};
-				if(currentDay>=7){
-					if(writeList.get(6)){monthReport.setDay071("1");monthReport.setDay072(runNum(blList, schedName, "7")+";null;"+jobNums);}else{monthReport.setDay071("4");monthReport.setDay072(null);};
-				}else{monthReport.setDay071("4");monthReport.setDay072(null);};
-				if(currentDay>=8){
-					if(writeList.get(7)){monthReport.setDay081("1");monthReport.setDay082(runNum(blList, schedName, "8")+";null;"+jobNums);}else{monthReport.setDay081("4");monthReport.setDay082(null);};
-				}else{monthReport.setDay081("4");monthReport.setDay082(null);};
-				if(currentDay>=9){
-					if(writeList.get(8)){monthReport.setDay091("1");monthReport.setDay092(runNum(blList, schedName, "9")+";null;"+jobNums);}else{monthReport.setDay091("4");monthReport.setDay092(null);};
-				}else{monthReport.setDay091("4");monthReport.setDay092(null);};
-				if(currentDay>=10){
-					if(writeList.get(9)){monthReport.setDay101("1");monthReport.setDay102(runNum(blList, schedName, "10")+";null;"+jobNums);}else{monthReport.setDay101("4");monthReport.setDay102(null);};
-				}else{monthReport.setDay101("4");monthReport.setDay102(null);};
-				if(currentDay>=11){
-					if(writeList.get(10)){monthReport.setDay111("1");monthReport.setDay112(runNum(blList, schedName, "11")+";null;"+jobNums);}else{monthReport.setDay111("4");monthReport.setDay112(null);};
-				}else{monthReport.setDay111("4");monthReport.setDay112(null);};
-				if(currentDay>=12){
-					if(writeList.get(11)){monthReport.setDay121("1");monthReport.setDay122(runNum(blList, schedName, "12")+";null;"+jobNums);}else{monthReport.setDay121("4");monthReport.setDay122(null);};
-				}else{monthReport.setDay121("4");monthReport.setDay122(null);};
-				if(currentDay>=13){
-					if(writeList.get(12)){monthReport.setDay131("1");monthReport.setDay132(runNum(blList, schedName, "13")+";null;"+jobNums);}else{monthReport.setDay131("4");monthReport.setDay132(null);};
-				}else{monthReport.setDay131("4");monthReport.setDay132(null);};
-				if(currentDay>=14){
-					if(writeList.get(13)){monthReport.setDay141("1");monthReport.setDay142(runNum(blList, schedName, "14")+";null;"+jobNums);}else{monthReport.setDay141("4");monthReport.setDay142(null);};
-				}else{monthReport.setDay141("4");monthReport.setDay142(null);};
-				if(currentDay>=15){
-					if(writeList.get(14)){monthReport.setDay151("1");monthReport.setDay152(runNum(blList, schedName, "15")+";null;"+jobNums);}else{monthReport.setDay151("4");monthReport.setDay152(null);};
-				}else{monthReport.setDay151("4");monthReport.setDay152(null);};
-				if(currentDay>=16){
-					if(writeList.get(15)){monthReport.setDay161("1");monthReport.setDay162(runNum(blList, schedName, "16")+";null;"+jobNums);}else{monthReport.setDay161("4");monthReport.setDay162(null);};
-				}else{monthReport.setDay161("4");monthReport.setDay162(null);};
-				if(currentDay>=17){
-					if(writeList.get(16)){monthReport.setDay171("1");monthReport.setDay172(runNum(blList, schedName, "17")+";null;"+jobNums);}else{monthReport.setDay171("4");monthReport.setDay172(null);};
-				}else{monthReport.setDay171("4");monthReport.setDay172(null);};
-				if(currentDay>=18){
-					if(writeList.get(17)){monthReport.setDay181("1");monthReport.setDay182(runNum(blList, schedName, "18")+";null;"+jobNums);}else{monthReport.setDay181("4");monthReport.setDay182(null);};
-				}else{monthReport.setDay181("4");monthReport.setDay182(null);};
-				if(currentDay>=19){
-					if(writeList.get(18)){monthReport.setDay191("1");monthReport.setDay192(runNum(blList, schedName, "19")+";null;"+jobNums);}else{monthReport.setDay191("4");monthReport.setDay192(null);};
-				}else{monthReport.setDay191("4");monthReport.setDay192(null);};
-				if(currentDay>=20){
-					if(writeList.get(19)){monthReport.setDay201("1");monthReport.setDay202(runNum(blList, schedName, "20")+";null;"+jobNums);}else{monthReport.setDay201("4");monthReport.setDay202(null);};
-				}else{monthReport.setDay201("4");monthReport.setDay202(null);};
-				if(currentDay>=21){
-					if(writeList.get(20)){monthReport.setDay211("1");monthReport.setDay212(runNum(blList, schedName, "21")+";null;"+jobNums);}else{monthReport.setDay211("4");monthReport.setDay212(null);};
-				}else{monthReport.setDay211("4");monthReport.setDay212(null);};
-				if(currentDay>=22){
-					if(writeList.get(21)){monthReport.setDay221("1");monthReport.setDay222(runNum(blList, schedName, "22")+";null;"+jobNums);}else{monthReport.setDay221("4");monthReport.setDay222(null);};
-				}else{monthReport.setDay221("4");monthReport.setDay222(null);};
-				if(currentDay>=23){
-					if(writeList.get(22)){monthReport.setDay231("1");monthReport.setDay232(runNum(blList, schedName, "23")+";null;"+jobNums);}else{monthReport.setDay231("4");monthReport.setDay232(null);};
-				}else{monthReport.setDay231("4");monthReport.setDay232(null);};
-				if(currentDay>=24){
-					if(writeList.get(23)){monthReport.setDay241("1");monthReport.setDay242(runNum(blList, schedName, "24")+";null;"+jobNums);}else{monthReport.setDay241("4");monthReport.setDay242(null);};
-				}else{monthReport.setDay241("4");monthReport.setDay242(null);};
-				if(currentDay>=25){
-					if(writeList.get(24)){monthReport.setDay251("1");monthReport.setDay252(runNum(blList, schedName, "25")+";null;"+jobNums);}else{monthReport.setDay251("4");monthReport.setDay252(null);};
-				}else{monthReport.setDay251("4");monthReport.setDay252(null);};
-				if(currentDay>=26){
-					if(writeList.get(25)){monthReport.setDay261("1");monthReport.setDay262(runNum(blList, schedName, "26")+";null;"+jobNums);}else{monthReport.setDay261("4");monthReport.setDay262(null);};
-				}else{monthReport.setDay261("4");monthReport.setDay262(null);};
-				if(currentDay>=27){
-					if(writeList.get(26)){monthReport.setDay271("1");monthReport.setDay272(runNum(blList, schedName, "27")+";null;"+jobNums);}else{monthReport.setDay271("4");monthReport.setDay272(null);};
-				}else{monthReport.setDay271("4");monthReport.setDay272(null);};
-				if(currentDay>=28){
-					if(writeList.get(27)){monthReport.setDay281("1");monthReport.setDay282(runNum(blList, schedName, "28")+";null;"+jobNums);}else{monthReport.setDay281("4");monthReport.setDay282(null);};
-				}else{monthReport.setDay281("4");monthReport.setDay282(null);};
-				if(currentDay>=29){
-					if(writeList.get(28)){monthReport.setDay291("1");monthReport.setDay292(runNum(blList, schedName, "29")+";null;"+jobNums);}else{monthReport.setDay291("4");monthReport.setDay292(null);};
-				}else{monthReport.setDay291("4");monthReport.setDay292(null);};
-				if(currentDay>=30){
-					if(writeList.get(29)){monthReport.setDay301("1");monthReport.setDay302(runNum(blList, schedName, "30")+";null;"+jobNums);}else{monthReport.setDay301("4");monthReport.setDay302(null);};
-				}else{monthReport.setDay301("4");monthReport.setDay302(null);};
-				if(currentDay>=31){
-					if(writeList.get(30)){monthReport.setDay311("1");monthReport.setDay312(runNum(blList, schedName, "31")+";null;"+jobNums);}else{monthReport.setDay311("4");monthReport.setDay312(null);};
-				}else{monthReport.setDay311("4");monthReport.setDay312(null);};
-				//更新数据
-				//monthReportMapper.updateByPrimaryKey(monthReport);
-			}*/
 		}
-		monthReportInsert(list,insertSize);
+		//计算backuplog表中的真实log记录数,并更新monthreport对象
+		List<MonthReport> sunList = sumBackLog(list,blMap);
+		//批量插入
+		monthReportInsert(sunList,insertSize);
     }
     
+    /**
+     * 计算backuplog表中的真实log记录数,并更新monthreport对象
+     * @param monthReports monthreport集合
+     * @param blMap backuplog日志表记录，Map：key  scheduleName，value  RunTimeByDate对象
+     * @return 更新手的MonthReport集合
+     */
+    public List<MonthReport> sumBackLog(List<MonthReport> monthReports,Map<String, List<RunTimeByDate>> blMap){
+    	if(null != monthReports && monthReports.size() > 0){
+    		for (MonthReport monthReport : monthReports) {
+    			List<RunTimeByDate> runTimeByDates = blMap.get(monthReport.getScheduleName());
+    			if(null != runTimeByDates && runTimeByDates.size() > 0){
+    				for (RunTimeByDate runTimeByDate : runTimeByDates) {
+						if(runTimeByDate.getStartdate().equals("1")){ if(null != monthReport.getDay012() && "" != monthReport.getDay012()){ int a = monthReport.getDay012().indexOf("("); String l = monthReport.getDay012().substring(a, monthReport.getDay012().length());monthReport.setDay012(runTimeByDate.getRunnum()+l);}else{monthReport.setDay012(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("2")){ if(null != monthReport.getDay022() && "" != monthReport.getDay022()){ int a = monthReport.getDay022().indexOf("("); String l = monthReport.getDay022().substring(a, monthReport.getDay022().length());monthReport.setDay022(runTimeByDate.getRunnum()+l);}else{monthReport.setDay022(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("3")){ if(null != monthReport.getDay032() && "" != monthReport.getDay032()){ int a = monthReport.getDay032().indexOf("("); String l = monthReport.getDay032().substring(a, monthReport.getDay032().length());monthReport.setDay032(runTimeByDate.getRunnum()+l);}else{monthReport.setDay032(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("4")){ if(null != monthReport.getDay042() && "" != monthReport.getDay042()){ int a = monthReport.getDay042().indexOf("("); String l = monthReport.getDay042().substring(a, monthReport.getDay042().length());monthReport.setDay042(runTimeByDate.getRunnum()+l);}else{monthReport.setDay042(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("5")){ if(null != monthReport.getDay052() && "" != monthReport.getDay052()){ int a = monthReport.getDay052().indexOf("("); String l = monthReport.getDay052().substring(a, monthReport.getDay052().length());monthReport.setDay052(runTimeByDate.getRunnum()+l);}else{monthReport.setDay052(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("6")){ if(null != monthReport.getDay062() && "" != monthReport.getDay062()){ int a = monthReport.getDay062().indexOf("("); String l = monthReport.getDay062().substring(a, monthReport.getDay062().length());monthReport.setDay062(runTimeByDate.getRunnum()+l);}else{monthReport.setDay062(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("7")){ if(null != monthReport.getDay072() && "" != monthReport.getDay072()){ int a = monthReport.getDay072().indexOf("("); String l = monthReport.getDay072().substring(a, monthReport.getDay072().length());monthReport.setDay072(runTimeByDate.getRunnum()+l);}else{monthReport.setDay072(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("8")){ if(null != monthReport.getDay082() && "" != monthReport.getDay082()){ int a = monthReport.getDay082().indexOf("("); String l = monthReport.getDay082().substring(a, monthReport.getDay082().length());monthReport.setDay082(runTimeByDate.getRunnum()+l);}else{monthReport.setDay082(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("9")){ if(null != monthReport.getDay092() && "" != monthReport.getDay092()){ int a = monthReport.getDay092().indexOf("("); String l = monthReport.getDay092().substring(a, monthReport.getDay092().length());monthReport.setDay092(runTimeByDate.getRunnum()+l);}else{monthReport.setDay092(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("10")){ if(null != monthReport.getDay102() && "" != monthReport.getDay102()){ int a = monthReport.getDay102().indexOf("("); String l = monthReport.getDay102().substring(a, monthReport.getDay102().length());monthReport.setDay102(runTimeByDate.getRunnum()+l);}else{monthReport.setDay102(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("11")){ if(null != monthReport.getDay112() && "" != monthReport.getDay112()){ int a = monthReport.getDay112().indexOf("("); String l = monthReport.getDay112().substring(a, monthReport.getDay112().length());monthReport.setDay112(runTimeByDate.getRunnum()+l);}else{monthReport.setDay112(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("12")){ if(null != monthReport.getDay122() && "" != monthReport.getDay122()){ int a = monthReport.getDay122().indexOf("("); String l = monthReport.getDay122().substring(a, monthReport.getDay122().length());monthReport.setDay122(runTimeByDate.getRunnum()+l);}else{monthReport.setDay122(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("13")){ if(null != monthReport.getDay132() && "" != monthReport.getDay132()){ int a = monthReport.getDay132().indexOf("("); String l = monthReport.getDay132().substring(a, monthReport.getDay132().length());monthReport.setDay132(runTimeByDate.getRunnum()+l);}else{monthReport.setDay132(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("14")){ if(null != monthReport.getDay142() && "" != monthReport.getDay142()){ int a = monthReport.getDay142().indexOf("("); String l = monthReport.getDay142().substring(a, monthReport.getDay142().length());monthReport.setDay142(runTimeByDate.getRunnum()+l);}else{monthReport.setDay142(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("15")){ if(null != monthReport.getDay152() && "" != monthReport.getDay152()){ int a = monthReport.getDay152().indexOf("("); String l = monthReport.getDay152().substring(a, monthReport.getDay152().length());monthReport.setDay152(runTimeByDate.getRunnum()+l);}else{monthReport.setDay152(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("16")){ if(null != monthReport.getDay162() && "" != monthReport.getDay162()){ int a = monthReport.getDay162().indexOf("("); String l = monthReport.getDay162().substring(a, monthReport.getDay162().length());monthReport.setDay162(runTimeByDate.getRunnum()+l);}else{monthReport.setDay162(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("17")){ if(null != monthReport.getDay172() && "" != monthReport.getDay172()){ int a = monthReport.getDay172().indexOf("("); String l = monthReport.getDay172().substring(a, monthReport.getDay172().length());monthReport.setDay172(runTimeByDate.getRunnum()+l);}else{monthReport.setDay172(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("18")){ if(null != monthReport.getDay182() && "" != monthReport.getDay182()){ int a = monthReport.getDay182().indexOf("("); String l = monthReport.getDay182().substring(a, monthReport.getDay182().length());monthReport.setDay182(runTimeByDate.getRunnum()+l);}else{monthReport.setDay182(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("19")){ if(null != monthReport.getDay192() && "" != monthReport.getDay192()){ int a = monthReport.getDay192().indexOf("("); String l = monthReport.getDay192().substring(a, monthReport.getDay192().length());monthReport.setDay192(runTimeByDate.getRunnum()+l);}else{monthReport.setDay192(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("20")){ if(null != monthReport.getDay202() && "" != monthReport.getDay202()){ int a = monthReport.getDay202().indexOf("("); String l = monthReport.getDay202().substring(a, monthReport.getDay202().length());monthReport.setDay202(runTimeByDate.getRunnum()+l);}else{monthReport.setDay202(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("21")){ if(null != monthReport.getDay212() && "" != monthReport.getDay212()){ int a = monthReport.getDay212().indexOf("("); String l = monthReport.getDay212().substring(a, monthReport.getDay212().length());monthReport.setDay212(runTimeByDate.getRunnum()+l);}else{monthReport.setDay212(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("22")){ if(null != monthReport.getDay222() && "" != monthReport.getDay222()){ int a = monthReport.getDay222().indexOf("("); String l = monthReport.getDay222().substring(a, monthReport.getDay222().length());monthReport.setDay222(runTimeByDate.getRunnum()+l);}else{monthReport.setDay222(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("23")){ if(null != monthReport.getDay232() && "" != monthReport.getDay232()){ int a = monthReport.getDay232().indexOf("("); String l = monthReport.getDay232().substring(a, monthReport.getDay232().length());monthReport.setDay232(runTimeByDate.getRunnum()+l);}else{monthReport.setDay232(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("24")){ if(null != monthReport.getDay242() && "" != monthReport.getDay242()){ int a = monthReport.getDay242().indexOf("("); String l = monthReport.getDay242().substring(a, monthReport.getDay242().length());monthReport.setDay242(runTimeByDate.getRunnum()+l);}else{monthReport.setDay242(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("25")){ if(null != monthReport.getDay252() && "" != monthReport.getDay252()){ int a = monthReport.getDay252().indexOf("("); String l = monthReport.getDay252().substring(a, monthReport.getDay252().length());monthReport.setDay252(runTimeByDate.getRunnum()+l);}else{monthReport.setDay252(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("26")){ if(null != monthReport.getDay262() && "" != monthReport.getDay262()){ int a = monthReport.getDay262().indexOf("("); String l = monthReport.getDay262().substring(a, monthReport.getDay262().length());monthReport.setDay262(runTimeByDate.getRunnum()+l);}else{monthReport.setDay262(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("27")){ if(null != monthReport.getDay272() && "" != monthReport.getDay272()){ int a = monthReport.getDay272().indexOf("("); String l = monthReport.getDay272().substring(a, monthReport.getDay272().length());monthReport.setDay272(runTimeByDate.getRunnum()+l);}else{monthReport.setDay272(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("28")){ if(null != monthReport.getDay282() && "" != monthReport.getDay282()){ int a = monthReport.getDay282().indexOf("("); String l = monthReport.getDay282().substring(a, monthReport.getDay282().length());monthReport.setDay282(runTimeByDate.getRunnum()+l);}else{monthReport.setDay282(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("29")){ if(null != monthReport.getDay292() && "" != monthReport.getDay292()){ int a = monthReport.getDay292().indexOf("("); String l = monthReport.getDay292().substring(a, monthReport.getDay292().length());monthReport.setDay292(runTimeByDate.getRunnum()+l);}else{monthReport.setDay292(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("30")){ if(null != monthReport.getDay302() && "" != monthReport.getDay302()){ int a = monthReport.getDay302().indexOf("("); String l = monthReport.getDay302().substring(a, monthReport.getDay302().length());monthReport.setDay302(runTimeByDate.getRunnum()+l);}else{monthReport.setDay302(runTimeByDate.getRunnum()+"(0)/0");}}
+						if(runTimeByDate.getStartdate().equals("31")){ if(null != monthReport.getDay312() && "" != monthReport.getDay312()){ int a = monthReport.getDay312().indexOf("("); String l = monthReport.getDay312().substring(a, monthReport.getDay312().length());monthReport.setDay312(runTimeByDate.getRunnum()+l);}else{monthReport.setDay312(runTimeByDate.getRunnum()+"(0)/0");}}
+    				}
+    			}
+    			
+    			//更新day_01_X值，当day_02_X(如：0(1)/2)例子中的第一个值为0时，更新day_01_X为:0
+    			if(null != monthReport.getDay012() && !"".equals(monthReport.getDay012())){ int a = monthReport.getDay012().indexOf("("); if(Integer.parseInt(monthReport.getDay012().substring(0, a)) <= 0){monthReport.setDay011("0");}}
+    			if(null != monthReport.getDay022() && !"".equals(monthReport.getDay022())){ int a = monthReport.getDay022().indexOf("("); if(Integer.parseInt(monthReport.getDay022().substring(0, a)) <= 0){monthReport.setDay021("0");}}
+    			if(null != monthReport.getDay032() && !"".equals(monthReport.getDay032())){ int a = monthReport.getDay032().indexOf("("); if(Integer.parseInt(monthReport.getDay032().substring(0, a)) <= 0){monthReport.setDay031("0");}}
+    			if(null != monthReport.getDay042() && !"".equals(monthReport.getDay042())){ int a = monthReport.getDay042().indexOf("("); if(Integer.parseInt(monthReport.getDay042().substring(0, a)) <= 0){monthReport.setDay041("0");}}
+    			if(null != monthReport.getDay052() && !"".equals(monthReport.getDay052())){ int a = monthReport.getDay052().indexOf("("); if(Integer.parseInt(monthReport.getDay052().substring(0, a)) <= 0){monthReport.setDay051("0");}}
+    			if(null != monthReport.getDay062() && !"".equals(monthReport.getDay062())){ int a = monthReport.getDay062().indexOf("("); if(Integer.parseInt(monthReport.getDay062().substring(0, a)) <= 0){monthReport.setDay061("0");}}
+    			if(null != monthReport.getDay072() && !"".equals(monthReport.getDay072())){ int a = monthReport.getDay072().indexOf("("); if(Integer.parseInt(monthReport.getDay072().substring(0, a)) <= 0){monthReport.setDay071("0");}}
+    			if(null != monthReport.getDay082() && !"".equals(monthReport.getDay082())){ int a = monthReport.getDay082().indexOf("("); if(Integer.parseInt(monthReport.getDay082().substring(0, a)) <= 0){monthReport.setDay081("0");}}
+    			if(null != monthReport.getDay092() && !"".equals(monthReport.getDay092())){ int a = monthReport.getDay092().indexOf("("); if(Integer.parseInt(monthReport.getDay092().substring(0, a)) <= 0){monthReport.setDay091("0");}}
+    			if(null != monthReport.getDay102() && !"".equals(monthReport.getDay102())){ int a = monthReport.getDay102().indexOf("("); if(Integer.parseInt(monthReport.getDay102().substring(0, a)) <= 0){monthReport.setDay101("0");}}
+    			if(null != monthReport.getDay112() && !"".equals(monthReport.getDay112())){ int a = monthReport.getDay112().indexOf("("); if(Integer.parseInt(monthReport.getDay112().substring(0, a)) <= 0){monthReport.setDay111("0");}}
+    			if(null != monthReport.getDay122() && !"".equals(monthReport.getDay122())){ int a = monthReport.getDay122().indexOf("("); if(Integer.parseInt(monthReport.getDay122().substring(0, a)) <= 0){monthReport.setDay121("0");}}
+    			if(null != monthReport.getDay132() && !"".equals(monthReport.getDay132())){ int a = monthReport.getDay132().indexOf("("); if(Integer.parseInt(monthReport.getDay132().substring(0, a)) <= 0){monthReport.setDay131("0");}}
+    			if(null != monthReport.getDay142() && !"".equals(monthReport.getDay142())){ int a = monthReport.getDay142().indexOf("("); if(Integer.parseInt(monthReport.getDay142().substring(0, a)) <= 0){monthReport.setDay141("0");}}
+    			if(null != monthReport.getDay152() && !"".equals(monthReport.getDay152())){ int a = monthReport.getDay152().indexOf("("); if(Integer.parseInt(monthReport.getDay152().substring(0, a)) <= 0){monthReport.setDay151("0");}}
+    			if(null != monthReport.getDay162() && !"".equals(monthReport.getDay162())){ int a = monthReport.getDay162().indexOf("("); if(Integer.parseInt(monthReport.getDay162().substring(0, a)) <= 0){monthReport.setDay161("0");}}
+    			if(null != monthReport.getDay172() && !"".equals(monthReport.getDay172())){ int a = monthReport.getDay172().indexOf("("); if(Integer.parseInt(monthReport.getDay172().substring(0, a)) <= 0){monthReport.setDay171("0");}}
+    			if(null != monthReport.getDay182() && !"".equals(monthReport.getDay182())){ int a = monthReport.getDay182().indexOf("("); if(Integer.parseInt(monthReport.getDay182().substring(0, a)) <= 0){monthReport.setDay181("0");}}
+    			if(null != monthReport.getDay192() && !"".equals(monthReport.getDay192())){ int a = monthReport.getDay192().indexOf("("); if(Integer.parseInt(monthReport.getDay192().substring(0, a)) <= 0){monthReport.setDay191("0");}}
+    			if(null != monthReport.getDay202() && !"".equals(monthReport.getDay202())){ int a = monthReport.getDay202().indexOf("("); if(Integer.parseInt(monthReport.getDay202().substring(0, a)) <= 0){monthReport.setDay201("0");}}
+    			if(null != monthReport.getDay212() && !"".equals(monthReport.getDay212())){ int a = monthReport.getDay212().indexOf("("); if(Integer.parseInt(monthReport.getDay212().substring(0, a)) <= 0){monthReport.setDay211("0");}}
+    			if(null != monthReport.getDay222() && !"".equals(monthReport.getDay222())){ int a = monthReport.getDay222().indexOf("("); if(Integer.parseInt(monthReport.getDay222().substring(0, a)) <= 0){monthReport.setDay221("0");}}
+    			if(null != monthReport.getDay232() && !"".equals(monthReport.getDay232())){ int a = monthReport.getDay232().indexOf("("); if(Integer.parseInt(monthReport.getDay232().substring(0, a)) <= 0){monthReport.setDay231("0");}}
+    			if(null != monthReport.getDay242() && !"".equals(monthReport.getDay242())){ int a = monthReport.getDay242().indexOf("("); if(Integer.parseInt(monthReport.getDay242().substring(0, a)) <= 0){monthReport.setDay241("0");}}
+    			if(null != monthReport.getDay252() && !"".equals(monthReport.getDay252())){ int a = monthReport.getDay252().indexOf("("); if(Integer.parseInt(monthReport.getDay252().substring(0, a)) <= 0){monthReport.setDay251("0");}}
+    			if(null != monthReport.getDay262() && !"".equals(monthReport.getDay262())){ int a = monthReport.getDay262().indexOf("("); if(Integer.parseInt(monthReport.getDay262().substring(0, a)) <= 0){monthReport.setDay261("0");}}
+    			if(null != monthReport.getDay272() && !"".equals(monthReport.getDay272())){ int a = monthReport.getDay272().indexOf("("); if(Integer.parseInt(monthReport.getDay272().substring(0, a)) <= 0){monthReport.setDay271("0");}}
+    			if(null != monthReport.getDay282() && !"".equals(monthReport.getDay282())){ int a = monthReport.getDay282().indexOf("("); if(Integer.parseInt(monthReport.getDay282().substring(0, a)) <= 0){monthReport.setDay281("0");}}
+    			if(null != monthReport.getDay292() && !"".equals(monthReport.getDay292())){ int a = monthReport.getDay292().indexOf("("); if(Integer.parseInt(monthReport.getDay292().substring(0, a)) <= 0){monthReport.setDay291("0");}}
+    			if(null != monthReport.getDay302() && !"".equals(monthReport.getDay302())){ int a = monthReport.getDay302().indexOf("("); if(Integer.parseInt(monthReport.getDay302().substring(0, a)) <= 0){monthReport.setDay301("0");}}
+    			if(null != monthReport.getDay312() && !"".equals(monthReport.getDay312())){ int a = monthReport.getDay312().indexOf("("); if(Integer.parseInt(monthReport.getDay312().substring(0, a)) <= 0){monthReport.setDay311("0");}}
+			}
+    	}
+    	return monthReports;
+    }
+    
+    /**
+     * 工具方法-批量写入
+     * @param monthReports monthreport集合
+     * @param size 大小
+     */
     public void monthReportInsert(List<MonthReport> monthReports,int size){
     	int sign = 0;
     	List<MonthReport> list = new ArrayList<MonthReport>();
+    	//插入前计算:totalSuccessful总成功，totalSchedule总记录数，bsr成功率   三个属性的值
     	if(null != monthReports && monthReports.size() > 0){
     		for (MonthReport monthReport : monthReports) {
         		int totalSuccessful = formatNums(monthReport.getDay012(),0) +
@@ -563,12 +425,19 @@ public class MonthReportServiceImpl implements MonthReportService {
         				formatNums(monthReport.getDay312(),2);
         		monthReport.setTotalSchedule(String.valueOf(totalSchedule));
         		DecimalFormat df=new DecimalFormat("0.00");
-        		monthReport.setBsr(String.valueOf(df.format(((float)totalSuccessful/totalSchedule)*100)));
+        		String bsr = "";
+        		if(totalSchedule <= 0){
+        			bsr = String.valueOf(df.format(((float)totalSuccessful/1)*100));
+        		}else{
+        			bsr = String.valueOf(df.format(((float)totalSuccessful/totalSchedule)*100));
+        		}
+        		monthReport.setBsr(bsr);
         		list.add(sign, monthReport);
         		sign++;
         	}
     	}
     	
+    	//根据入参size，批量插入
     	if(list!=null&&list.size()>0){
             int page = (list.size() + size - 1)/size;
             List<MonthReport> newtimelist=null;
@@ -583,21 +452,130 @@ public class MonthReportServiceImpl implements MonthReportService {
             }
         }
     }
-	
-	/**
-	 * 此方法用来获得当前月份中，每天是否需要填写的List
-	 * 
-	 * @param currentDate 传入日期
-	 * @param daySign 类型为CLASSIC时，判断每周是否写入
-	 * @param type 类型
-	 * @param dateOfWeek 类型为ENHANCED，判断每周是否写入
-	 * @param weekOfMonth 类型为ENHANCED，判断每周是否写入
-	 * 
-	 * @return 布尔类型List，用来判断当前月份，每天是否执行
-	 */
-	public static List<Boolean> write(String currentDate,int daySign,String type,String dateOfWeek,String weekOfMonth,String sName,List<ScheduleHistory> list) {
-		try {
+    
+    /**
+     * 根据历史表中的schedule对象，更新当前monthreport对象
+     * @param hisMap 历史schedule记录，key：scheduleName  value：List<ScheduleHistory>
+     * @param monthReport 当前mongthreport对象，根据历史记录表更新
+     * @param currentDate 前期日期
+     * @return Map<Integer, MonthReport> key:每月天数    value：当前天对应的MonthReport对象
+     */
+    public static Map<Integer, MonthReport> getHisSchedule(Map<String,List<ScheduleHistory>> hisMap,MonthReport monthReport,String currentDate) throws Exception{
+    	//获得历史记录
+		List<ScheduleHistory> scheduleHistorys = hisMap.get(monthReport.getScheduleName());
+		Map<Integer, MonthReport> map = new HashMap<Integer, MonthReport>();
+		String [] currnetDateS = currentDate.split("-");
+		//如果当前schedule有历史记录，则拼装key：1，value：monthreport；key：2，value：monthreport；key：3，value：monthreport...，此Map类型的整个月份的monthreport  Map对象。
+		if(null != scheduleHistorys ){
+			List<Date> hisDate = new ArrayList<Date>();
+			Date cHisDate = null;
+			//当前日期
+			Date cDate = new SimpleDateFormat("yyyy-MM-dd").parse(currentDate);
+			//先取当月日期，在取小于当月日期
+			if(null != scheduleHistorys && scheduleHistorys.size() > 0){
+				for (ScheduleHistory scheduleHistory : scheduleHistorys) {
+					if(cDate.getTime() > scheduleHistory.getInsertDate().getTime()){
+						hisDate.add(scheduleHistory.getInsertDate());
+					}
+				}
+				
+				for (ScheduleHistory scheduleHistory : scheduleHistorys) {
+					if(cDate.getTime() <= scheduleHistory.getInsertDate().getTime()){
+						cHisDate = scheduleHistory.getInsertDate();
+						break;
+					}
+				}
+			}
 			
+			Date cDates = new SimpleDateFormat("yyyy-MM-dd").parse(currnetDateS[0]+"-"+currnetDateS[1]+"-"+"1");
+			
+			List<Date> newDates = new ArrayList<Date>();
+			if(hisDate.size() > 0){
+				Collections.reverse(hisDate);
+				for (int i = 0; i < hisDate.size(); i++) {
+					newDates.add(i, hisDate.get(i));
+					if(cDates.getTime() >= hisDate.get(i).getTime()){
+						break;
+					}
+				}
+				Collections.reverse(newDates);
+			}
+			
+			//如cHisDate为null ， 表示当前月份的当前日至newDates 中最后一个日期中的    scheled 为newset表中的数据
+			if(null != cHisDate){
+				newDates.add(cHisDate);
+			}
+			
+			//除去list中第一个history值
+			if(newDates.size() > 1){
+				Calendar cal0 = Calendar.getInstance();
+				cal0.setTime(newDates.get(0));
+				Calendar cal1 = Calendar.getInstance();
+				cal1.setTime(newDates.get(1));
+				if(cal0.get(Calendar.MONTH) != cal1.get(Calendar.MONTH)){
+					newDates.remove(0);
+				}
+			}
+			SimpleDateFormat newDatas = new SimpleDateFormat("yyyy-MM-dd");
+			Integer dayOfMonth = 0;
+			if(newDates.size() > 0){
+				for (int i = 0; i < Integer.parseInt(currnetDateS[2]); i++) {
+					dayOfMonth++;
+					if(newDates.size() > 0){
+						if(newDatas.parse(currnetDateS[0]+"-"+currnetDateS[1]+"-"+dayOfMonth).getTime() > newDates.get(0).getTime()){
+							newDates.remove(0);
+						}
+					}
+					
+					if(newDates.size() > 0){
+						if(newDatas.parse(currnetDateS[0]+"-"+currnetDateS[1]+"-"+dayOfMonth).getTime() <= newDates.get(0).getTime()){
+							for (int j = 0; j < scheduleHistorys.size(); j++) {
+								if(scheduleHistorys.get(j).getInsertDate().getTime() == newDates.get(0).getTime()){
+									MonthReport his = new MonthReport();
+									his.setDateOfWeek(scheduleHistorys.get(j).getDateOfWeek());
+									his.setDateOfMonth(scheduleHistorys.get(j).getDateOfMonth());
+									his.setWeekOfMonth(scheduleHistorys.get(j).getWeekOfMonth());
+									his.setPerunits(scheduleHistorys.get(j).getPerunits());
+									his.setPeriod(scheduleHistorys.get(j).getPeriod());
+									map.put(dayOfMonth, his);
+								}
+							}
+						}
+					}else{
+						map.put(dayOfMonth, monthReport);
+					}
+				}
+			}
+			return map;
+		//如当前schedule没有历史记录，则使用当前monthreport对象
+		}else{
+			Integer dayOfMonth = 0;
+			for (int i = 0; i < Integer.parseInt(currnetDateS[2]); i++) {
+				dayOfMonth++;
+				map.put(dayOfMonth, monthReport);
+			}
+			return map;
+		}
+	}
+	
+    /**
+     * 判断当前天，是否需要更新day_X_1和day_X_2两个属性
+     * @param currentDate 当前日期
+     * @param currentDay 当前天数
+     * @param monthReport 更新后的monthreport对象
+     * @return
+     */
+	public static Boolean write(String currentDate,int currentDay,MonthReport monthReport) {
+		try {
+			String dateOfWeek = monthReport.getDateOfWeek();
+			String weekOfMonth = monthReport.getWeekOfMonth();
+			String dateOfMonth = monthReport.getDateOfMonth();
+			if(null != dateOfMonth && !dateOfMonth.equals("") && !dateOfMonth.equals("Any")){
+				return dateOfMonth.indexOf(String.valueOf(currentDay)) != -1;
+			}
+			if(dateOfWeek.equals("Any")){
+				return true;
+			}
 			//切割时间，用来拼装每周对应每日的日期
 			String[] cd = currentDate.split("-");
 			String date = cd[0]+"-"+cd[1];
@@ -690,20 +668,37 @@ public class MonthReportServiceImpl implements MonthReportService {
 			int weekSign = 0;
 			
 			//根据week_of_month  和 date_of_week判断，某周的某一天是否需要写入
-			if(type.equals("ENHANCED")){
 				
-				//把英文Mon，Tue等星期转化为对应 数字 0，1...
-				List<Integer> dateOfWeekSign = new ArrayList<Integer>();
-				dateOfWeek = dateOfWeek.replace("\"","");
-				String [] dateOfWeeks = dateOfWeek.split(";");
-				for (int i = 0; i < dateOfWeeks.length; i++) {
-					dateOfWeekSign.add(i,Day.get(dateOfWeeks[i]));
+			//把英文Mon，Tue等星期转化为对应 数字 0，1...
+			List<Integer> dateOfWeekSign = new ArrayList<Integer>();
+			
+			dateOfWeek = dateOfWeek.replace("\"","");
+			String [] dateOfWeeks = dateOfWeek.split(";");
+			
+			for (int i = 0; i < dateOfWeeks.length; i++) {
+				dateOfWeekSign.add(i,Day.get(dateOfWeeks[i]));
+			}
+			
+			weekOfMonth = weekOfMonth.replace("\r", "");
+			if(weekOfMonth.equals("Any") || weekOfMonth.equals("")){
+				for (Map.Entry<Integer, List<Integer>> entry : newWeekInDay.entrySet()) {
+					List<Integer> day = entry.getValue();
+					for (int i = 0; i < day.size(); i++) {
+						if(day.get(i) != 0){
+							if(dateOfWeekSign.contains(i)){
+								signWrite.add(weekSign,true);
+							}else{
+								signWrite.add(weekSign,false);
+							}
+							weekSign++;
+						}
+					}
 				}
-				
-				weekOfMonth = weekOfMonth.replace("\r", "");
-				if(weekOfMonth.equals("Any") ){
-					for (Map.Entry<Integer, List<Integer>> entry : newWeekInDay.entrySet()) {
-						List<Integer> day = entry.getValue();
+			}else{
+				for (Map.Entry<Integer, List<Integer>> entry : newWeekInDay.entrySet()) {
+					List<Integer> day = entry.getValue();
+					//当weekOfMonth有值，并等于当前星期数时，进入此方法，获得当前月份的布尔List
+					if(entry.getKey().equals(Week.get(weekOfMonth))){
 						for (int i = 0; i < day.size(); i++) {
 							if(day.get(i) != 0){
 								if(dateOfWeekSign.contains(i)){
@@ -714,77 +709,42 @@ public class MonthReportServiceImpl implements MonthReportService {
 								weekSign++;
 							}
 						}
-					}
-				}else{
-					for (Map.Entry<Integer, List<Integer>> entry : newWeekInDay.entrySet()) {
-						List<Integer> day = entry.getValue();
-						//当weekOfMonth有值，并等于当前星期数时，进入此方法，获得当前月份的布尔List
-						if(entry.getKey().equals(Week.get(weekOfMonth))){
-							for (int i = 0; i < day.size(); i++) {
-								if(day.get(i) != 0){
-									if(dateOfWeekSign.contains(i)){
-										signWrite.add(weekSign,true);
-									}else{
-										signWrite.add(weekSign,false);
-									}
-									weekSign++;
-								}
-							}
-						}else{
-							for (int i = 0; i < day.size(); i++) {
-								if(day.get(i) != 0){
-									signWrite.add(weekSign,false);
-									weekSign++;
-								}
-							}
-						}
-					}
-				}
-			
-			//根据daySign判断，某一天是否需要写入
-			}else if(type.equals("CLASSIC")){
-				for (Map.Entry<Integer, List<Integer>> entry : newWeekInDay.entrySet()) {
-					List<Integer> day = entry.getValue();
-					for (int i = 0; i < day.size(); i++) {
-						if(day.get(i) != 0){
-							if(i == daySign){
-								signWrite.add(weekSign,true);
-							}else{
+					}else{
+						for (int i = 0; i < day.size(); i++) {
+							if(day.get(i) != 0){
 								signWrite.add(weekSign,false);
+								weekSign++;
 							}
-							weekSign++;
 						}
 					}
 				}
 			}
 			
-			return signWrite;
+			for (int i = 0; i < signWrite.size(); i++) {
+				if(i == (currentDay-1)){
+					return signWrite.get(i);
+				}
+			}
 		} catch (Exception e) {
 			System.err.println(e);
 		}
-		return null;
+		return false;
 	}
 	
 	/**
-	 * 返回执行次数
-	 * @param list backuplog表所有数据
-	 * @param name Schedulename
-	 * @param date 日期：天数
-	 * @return 执行次数
+	 * 获得如：(1(0)/6)中所需要的值
+	 * @param nums day_X_2的值
+	 * @param sign 下标
+	 * @return 所需值
 	 */
-	public String runNum(List<RunTimeByDate> list,String name,String date) {
-		for (RunTimeByDate runTimeByDate : list) {
-			if(runTimeByDate.getSchedulename().equals(name) && runTimeByDate.getStartdate().equals(date)){
-				return runTimeByDate.getRunnum();
-			}
-		}
-		return "null";
-	}
-	
 	public int formatNums(String nums,int sign){
 		int num = 0;
 		if("" != nums && !"null".equals(nums) && null != nums){
-			String[] numString = nums.split(";");
+			int a = nums.indexOf("(");
+			int b = nums.indexOf("/");
+			String a1 = nums.substring(0, a);
+			String a2 = nums.substring(b+1, nums.length());
+			String[] numString = {a1,"", a2}; 
 			if("" != numString[sign] && !"null".equals(numString[sign]) && null != numString[sign]){
 				num = Integer.parseInt(numString[sign]);
 			}
