@@ -44,9 +44,9 @@ public class MsbireportApplicationTests {
 	@Test
 	public void testService(){
 		try {
-			String currentDate = "2017-4-31";
+			String currentDate = "2017-4-30";
 			String sDate = null;
-			boolean s = monthReportService.formatMonthReportTable(sDate, currentDate, true, 200);
+			boolean s = monthReportService.formatMonthReportTable(sDate, currentDate, false, 200);
 			System.out.println(s);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -73,7 +73,7 @@ public class MsbireportApplicationTests {
 		try {
 			
 			String schedName = "DCBPP0735_WINOS_BACKUP";
-			String currentDate = "2017-4-30";
+			String currentDate = "2017-4-17";
 			List<MonthReport> list = monthReportMapper.selectAllForUpate();
 			MonthReport currentMR = null;
 			for (MonthReport monthReport : list) {
