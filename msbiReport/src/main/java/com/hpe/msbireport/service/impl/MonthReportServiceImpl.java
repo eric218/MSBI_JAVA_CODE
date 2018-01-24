@@ -124,21 +124,25 @@ public class MonthReportServiceImpl implements MonthReportService {
     	}
     	Date d3 = new SimpleDateFormat("yyyy-MM-dd").parse(currentDate);//当前日期
     	if("" != startDate && null != startDate){
-    		Date d1 = new SimpleDateFormat("yyyy-MM").parse(startDate);//定义起始日期
-    		Date d2 = new SimpleDateFormat("yyyy-MM").parse(currentDate);//定义结束日期
-    		Calendar dd = Calendar.getInstance();//定义日期实例
-    		dd.setTime(d1);//设置日期起始时间
-    		while(dd.getTime().before(d2)){//判断是否到结束日期
-    			dd.add(Calendar.MONTH, 1);  
-    			dd.set(Calendar.DAY_OF_MONTH, 0);
-    			String str = sdf.format(dd.getTime());
-    			//System.out.println(str);//输出日期结果
-    			formatMonthReport(list,hisMap,str,insertSize,hasHistory);
-    			dd.add(Calendar.MONTH, 1);//进行当前日期月份加1
+    		if(checkTime(startDate) && checkTime(currentDate)){
+    			Date d1 = new SimpleDateFormat("yyyy-MM").parse(startDate);//定义起始日期
+        		Date d2 = new SimpleDateFormat("yyyy-MM").parse(currentDate);//定义结束日期
+        		Calendar dd = Calendar.getInstance();//定义日期实例
+        		dd.setTime(d1);//设置日期起始时间
+        		while(dd.getTime().before(d2)){//判断是否到结束日期
+        			dd.add(Calendar.MONTH, 1);  
+        			dd.set(Calendar.DAY_OF_MONTH, 0);
+        			String str = sdf.format(dd.getTime());
+        			//System.out.println(str);//输出日期结果
+        			formatMonthReport(list,hisMap,str,insertSize,hasHistory);
+        			dd.add(Calendar.MONTH, 1);//进行当前日期月份加1
+        		}
     		}
     	}
-    	formatMonthReport(list,hisMap,sdf.format(d3),insertSize,hasHistory);
-    	result = true;
+    	if(checkTime(currentDate)){
+			formatMonthReport(list,hisMap,sdf.format(d3),insertSize,hasHistory);
+			result = true;
+		}
     	return result;
 	}
     
@@ -436,17 +440,21 @@ public class MonthReportServiceImpl implements MonthReportService {
     	
     	//根据入参size，批量插入
     	if(list!=null&&list.size()>0){
-            int page = (list.size() + size - 1)/size;
-            List<MonthReport> newtimelist=null;
-            for(int i = 0;i < page;i++) {
-				newtimelist=new ArrayList<MonthReport>();
-				if(i==page-1){
-				    newtimelist=list.subList(i*size, list.size());
-				}else {
-				    newtimelist=list.subList(i*size, i*size+size);
-				}
-				monthReportMapper.insertBatch(newtimelist);
-            }
+    		if(size == 0){
+    			monthReportMapper.insertBatch(list);
+    		}else{
+    			int page = (list.size() + size - 1)/size;
+                List<MonthReport> newtimelist=null;
+                for(int i = 0;i < page;i++) {
+    				newtimelist=new ArrayList<MonthReport>();
+    				if(i==page-1){
+    				    newtimelist=list.subList(i*size, list.size());
+    				}else {
+    				    newtimelist=list.subList(i*size, i*size+size);
+    				}
+    				monthReportMapper.insertBatch(newtimelist);
+                }
+    		}
         }
     }
     
@@ -747,6 +755,25 @@ public class MonthReportServiceImpl implements MonthReportService {
 			}
 		}
 		return num;
+	}
+	
+	//检查日期格式是否正确
+	public boolean checkTime(String strDateTime) throws Exception{
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date ndate = format.parse(strDateTime);
+        String str = format.format(ndate);
+        String [] d = strDateTime.split("-");
+        String m = d[1];
+        String day = d[2];
+        if(d[1].length() <= 1){ m = "0" + d[1]; }
+        if(d[2].length() <= 1){ day = "0" + d[2]; }
+        strDateTime = d[0] + "-" + m + "-"+ day;
+        //success
+        if (str.equals(strDateTime))
+            return true;
+        //datetime is not validate
+        else
+            return false;
 	}
 	
 	@Override

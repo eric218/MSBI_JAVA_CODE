@@ -44,8 +44,8 @@ public class MsbireportApplicationTests {
 	@Test
 	public void testService(){
 		try {
-			String currentDate = "2017-4-30";
-			String sDate = "2017-3-2";
+			String currentDate = "2017-4-31";
+			String sDate = null;
 			boolean s = monthReportService.formatMonthReportTable(sDate, currentDate, true, 200);
 			System.out.println(s);
 		} catch (Exception e) {
@@ -439,8 +439,36 @@ public class MsbireportApplicationTests {
 	}
 	
 	public static void main(String[] args) {
+		String strDateTime = "2017-2-2";
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date ndate = format.parse(strDateTime);
+            String str = format.format(ndate);
+            System.out.println(ndate);
+            System.out.println(str);
+            
+            String [] d = strDateTime.split("-");
+            String m = d[1];
+            String day = d[2];
+            if(d[1].length() <= 1){ m = "0" + d[1]; }
+            if(d[2].length() <= 1){ day = "0" + d[2]; }
+            strDateTime = d[0] + "-" + m + "-"+ day;
+            
+            System.out.println("strDateTime=" + strDateTime);
+            //success
+            if (str.equals(strDateTime))
+                System.out.println("1");
+            //datetime is not validate
+            else
+            	System.out.println("0");
+        } catch (Exception e) {
+        	System.out.println("-1");
+            e.printStackTrace();
+            //format error
+        }
 		
-		String s = "123(0)/1";
+		
+		/*String s = "123(0)/1";
 		
 		
 		
@@ -448,7 +476,7 @@ public class MsbireportApplicationTests {
 		
 		String l = s.substring(0, a);
 		
-		System.out.println(l);
+		System.out.println(l);*/
 		/*try {
 			Date d1 = new SimpleDateFormat("yyyy-MM").parse("2015-6-10");//定义起始日期
 			Date d2 = new SimpleDateFormat("yyyy-MM").parse("2016-5-20");//定义结束日期
