@@ -5,9 +5,7 @@ import com.hpe.msbireport.domain.LookupSummary;
 import com.hpe.msbireport.domain.MonthReport;
 import com.hpe.msbireport.domain.TotalSummary;
 import com.hpe.msbireport.mapper.LookupMapper;
-import com.hpe.msbireport.mapper.LookupSummaryMapper;
 import com.hpe.msbireport.mapper.MonthReportMapper;
-import com.hpe.msbireport.mapper.TotalSummaryMapper;
 import com.hpe.msbireport.service.PoiExcelService;
 import com.hpe.msbireport.utils.CommonUtils;
 import org.apache.poi.hssf.usermodel.HSSFPalette;
@@ -15,6 +13,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,18 +33,15 @@ import java.util.List;
 @Service
 public class PoiExcelServiceImpl implements PoiExcelService {
 
+    private static final Logger log = LoggerFactory.getLogger(PoiExcelServiceImpl.class);
+
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+
     @Autowired
     LookupMapper lookupMapper;
 
     @Autowired
     MonthReportMapper monthReportMapper;
-
-    @Autowired
-    TotalSummaryMapper totalSummaryMapper;
-
-    @Autowired
-    LookupSummaryMapper lookupSummaryMapper;
-
 
     @Override
     public String generateExcelFileToAFixedPath(Integer monthIndicator, String path) throws Exception {
@@ -65,7 +62,7 @@ public class PoiExcelServiceImpl implements PoiExcelService {
             // monthIndicator: 201702
             List<MonthReport> monthReports = this.monthReportMapper.selectAllMonthReportsByMonth(monthIndicator);
             List<TotalSummary> totalSummaries = commonUtils.computeSummaryForMonthReportContent(monthReports); // this.totalSummaryMapper.selectAllTotalSummaryByMonth(monthIndicator);
-            List<LookupSummary> lookupSummaries = this.lookupSummaryMapper.selectAllLookupSummaryCountByMonth(monthIndicator);
+            List<LookupSummary> lookupSummaries = commonUtils.computeSummaryForMonthReportLookup(monthReports);
 
             // create excel xls sheet
             Sheet sheet = workbook.createSheet("MonthReport_daily");
@@ -1501,13 +1498,14 @@ public class PoiExcelServiceImpl implements PoiExcelService {
             }
 
             try {
-                System.out.println("Generation start .....");
+                log.info("### ATTENTION PLEASE LOG INFO : EXCEL GENERATION START AT:  {}", dateFormat.format(new Date()));
                 FileOutputStream out = new FileOutputStream(path + month + "_MonthReport_daily.xls");
                 workbook.write(out);
                 out.close();
-                System.out.println("Generation closed .....");
+                log.info("### ATTENTION PLEASE LOG INFO : Excel GENERATION COMPLETED SUCCESSFULLY:  {}", dateFormat.format(new Date()));
                 return "200";
             } catch (Exception e) {
+                log.error("### ATTENTION PLEASE LOG INFO : Excel GENERATION FAILED:  {}", dateFormat.format(new Date()));
                 return "505";
             }
         }

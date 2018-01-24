@@ -1,6 +1,7 @@
 package com.hpe.msbireport.viewResolver;
 
 import com.hpe.msbireport.view.ExcelView;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 
@@ -12,6 +13,8 @@ import java.util.Locale;
  * Date: 27/12/17
  * Description: ...
  */
+@Deprecated
+@Ignore
 public class ExcelViewResolver implements ViewResolver {
 
     /*

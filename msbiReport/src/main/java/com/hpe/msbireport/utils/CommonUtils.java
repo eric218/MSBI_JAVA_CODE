@@ -929,11 +929,487 @@ public class CommonUtils {
     }
 
 
-    public Map<List<TotalSummary>, List<LookupSummary>> computeSummaryForMonthReportLookup(List<MonthReport> monthReportList) {
-        List<LookupSummary> lookupSummaries;
+    public List<LookupSummary> computeSummaryForMonthReportLookup(List<MonthReport> monthReportList) {
+        LookupSummary lookupSummaryCode1 = new LookupSummary();
+        LookupSummary lookupSummaryCode2 = new LookupSummary();
+        LookupSummary lookupSummaryCode3 = new LookupSummary();
+        LookupSummary lookupSummaryCode4 = new LookupSummary();
+        LookupSummary lookupSummaryCode5 = new LookupSummary();
+        LookupSummary lookupSummaryCode6 = new LookupSummary();
+        List<LookupSummary> lookupSummaries = new ArrayList<LookupSummary>();
+
+        lookupSummaryCode1.setId(1);
+        lookupSummaryCode2.setId(2);
+        lookupSummaryCode3.setId(3);
+        lookupSummaryCode4.setId(4);
+        lookupSummaryCode5.setId(5);
+        lookupSummaryCode6.setId(6);
+        int code_0 = 0;
+        int code_1 = 0;
+        int code_2 = 0;
+        int code_3 = 0;
+        int code_4 = 0;
+        int code_5 = 0;
+
+        for (MonthReport monthReport : monthReportList) {
+
+            if (monthReport.getDay011() != null && monthReport.getDay011().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay011() != null && monthReport.getDay011().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay011() != null && monthReport.getDay011().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay011() != null && monthReport.getDay011().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay011() != null && monthReport.getDay011().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay011() != null && monthReport.getDay011().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+            // day 2
+            if (monthReport.getDay021() != null && monthReport.getDay021().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay021() != null && monthReport.getDay021().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay021() != null && monthReport.getDay021().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay021() != null && monthReport.getDay021().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay021() != null && monthReport.getDay021().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay021() != null && monthReport.getDay021().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+            // day 3
+            if (monthReport.getDay031() != null && monthReport.getDay031().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay031() != null && monthReport.getDay031().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay031() != null && monthReport.getDay031().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay031() != null && monthReport.getDay031().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay031() != null && monthReport.getDay031().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay031() != null && monthReport.getDay031().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+            // day 4
+            if (monthReport.getDay041() != null && monthReport.getDay041().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay041() != null && monthReport.getDay041().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay041() != null && monthReport.getDay041().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay041() != null && monthReport.getDay041().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay041() != null && monthReport.getDay041().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay041() != null && monthReport.getDay041().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+            // day 5
+            if (monthReport.getDay051() != null && monthReport.getDay051().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay051() != null && monthReport.getDay051().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay051() != null && monthReport.getDay051().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay051() != null && monthReport.getDay051().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay051() != null && monthReport.getDay051().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay051() != null && monthReport.getDay051().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+            // day 6
+            if (monthReport.getDay061() != null && monthReport.getDay061().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay061() != null && monthReport.getDay061().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay061() != null && monthReport.getDay061().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay061() != null && monthReport.getDay061().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay061() != null && monthReport.getDay061().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay061() != null && monthReport.getDay061().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+            // day 7
+            if (monthReport.getDay071() != null && monthReport.getDay071().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay071() != null && monthReport.getDay071().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay071() != null && monthReport.getDay071().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay071() != null && monthReport.getDay071().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay071() != null && monthReport.getDay071().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay071() != null && monthReport.getDay071().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+            // day 8
+            if (monthReport.getDay081() != null && monthReport.getDay081().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay081() != null && monthReport.getDay081().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay081() != null && monthReport.getDay081().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay081() != null && monthReport.getDay081().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay081() != null && monthReport.getDay081().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay081() != null && monthReport.getDay081().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+            // day 9
+            if (monthReport.getDay091() != null && monthReport.getDay091().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay091() != null && monthReport.getDay091().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay091() != null && monthReport.getDay091().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay091() != null && monthReport.getDay091().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay091() != null && monthReport.getDay091().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay091() != null && monthReport.getDay091().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+            // day 10
+            if (monthReport.getDay101() != null && monthReport.getDay101().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay101() != null && monthReport.getDay101().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay101() != null && monthReport.getDay101().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay101() != null && monthReport.getDay101().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay101() != null && monthReport.getDay101().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay101() != null && monthReport.getDay101().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+            // day 11m
+            if (monthReport.getDay111() != null && monthReport.getDay111().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay111() != null && monthReport.getDay111().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay111() != null && monthReport.getDay111().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay111() != null && monthReport.getDay111().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay111() != null && monthReport.getDay111().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay111() != null && monthReport.getDay111().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay121() != null && monthReport.getDay121().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay121() != null && monthReport.getDay121().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay121() != null && monthReport.getDay121().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay121() != null && monthReport.getDay121().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay121() != null && monthReport.getDay121().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay121() != null && monthReport.getDay121().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay131() != null && monthReport.getDay131().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay131() != null && monthReport.getDay131().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay131() != null && monthReport.getDay131().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay131() != null && monthReport.getDay131().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay131() != null && monthReport.getDay131().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay131() != null && monthReport.getDay131().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay141() != null && monthReport.getDay141().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay141() != null && monthReport.getDay141().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay141() != null && monthReport.getDay141().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay141() != null && monthReport.getDay141().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay141() != null && monthReport.getDay141().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay141() != null && monthReport.getDay141().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay151() != null && monthReport.getDay151().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay151() != null && monthReport.getDay151().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay151() != null && monthReport.getDay151().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay151() != null && monthReport.getDay151().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay151() != null && monthReport.getDay151().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay151() != null && monthReport.getDay151().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay161() != null && monthReport.getDay161().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay161() != null && monthReport.getDay161().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay161() != null && monthReport.getDay161().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay161() != null && monthReport.getDay161().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay161() != null && monthReport.getDay161().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay161() != null && monthReport.getDay161().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay171() != null && monthReport.getDay171().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay171() != null && monthReport.getDay171().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay171() != null && monthReport.getDay171().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay171() != null && monthReport.getDay171().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay171() != null && monthReport.getDay171().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay171() != null && monthReport.getDay171().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay181() != null && monthReport.getDay181().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay181() != null && monthReport.getDay181().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay181() != null && monthReport.getDay181().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay181() != null && monthReport.getDay181().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay181() != null && monthReport.getDay181().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay181() != null && monthReport.getDay181().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay191() != null && monthReport.getDay191().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay191() != null && monthReport.getDay191().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay191() != null && monthReport.getDay191().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay191() != null && monthReport.getDay191().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay191() != null && monthReport.getDay191().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay191() != null && monthReport.getDay191().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay201() != null && monthReport.getDay201().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay201() != null && monthReport.getDay201().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay201() != null && monthReport.getDay201().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay201() != null && monthReport.getDay201().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay201() != null && monthReport.getDay201().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay201() != null && monthReport.getDay201().equalsIgnoreCase("5")) {
+                code_5++;
+            }
 
 
-        return null;
+            if (monthReport.getDay211() != null && monthReport.getDay211().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay211() != null && monthReport.getDay211().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay211() != null && monthReport.getDay211().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay211() != null && monthReport.getDay211().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay211() != null && monthReport.getDay211().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay211() != null && monthReport.getDay211().equalsIgnoreCase("5")) {
+                code_5++;
+            }
 
+            if (monthReport.getDay221() != null && monthReport.getDay221().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay221() != null && monthReport.getDay221().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay221() != null && monthReport.getDay221().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay221() != null && monthReport.getDay221().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay221() != null && monthReport.getDay221().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay221() != null && monthReport.getDay221().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay231() != null && monthReport.getDay231().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay231() != null && monthReport.getDay231().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay231() != null && monthReport.getDay231().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay231() != null && monthReport.getDay231().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay231() != null && monthReport.getDay231().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay231() != null && monthReport.getDay231().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay241() != null && monthReport.getDay241().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay241() != null && monthReport.getDay241().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay241() != null && monthReport.getDay241().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay241() != null && monthReport.getDay241().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay241() != null && monthReport.getDay241().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay241() != null && monthReport.getDay241().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay251() != null && monthReport.getDay251().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay251() != null && monthReport.getDay251().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay251() != null && monthReport.getDay251().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay251() != null && monthReport.getDay251().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay251() != null && monthReport.getDay251().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay251() != null && monthReport.getDay251().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay261() != null && monthReport.getDay261().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay261() != null && monthReport.getDay261().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay261() != null && monthReport.getDay261().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay261() != null && monthReport.getDay261().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay261() != null && monthReport.getDay261().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay261() != null && monthReport.getDay261().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay271() != null && monthReport.getDay271().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay271() != null && monthReport.getDay271().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay271() != null && monthReport.getDay271().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay271() != null && monthReport.getDay271().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay271() != null && monthReport.getDay271().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay271() != null && monthReport.getDay271().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay291() != null && monthReport.getDay291().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay291() != null && monthReport.getDay291().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay291() != null && monthReport.getDay291().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay291() != null && monthReport.getDay291().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay291() != null && monthReport.getDay291().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay291() != null && monthReport.getDay291().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay301() != null && monthReport.getDay301().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay301() != null && monthReport.getDay301().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay301() != null && monthReport.getDay301().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay301() != null && monthReport.getDay301().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay301() != null && monthReport.getDay301().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay301() != null && monthReport.getDay301().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+            if (monthReport.getDay311() != null && monthReport.getDay311().equalsIgnoreCase("0")) {
+                code_0++;
+            } else if (monthReport.getDay311() != null && monthReport.getDay311().equalsIgnoreCase("1")) {
+                code_1++;
+            } else if (monthReport.getDay311() != null && monthReport.getDay311().equalsIgnoreCase("2")) {
+                code_2++;
+            } else if (monthReport.getDay311() != null && monthReport.getDay311().equalsIgnoreCase("3")) {
+                code_3++;
+            } else if (monthReport.getDay311() != null && monthReport.getDay311().equalsIgnoreCase("4")) {
+                code_4++;
+            } else if (monthReport.getDay311() != null && monthReport.getDay311().equalsIgnoreCase("5")) {
+                code_5++;
+            }
+
+        }
+
+        lookupSummaryCode1.setId(1);
+        lookupSummaryCode2.setId(2);
+        lookupSummaryCode3.setId(3);
+        lookupSummaryCode4.setId(4);
+        lookupSummaryCode5.setId(5);
+        lookupSummaryCode6.setId(6);
+
+        lookupSummaryCode1.setCount(code_1);
+        lookupSummaryCode2.setCount(code_2);
+        lookupSummaryCode3.setCount(code_3);
+        lookupSummaryCode4.setCount(code_4);
+        lookupSummaryCode5.setCount(code_0);
+        lookupSummaryCode6.setCount(code_5);
+
+        lookupSummaries.add(0, lookupSummaryCode1);
+        lookupSummaries.add(1, lookupSummaryCode2);
+        lookupSummaries.add(2, lookupSummaryCode3);
+        lookupSummaries.add(3, lookupSummaryCode4);
+        lookupSummaries.add(4, lookupSummaryCode5);
+        lookupSummaries.add(5, lookupSummaryCode6);
+        return lookupSummaries;
     }
 }

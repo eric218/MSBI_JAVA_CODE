@@ -1,6 +1,7 @@
 package com.hpe.msbireport.config;
 
 import com.hpe.msbireport.viewResolver.ExcelViewResolver;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -32,6 +33,8 @@ public class WebContentConfig extends WebMvcConfigurerAdapter {
      * Configure ContentNegotiatingViewResolver
      */
     @Bean
+    @Deprecated
+    @Ignore
     public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager) {
         ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
         resolver.setContentNegotiationManager(manager);
@@ -48,6 +51,8 @@ public class WebContentConfig extends WebMvcConfigurerAdapter {
      * generate XLS output for an object content
      */
     @Bean
+    @Deprecated
+    @Ignore
     public ViewResolver excelViewResolver() {
         return new ExcelViewResolver();
     }

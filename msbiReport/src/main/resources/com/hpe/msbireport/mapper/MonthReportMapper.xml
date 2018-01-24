@@ -1,104 +1,103 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hpe.msbireport.mapper.MonthReportMapper">
-    <resultMap id="BaseResultMap" type="com.hpe.msbireport.domain.MonthReport">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="month_indicator" property="monthIndicator" jdbcType="INTEGER"/>
-        <result column="server_name" property="serverName" jdbcType="VARCHAR"/>
-        <result column="schedule_name" property="scheduleName" jdbcType="VARCHAR"/>
-        <result column="date_of_week" property="dateOfWeek" jdbcType="VARCHAR"/>
-        <result column="each_month" property="eachMonth" jdbcType="VARCHAR"/>
-        <result column="date_of_month" property="dateOfMonth" jdbcType="VARCHAR"/>
-        <result column="week_of_month" property="weekOfMonth" jdbcType="VARCHAR"/>
-        <result column="bsr" property="bsr" jdbcType="VARCHAR"/>
-        <result column="total_schedule" property="totalSchedule" jdbcType="VARCHAR"/>
-        <result column="total_successful" property="totalSuccessful" jdbcType="VARCHAR"/>
-        <result column="SCHED_STYLE" property="schedStyle" jdbcType="VARCHAR" />
-        <result column="day_01_1" property="day011" jdbcType="VARCHAR"/>
-        <result column="day_01_2" property="day012" jdbcType="VARCHAR"/>
-        <result column="day_02_1" property="day021" jdbcType="VARCHAR"/>
-        <result column="day_02_2" property="day022" jdbcType="VARCHAR"/>
-        <result column="day_03_1" property="day031" jdbcType="VARCHAR"/>
-        <result column="day_03_2" property="day032" jdbcType="VARCHAR"/>
-        <result column="day_04_1" property="day041" jdbcType="VARCHAR"/>
-        <result column="day_04_2" property="day042" jdbcType="VARCHAR"/>
-        <result column="day_05_1" property="day051" jdbcType="VARCHAR"/>
-        <result column="day_05_2" property="day052" jdbcType="VARCHAR"/>
-        <result column="day_06_1" property="day061" jdbcType="VARCHAR"/>
-        <result column="day_06_2" property="day062" jdbcType="VARCHAR"/>
-        <result column="day_07_1" property="day071" jdbcType="VARCHAR"/>
-        <result column="day_07_2" property="day072" jdbcType="VARCHAR"/>
-        <result column="day_08_1" property="day081" jdbcType="VARCHAR"/>
-        <result column="day_08_2" property="day082" jdbcType="VARCHAR"/>
-        <result column="day_09_1" property="day091" jdbcType="VARCHAR"/>
-        <result column="day_09_2" property="day092" jdbcType="VARCHAR"/>
-        <result column="day_10_1" property="day101" jdbcType="VARCHAR"/>
-        <result column="day_10_2" property="day102" jdbcType="VARCHAR"/>
-        <result column="day_11_1" property="day111" jdbcType="VARCHAR"/>
-        <result column="day_11_2" property="day112" jdbcType="VARCHAR"/>
-        <result column="day_12_1" property="day121" jdbcType="VARCHAR"/>
-        <result column="day_12_2" property="day122" jdbcType="VARCHAR"/>
-        <result column="day_13_1" property="day131" jdbcType="VARCHAR"/>
-        <result column="day_13_2" property="day132" jdbcType="VARCHAR"/>
-        <result column="day_14_1" property="day141" jdbcType="VARCHAR"/>
-        <result column="day_14_2" property="day142" jdbcType="VARCHAR"/>
-        <result column="day_15_1" property="day151" jdbcType="VARCHAR"/>
-        <result column="day_15_2" property="day152" jdbcType="VARCHAR"/>
-        <result column="day_16_1" property="day161" jdbcType="VARCHAR"/>
-        <result column="day_16_2" property="day162" jdbcType="VARCHAR"/>
-        <result column="day_17_1" property="day171" jdbcType="VARCHAR"/>
-        <result column="day_17_2" property="day172" jdbcType="VARCHAR"/>
-        <result column="day_18_1" property="day181" jdbcType="VARCHAR"/>
-        <result column="day_18_2" property="day182" jdbcType="VARCHAR"/>
-        <result column="day_19_1" property="day191" jdbcType="VARCHAR"/>
-        <result column="day_19_2" property="day192" jdbcType="VARCHAR"/>
-        <result column="day_20_1" property="day201" jdbcType="VARCHAR"/>
-        <result column="day_20_2" property="day202" jdbcType="VARCHAR"/>
-        <result column="day_21_1" property="day211" jdbcType="VARCHAR"/>
-        <result column="day_21_2" property="day212" jdbcType="VARCHAR"/>
-        <result column="day_22_1" property="day221" jdbcType="VARCHAR"/>
-        <result column="day_22_2" property="day222" jdbcType="VARCHAR"/>
-        <result column="day_23_1" property="day231" jdbcType="VARCHAR"/>
-        <result column="day_23_2" property="day232" jdbcType="VARCHAR"/>
-        <result column="day_24_1" property="day241" jdbcType="VARCHAR"/>
-        <result column="day_24_2" property="day242" jdbcType="VARCHAR"/>
-        <result column="day_25_1" property="day251" jdbcType="VARCHAR"/>
-        <result column="day_25_2" property="day252" jdbcType="VARCHAR"/>
-        <result column="day_26_1" property="day261" jdbcType="VARCHAR"/>
-        <result column="day_26_2" property="day262" jdbcType="VARCHAR"/>
-        <result column="day_27_1" property="day271" jdbcType="VARCHAR"/>
-        <result column="day_27_2" property="day272" jdbcType="VARCHAR"/>
-        <result column="day_28_1" property="day281" jdbcType="VARCHAR"/>
-        <result column="day_28_2" property="day282" jdbcType="VARCHAR"/>
-        <result column="day_29_1" property="day291" jdbcType="VARCHAR"/>
-        <result column="day_29_2" property="day292" jdbcType="VARCHAR"/>
-        <result column="day_30_1" property="day301" jdbcType="VARCHAR"/>
-        <result column="day_30_2" property="day302" jdbcType="VARCHAR"/>
-        <result column="day_31_1" property="day311" jdbcType="VARCHAR"/>
-        <result column="day_31_2" property="day312" jdbcType="VARCHAR"/>
-        <result column="PERUNITS" property="perunits" jdbcType="VARCHAR" />
-    	<result column="PERIOD" property="period" jdbcType="INTEGER" />
+<mapper namespace="com.hpe.msbireport.mapper.MonthReportMapper" >
+    <resultMap id="BaseResultMap" type="com.hpe.msbireport.domain.MonthReport" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="month_indicator" property="monthIndicator" jdbcType="INTEGER" />
+        <result column="server_name" property="serverName" jdbcType="VARCHAR" />
+        <result column="schedule_name" property="scheduleName" jdbcType="VARCHAR" />
+        <result column="sched_style" property="schedStyle" jdbcType="VARCHAR" />
+        <result column="date_of_week" property="dateOfWeek" jdbcType="VARCHAR" />
+        <result column="each_month" property="eachMonth" jdbcType="VARCHAR" />
+        <result column="date_of_month" property="dateOfMonth" jdbcType="VARCHAR" />
+        <result column="week_of_month" property="weekOfMonth" jdbcType="VARCHAR" />
+        <result column="perunits" property="perunits" jdbcType="VARCHAR" />
+        <result column="period" property="period" jdbcType="INTEGER" />
+        <result column="bsr" property="bsr" jdbcType="VARCHAR" />
+        <result column="total_schedule" property="totalSchedule" jdbcType="VARCHAR" />
+        <result column="total_successful" property="totalSuccessful" jdbcType="VARCHAR" />
+        <result column="day_01_1" property="day011" jdbcType="VARCHAR" />
+        <result column="day_01_2" property="day012" jdbcType="VARCHAR" />
+        <result column="day_02_1" property="day021" jdbcType="VARCHAR" />
+        <result column="day_02_2" property="day022" jdbcType="VARCHAR" />
+        <result column="day_03_1" property="day031" jdbcType="VARCHAR" />
+        <result column="day_03_2" property="day032" jdbcType="VARCHAR" />
+        <result column="day_04_1" property="day041" jdbcType="VARCHAR" />
+        <result column="day_04_2" property="day042" jdbcType="VARCHAR" />
+        <result column="day_05_1" property="day051" jdbcType="VARCHAR" />
+        <result column="day_05_2" property="day052" jdbcType="VARCHAR" />
+        <result column="day_06_1" property="day061" jdbcType="VARCHAR" />
+        <result column="day_06_2" property="day062" jdbcType="VARCHAR" />
+        <result column="day_07_1" property="day071" jdbcType="VARCHAR" />
+        <result column="day_07_2" property="day072" jdbcType="VARCHAR" />
+        <result column="day_08_1" property="day081" jdbcType="VARCHAR" />
+        <result column="day_08_2" property="day082" jdbcType="VARCHAR" />
+        <result column="day_09_1" property="day091" jdbcType="VARCHAR" />
+        <result column="day_09_2" property="day092" jdbcType="VARCHAR" />
+        <result column="day_10_1" property="day101" jdbcType="VARCHAR" />
+        <result column="day_10_2" property="day102" jdbcType="VARCHAR" />
+        <result column="day_11_1" property="day111" jdbcType="VARCHAR" />
+        <result column="day_11_2" property="day112" jdbcType="VARCHAR" />
+        <result column="day_12_1" property="day121" jdbcType="VARCHAR" />
+        <result column="day_12_2" property="day122" jdbcType="VARCHAR" />
+        <result column="day_13_1" property="day131" jdbcType="VARCHAR" />
+        <result column="day_13_2" property="day132" jdbcType="VARCHAR" />
+        <result column="day_14_1" property="day141" jdbcType="VARCHAR" />
+        <result column="day_14_2" property="day142" jdbcType="VARCHAR" />
+        <result column="day_15_1" property="day151" jdbcType="VARCHAR" />
+        <result column="day_15_2" property="day152" jdbcType="VARCHAR" />
+        <result column="day_16_1" property="day161" jdbcType="VARCHAR" />
+        <result column="day_16_2" property="day162" jdbcType="VARCHAR" />
+        <result column="day_17_1" property="day171" jdbcType="VARCHAR" />
+        <result column="day_17_2" property="day172" jdbcType="VARCHAR" />
+        <result column="day_18_1" property="day181" jdbcType="VARCHAR" />
+        <result column="day_18_2" property="day182" jdbcType="VARCHAR" />
+        <result column="day_19_1" property="day191" jdbcType="VARCHAR" />
+        <result column="day_19_2" property="day192" jdbcType="VARCHAR" />
+        <result column="day_20_1" property="day201" jdbcType="VARCHAR" />
+        <result column="day_20_2" property="day202" jdbcType="VARCHAR" />
+        <result column="day_21_1" property="day211" jdbcType="VARCHAR" />
+        <result column="day_21_2" property="day212" jdbcType="VARCHAR" />
+        <result column="day_22_1" property="day221" jdbcType="VARCHAR" />
+        <result column="day_22_2" property="day222" jdbcType="VARCHAR" />
+        <result column="day_23_1" property="day231" jdbcType="VARCHAR" />
+        <result column="day_23_2" property="day232" jdbcType="VARCHAR" />
+        <result column="day_24_1" property="day241" jdbcType="VARCHAR" />
+        <result column="day_24_2" property="day242" jdbcType="VARCHAR" />
+        <result column="day_25_1" property="day251" jdbcType="VARCHAR" />
+        <result column="day_25_2" property="day252" jdbcType="VARCHAR" />
+        <result column="day_26_1" property="day261" jdbcType="VARCHAR" />
+        <result column="day_26_2" property="day262" jdbcType="VARCHAR" />
+        <result column="day_27_1" property="day271" jdbcType="VARCHAR" />
+        <result column="day_27_2" property="day272" jdbcType="VARCHAR" />
+        <result column="day_28_1" property="day281" jdbcType="VARCHAR" />
+        <result column="day_28_2" property="day282" jdbcType="VARCHAR" />
+        <result column="day_29_1" property="day291" jdbcType="VARCHAR" />
+        <result column="day_29_2" property="day292" jdbcType="VARCHAR" />
+        <result column="day_30_1" property="day301" jdbcType="VARCHAR" />
+        <result column="day_30_2" property="day302" jdbcType="VARCHAR" />
+        <result column="day_31_1" property="day311" jdbcType="VARCHAR" />
+        <result column="day_31_2" property="day312" jdbcType="VARCHAR" />
     </resultMap>
-    <sql id="Example_Where_Clause">
-        <where>
-            <foreach collection="oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" suffix=")" prefixOverrides="and">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
                                     and ${criterion.condition}
                                 </when>
-                                <when test="criterion.singleValue">
+                                <when test="criterion.singleValue" >
                                     and ${criterion.condition} #{criterion.value}
                                 </when>
-                                <when test="criterion.betweenValue">
+                                <when test="criterion.betweenValue" >
                                     and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                                 </when>
-                                <when test="criterion.listValue">
+                                <when test="criterion.listValue" >
                                     and ${criterion.condition}
-                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
-                                             separator=",">
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -109,26 +108,25 @@
             </foreach>
         </where>
     </sql>
-    <sql id="Update_By_Example_Where_Clause">
-        <where>
-            <foreach collection="example.oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" suffix=")" prefixOverrides="and">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
                                     and ${criterion.condition}
                                 </when>
-                                <when test="criterion.singleValue">
+                                <when test="criterion.singleValue" >
                                     and ${criterion.condition} #{criterion.value}
                                 </when>
-                                <when test="criterion.betweenValue">
+                                <when test="criterion.betweenValue" >
                                     and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                                 </when>
-                                <when test="criterion.listValue">
+                                <when test="criterion.listValue" >
                                     and ${criterion.condition}
-                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
-                                             separator=",">
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -139,816 +137,819 @@
             </foreach>
         </where>
     </sql>
-    <sql id="Base_Column_List">
-    id, month_indicator, server_name, schedule_name, date_of_week, each_month, date_of_month, 
-    week_of_month, bsr, total_schedule, total_successful, day_01_1, day_01_2, day_02_1, 
-    day_02_2, day_03_1, day_03_2, day_04_1, day_04_2, day_05_1, day_05_2, day_06_1, day_06_2, 
-    day_07_1, day_07_2, day_08_1, day_08_2, day_09_1, day_09_2, day_10_1, day_10_2, day_11_1, 
-    day_11_2, day_12_1, day_12_2, day_13_1, day_13_2, day_14_1, day_14_2, day_15_1, day_15_2, 
-    day_16_1, day_16_2, day_17_1, day_17_2, day_18_1, day_18_2, day_19_1, day_19_2, day_20_1, 
-    day_20_2, day_21_1, day_21_2, day_22_1, day_22_2, day_23_1, day_23_2, day_24_1, day_24_2, 
-    day_25_1, day_25_2, day_26_1, day_26_2, day_27_1, day_27_2, day_28_1, day_28_2, day_29_1, 
-    day_29_2, day_30_1, day_30_2, day_31_1, day_31_2, PERUNITS, PERIOD, SCHED_STYLE
-  </sql>
-    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hpe.msbireport.domain.MonthReportExample">
+    <sql id="Base_Column_List" >
+        id, month_indicator, server_name, schedule_name, sched_style, date_of_week, each_month,
+        date_of_month, week_of_month, perunits, period, bsr, total_schedule, total_successful,
+        day_01_1, day_01_2, day_02_1, day_02_2, day_03_1, day_03_2, day_04_1, day_04_2, day_05_1,
+        day_05_2, day_06_1, day_06_2, day_07_1, day_07_2, day_08_1, day_08_2, day_09_1, day_09_2,
+        day_10_1, day_10_2, day_11_1, day_11_2, day_12_1, day_12_2, day_13_1, day_13_2, day_14_1,
+        day_14_2, day_15_1, day_15_2, day_16_1, day_16_2, day_17_1, day_17_2, day_18_1, day_18_2,
+        day_19_1, day_19_2, day_20_1, day_20_2, day_21_1, day_21_2, day_22_1, day_22_2, day_23_1,
+        day_23_2, day_24_1, day_24_2, day_25_1, day_25_2, day_26_1, day_26_2, day_27_1, day_27_2,
+        day_28_1, day_28_2, day_29_1, day_29_2, day_30_1, day_30_2, day_31_1, day_31_2
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hpe.msbireport.domain.MonthReportExample" >
         select
-        <if test="distinct">
+        <if test="distinct" >
             distinct
         </if>
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from month_report
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
         </if>
-        <if test="orderByClause != null">
+        <if test="orderByClause != null" >
             order by ${orderByClause}
         </if>
     </select>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from month_report
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from month_report
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-    <delete id="deleteByExample" parameterType="com.hpe.msbireport.domain.MonthReportExample">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
         delete from month_report
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.hpe.msbireport.domain.MonthReportExample" >
+        delete from month_report
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
         </if>
     </delete>
-    <insert id="insert" parameterType="com.hpe.msbireport.domain.MonthReport">
-    insert into month_report (id, month_indicator, server_name, 
-      schedule_name, date_of_week, each_month, 
-      date_of_month, week_of_month, bsr, 
-      total_schedule, total_successful, day_01_1, 
-      day_01_2, day_02_1, day_02_2, 
-      day_03_1, day_03_2, day_04_1, 
-      day_04_2, day_05_1, day_05_2, 
-      day_06_1, day_06_2, day_07_1, 
-      day_07_2, day_08_1, day_08_2, 
-      day_09_1, day_09_2, day_10_1, 
-      day_10_2, day_11_1, day_11_2, 
-      day_12_1, day_12_2, day_13_1, 
-      day_13_2, day_14_1, day_14_2, 
-      day_15_1, day_15_2, day_16_1, 
-      day_16_2, day_17_1, day_17_2, 
-      day_18_1, day_18_2, day_19_1, 
-      day_19_2, day_20_1, day_20_2, 
-      day_21_1, day_21_2, day_22_1, 
-      day_22_2, day_23_1, day_23_2, 
-      day_24_1, day_24_2, day_25_1, 
-      day_25_2, day_26_1, day_26_2, 
-      day_27_1, day_27_2, day_28_1, 
-      day_28_2, day_29_1, day_29_2, 
-      day_30_1, day_30_2, day_31_1, 
-      day_31_2, PERUNITS, PERIOD, SCHED_STYLE)
-    values (#{id,jdbcType=INTEGER}, #{monthIndicator,jdbcType=INTEGER}, #{serverName,jdbcType=VARCHAR}, 
-      #{scheduleName,jdbcType=VARCHAR}, #{dateOfWeek,jdbcType=VARCHAR}, #{eachMonth,jdbcType=VARCHAR}, 
-      #{dateOfMonth,jdbcType=VARCHAR}, #{weekOfMonth,jdbcType=VARCHAR}, #{bsr,jdbcType=VARCHAR}, 
-      #{totalSchedule,jdbcType=VARCHAR}, #{totalSuccessful,jdbcType=VARCHAR}, #{day011,jdbcType=VARCHAR}, 
-      #{day012,jdbcType=VARCHAR}, #{day021,jdbcType=VARCHAR}, #{day022,jdbcType=VARCHAR}, 
-      #{day031,jdbcType=VARCHAR}, #{day032,jdbcType=VARCHAR}, #{day041,jdbcType=VARCHAR}, 
-      #{day042,jdbcType=VARCHAR}, #{day051,jdbcType=VARCHAR}, #{day052,jdbcType=VARCHAR}, 
-      #{day061,jdbcType=VARCHAR}, #{day062,jdbcType=VARCHAR}, #{day071,jdbcType=VARCHAR}, 
-      #{day072,jdbcType=VARCHAR}, #{day081,jdbcType=VARCHAR}, #{day082,jdbcType=VARCHAR}, 
-      #{day091,jdbcType=VARCHAR}, #{day092,jdbcType=VARCHAR}, #{day101,jdbcType=VARCHAR}, 
-      #{day102,jdbcType=VARCHAR}, #{day111,jdbcType=VARCHAR}, #{day112,jdbcType=VARCHAR}, 
-      #{day121,jdbcType=VARCHAR}, #{day122,jdbcType=VARCHAR}, #{day131,jdbcType=VARCHAR}, 
-      #{day132,jdbcType=VARCHAR}, #{day141,jdbcType=VARCHAR}, #{day142,jdbcType=VARCHAR}, 
-      #{day151,jdbcType=VARCHAR}, #{day152,jdbcType=VARCHAR}, #{day161,jdbcType=VARCHAR}, 
-      #{day162,jdbcType=VARCHAR}, #{day171,jdbcType=VARCHAR}, #{day172,jdbcType=VARCHAR}, 
-      #{day181,jdbcType=VARCHAR}, #{day182,jdbcType=VARCHAR}, #{day191,jdbcType=VARCHAR}, 
-      #{day192,jdbcType=VARCHAR}, #{day201,jdbcType=VARCHAR}, #{day202,jdbcType=VARCHAR}, 
-      #{day211,jdbcType=VARCHAR}, #{day212,jdbcType=VARCHAR}, #{day221,jdbcType=VARCHAR}, 
-      #{day222,jdbcType=VARCHAR}, #{day231,jdbcType=VARCHAR}, #{day232,jdbcType=VARCHAR}, 
-      #{day241,jdbcType=VARCHAR}, #{day242,jdbcType=VARCHAR}, #{day251,jdbcType=VARCHAR}, 
-      #{day252,jdbcType=VARCHAR}, #{day261,jdbcType=VARCHAR}, #{day262,jdbcType=VARCHAR}, 
-      #{day271,jdbcType=VARCHAR}, #{day272,jdbcType=VARCHAR}, #{day281,jdbcType=VARCHAR}, 
-      #{day282,jdbcType=VARCHAR}, #{day291,jdbcType=VARCHAR}, #{day292,jdbcType=VARCHAR}, 
-      #{day301,jdbcType=VARCHAR}, #{day302,jdbcType=VARCHAR}, #{day311,jdbcType=VARCHAR}, 
-      #{day312,jdbcType=VARCHAR}, #{perunits,jdbcType=VARCHAR}, #{period,jdbcType=INTEGER},
-      #{schedStyle,jdbcType=VARCHAR})
-  </insert>
-    <insert id="insertSelective" parameterType="com.hpe.msbireport.domain.MonthReport">
+    <insert id="insert" parameterType="com.hpe.msbireport.domain.MonthReport" >
+        insert into month_report (id, month_indicator, server_name,
+        schedule_name, sched_style, date_of_week,
+        each_month, date_of_month, week_of_month,
+        perunits, period, bsr,
+        total_schedule, total_successful, day_01_1,
+        day_01_2, day_02_1, day_02_2,
+        day_03_1, day_03_2, day_04_1,
+        day_04_2, day_05_1, day_05_2,
+        day_06_1, day_06_2, day_07_1,
+        day_07_2, day_08_1, day_08_2,
+        day_09_1, day_09_2, day_10_1,
+        day_10_2, day_11_1, day_11_2,
+        day_12_1, day_12_2, day_13_1,
+        day_13_2, day_14_1, day_14_2,
+        day_15_1, day_15_2, day_16_1,
+        day_16_2, day_17_1, day_17_2,
+        day_18_1, day_18_2, day_19_1,
+        day_19_2, day_20_1, day_20_2,
+        day_21_1, day_21_2, day_22_1,
+        day_22_2, day_23_1, day_23_2,
+        day_24_1, day_24_2, day_25_1,
+        day_25_2, day_26_1, day_26_2,
+        day_27_1, day_27_2, day_28_1,
+        day_28_2, day_29_1, day_29_2,
+        day_30_1, day_30_2, day_31_1,
+        day_31_2)
+        values (#{id,jdbcType=INTEGER}, #{monthIndicator,jdbcType=INTEGER}, #{serverName,jdbcType=VARCHAR},
+        #{scheduleName,jdbcType=VARCHAR}, #{schedStyle,jdbcType=VARCHAR}, #{dateOfWeek,jdbcType=VARCHAR},
+        #{eachMonth,jdbcType=VARCHAR}, #{dateOfMonth,jdbcType=VARCHAR}, #{weekOfMonth,jdbcType=VARCHAR},
+        #{perunits,jdbcType=VARCHAR}, #{period,jdbcType=INTEGER}, #{bsr,jdbcType=VARCHAR},
+        #{totalSchedule,jdbcType=VARCHAR}, #{totalSuccessful,jdbcType=VARCHAR}, #{day011,jdbcType=VARCHAR},
+        #{day012,jdbcType=VARCHAR}, #{day021,jdbcType=VARCHAR}, #{day022,jdbcType=VARCHAR},
+        #{day031,jdbcType=VARCHAR}, #{day032,jdbcType=VARCHAR}, #{day041,jdbcType=VARCHAR},
+        #{day042,jdbcType=VARCHAR}, #{day051,jdbcType=VARCHAR}, #{day052,jdbcType=VARCHAR},
+        #{day061,jdbcType=VARCHAR}, #{day062,jdbcType=VARCHAR}, #{day071,jdbcType=VARCHAR},
+        #{day072,jdbcType=VARCHAR}, #{day081,jdbcType=VARCHAR}, #{day082,jdbcType=VARCHAR},
+        #{day091,jdbcType=VARCHAR}, #{day092,jdbcType=VARCHAR}, #{day101,jdbcType=VARCHAR},
+        #{day102,jdbcType=VARCHAR}, #{day111,jdbcType=VARCHAR}, #{day112,jdbcType=VARCHAR},
+        #{day121,jdbcType=VARCHAR}, #{day122,jdbcType=VARCHAR}, #{day131,jdbcType=VARCHAR},
+        #{day132,jdbcType=VARCHAR}, #{day141,jdbcType=VARCHAR}, #{day142,jdbcType=VARCHAR},
+        #{day151,jdbcType=VARCHAR}, #{day152,jdbcType=VARCHAR}, #{day161,jdbcType=VARCHAR},
+        #{day162,jdbcType=VARCHAR}, #{day171,jdbcType=VARCHAR}, #{day172,jdbcType=VARCHAR},
+        #{day181,jdbcType=VARCHAR}, #{day182,jdbcType=VARCHAR}, #{day191,jdbcType=VARCHAR},
+        #{day192,jdbcType=VARCHAR}, #{day201,jdbcType=VARCHAR}, #{day202,jdbcType=VARCHAR},
+        #{day211,jdbcType=VARCHAR}, #{day212,jdbcType=VARCHAR}, #{day221,jdbcType=VARCHAR},
+        #{day222,jdbcType=VARCHAR}, #{day231,jdbcType=VARCHAR}, #{day232,jdbcType=VARCHAR},
+        #{day241,jdbcType=VARCHAR}, #{day242,jdbcType=VARCHAR}, #{day251,jdbcType=VARCHAR},
+        #{day252,jdbcType=VARCHAR}, #{day261,jdbcType=VARCHAR}, #{day262,jdbcType=VARCHAR},
+        #{day271,jdbcType=VARCHAR}, #{day272,jdbcType=VARCHAR}, #{day281,jdbcType=VARCHAR},
+        #{day282,jdbcType=VARCHAR}, #{day291,jdbcType=VARCHAR}, #{day292,jdbcType=VARCHAR},
+        #{day301,jdbcType=VARCHAR}, #{day302,jdbcType=VARCHAR}, #{day311,jdbcType=VARCHAR},
+        #{day312,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hpe.msbireport.domain.MonthReport" >
         insert into month_report
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
                 id,
             </if>
-            <if test="monthIndicator != null">
+            <if test="monthIndicator != null" >
                 month_indicator,
             </if>
-            <if test="serverName != null">
+            <if test="serverName != null" >
                 server_name,
             </if>
-            <if test="scheduleName != null">
+            <if test="scheduleName != null" >
                 schedule_name,
             </if>
-            <if test="dateOfWeek != null">
+            <if test="schedStyle != null" >
+                sched_style,
+            </if>
+            <if test="dateOfWeek != null" >
                 date_of_week,
             </if>
-            <if test="eachMonth != null">
+            <if test="eachMonth != null" >
                 each_month,
             </if>
-            <if test="dateOfMonth != null">
+            <if test="dateOfMonth != null" >
                 date_of_month,
             </if>
-            <if test="weekOfMonth != null">
+            <if test="weekOfMonth != null" >
                 week_of_month,
             </if>
-            <if test="bsr != null">
+            <if test="perunits != null" >
+                perunits,
+            </if>
+            <if test="period != null" >
+                period,
+            </if>
+            <if test="bsr != null" >
                 bsr,
             </if>
-            <if test="totalSchedule != null">
+            <if test="totalSchedule != null" >
                 total_schedule,
             </if>
-            <if test="totalSuccessful != null">
+            <if test="totalSuccessful != null" >
                 total_successful,
             </if>
-            <if test="day011 != null">
+            <if test="day011 != null" >
                 day_01_1,
             </if>
-            <if test="day012 != null">
+            <if test="day012 != null" >
                 day_01_2,
             </if>
-            <if test="day021 != null">
+            <if test="day021 != null" >
                 day_02_1,
             </if>
-            <if test="day022 != null">
+            <if test="day022 != null" >
                 day_02_2,
             </if>
-            <if test="day031 != null">
+            <if test="day031 != null" >
                 day_03_1,
             </if>
-            <if test="day032 != null">
+            <if test="day032 != null" >
                 day_03_2,
             </if>
-            <if test="day041 != null">
+            <if test="day041 != null" >
                 day_04_1,
             </if>
-            <if test="day042 != null">
+            <if test="day042 != null" >
                 day_04_2,
             </if>
-            <if test="day051 != null">
+            <if test="day051 != null" >
                 day_05_1,
             </if>
-            <if test="day052 != null">
+            <if test="day052 != null" >
                 day_05_2,
             </if>
-            <if test="day061 != null">
+            <if test="day061 != null" >
                 day_06_1,
             </if>
-            <if test="day062 != null">
+            <if test="day062 != null" >
                 day_06_2,
             </if>
-            <if test="day071 != null">
+            <if test="day071 != null" >
                 day_07_1,
             </if>
-            <if test="day072 != null">
+            <if test="day072 != null" >
                 day_07_2,
             </if>
-            <if test="day081 != null">
+            <if test="day081 != null" >
                 day_08_1,
             </if>
-            <if test="day082 != null">
+            <if test="day082 != null" >
                 day_08_2,
             </if>
-            <if test="day091 != null">
+            <if test="day091 != null" >
                 day_09_1,
             </if>
-            <if test="day092 != null">
+            <if test="day092 != null" >
                 day_09_2,
             </if>
-            <if test="day101 != null">
+            <if test="day101 != null" >
                 day_10_1,
             </if>
-            <if test="day102 != null">
+            <if test="day102 != null" >
                 day_10_2,
             </if>
-            <if test="day111 != null">
+            <if test="day111 != null" >
                 day_11_1,
             </if>
-            <if test="day112 != null">
+            <if test="day112 != null" >
                 day_11_2,
             </if>
-            <if test="day121 != null">
+            <if test="day121 != null" >
                 day_12_1,
             </if>
-            <if test="day122 != null">
+            <if test="day122 != null" >
                 day_12_2,
             </if>
-            <if test="day131 != null">
+            <if test="day131 != null" >
                 day_13_1,
             </if>
-            <if test="day132 != null">
+            <if test="day132 != null" >
                 day_13_2,
             </if>
-            <if test="day141 != null">
+            <if test="day141 != null" >
                 day_14_1,
             </if>
-            <if test="day142 != null">
+            <if test="day142 != null" >
                 day_14_2,
             </if>
-            <if test="day151 != null">
+            <if test="day151 != null" >
                 day_15_1,
             </if>
-            <if test="day152 != null">
+            <if test="day152 != null" >
                 day_15_2,
             </if>
-            <if test="day161 != null">
+            <if test="day161 != null" >
                 day_16_1,
             </if>
-            <if test="day162 != null">
+            <if test="day162 != null" >
                 day_16_2,
             </if>
-            <if test="day171 != null">
+            <if test="day171 != null" >
                 day_17_1,
             </if>
-            <if test="day172 != null">
+            <if test="day172 != null" >
                 day_17_2,
             </if>
-            <if test="day181 != null">
+            <if test="day181 != null" >
                 day_18_1,
             </if>
-            <if test="day182 != null">
+            <if test="day182 != null" >
                 day_18_2,
             </if>
-            <if test="day191 != null">
+            <if test="day191 != null" >
                 day_19_1,
             </if>
-            <if test="day192 != null">
+            <if test="day192 != null" >
                 day_19_2,
             </if>
-            <if test="day201 != null">
+            <if test="day201 != null" >
                 day_20_1,
             </if>
-            <if test="day202 != null">
+            <if test="day202 != null" >
                 day_20_2,
             </if>
-            <if test="day211 != null">
+            <if test="day211 != null" >
                 day_21_1,
             </if>
-            <if test="day212 != null">
+            <if test="day212 != null" >
                 day_21_2,
             </if>
-            <if test="day221 != null">
+            <if test="day221 != null" >
                 day_22_1,
             </if>
-            <if test="day222 != null">
+            <if test="day222 != null" >
                 day_22_2,
             </if>
-            <if test="day231 != null">
+            <if test="day231 != null" >
                 day_23_1,
             </if>
-            <if test="day232 != null">
+            <if test="day232 != null" >
                 day_23_2,
             </if>
-            <if test="day241 != null">
+            <if test="day241 != null" >
                 day_24_1,
             </if>
-            <if test="day242 != null">
+            <if test="day242 != null" >
                 day_24_2,
             </if>
-            <if test="day251 != null">
+            <if test="day251 != null" >
                 day_25_1,
             </if>
-            <if test="day252 != null">
+            <if test="day252 != null" >
                 day_25_2,
             </if>
-            <if test="day261 != null">
+            <if test="day261 != null" >
                 day_26_1,
             </if>
-            <if test="day262 != null">
+            <if test="day262 != null" >
                 day_26_2,
             </if>
-            <if test="day271 != null">
+            <if test="day271 != null" >
                 day_27_1,
             </if>
-            <if test="day272 != null">
+            <if test="day272 != null" >
                 day_27_2,
             </if>
-            <if test="day281 != null">
+            <if test="day281 != null" >
                 day_28_1,
             </if>
-            <if test="day282 != null">
+            <if test="day282 != null" >
                 day_28_2,
             </if>
-            <if test="day291 != null">
+            <if test="day291 != null" >
                 day_29_1,
             </if>
-            <if test="day292 != null">
+            <if test="day292 != null" >
                 day_29_2,
             </if>
-            <if test="day301 != null">
+            <if test="day301 != null" >
                 day_30_1,
             </if>
-            <if test="day302 != null">
+            <if test="day302 != null" >
                 day_30_2,
             </if>
-            <if test="day311 != null">
+            <if test="day311 != null" >
                 day_31_1,
             </if>
-            <if test="day312 != null">
+            <if test="day312 != null" >
                 day_31_2,
             </if>
-            <if test="perunits != null" >
-				PERUNITS,
-			</if>
-			<if test="period != null" >
-		        PERIOD,
-			</if>
-			<if test="schedStyle != null" >
-        		SCHED_STYLE
-      		</if>
         </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="monthIndicator != null">
+            <if test="monthIndicator != null" >
                 #{monthIndicator,jdbcType=INTEGER},
             </if>
-            <if test="serverName != null">
+            <if test="serverName != null" >
                 #{serverName,jdbcType=VARCHAR},
             </if>
-            <if test="scheduleName != null">
+            <if test="scheduleName != null" >
                 #{scheduleName,jdbcType=VARCHAR},
             </if>
-            <if test="dateOfWeek != null">
+            <if test="schedStyle != null" >
+                #{schedStyle,jdbcType=VARCHAR},
+            </if>
+            <if test="dateOfWeek != null" >
                 #{dateOfWeek,jdbcType=VARCHAR},
             </if>
-            <if test="eachMonth != null">
+            <if test="eachMonth != null" >
                 #{eachMonth,jdbcType=VARCHAR},
             </if>
-            <if test="dateOfMonth != null">
+            <if test="dateOfMonth != null" >
                 #{dateOfMonth,jdbcType=VARCHAR},
             </if>
-            <if test="weekOfMonth != null">
+            <if test="weekOfMonth != null" >
                 #{weekOfMonth,jdbcType=VARCHAR},
             </if>
-            <if test="bsr != null">
+            <if test="perunits != null" >
+                #{perunits,jdbcType=VARCHAR},
+            </if>
+            <if test="period != null" >
+                #{period,jdbcType=INTEGER},
+            </if>
+            <if test="bsr != null" >
                 #{bsr,jdbcType=VARCHAR},
             </if>
-            <if test="totalSchedule != null">
+            <if test="totalSchedule != null" >
                 #{totalSchedule,jdbcType=VARCHAR},
             </if>
-            <if test="totalSuccessful != null">
+            <if test="totalSuccessful != null" >
                 #{totalSuccessful,jdbcType=VARCHAR},
             </if>
-            <if test="day011 != null">
+            <if test="day011 != null" >
                 #{day011,jdbcType=VARCHAR},
             </if>
-            <if test="day012 != null">
+            <if test="day012 != null" >
                 #{day012,jdbcType=VARCHAR},
             </if>
-            <if test="day021 != null">
+            <if test="day021 != null" >
                 #{day021,jdbcType=VARCHAR},
             </if>
-            <if test="day022 != null">
+            <if test="day022 != null" >
                 #{day022,jdbcType=VARCHAR},
             </if>
-            <if test="day031 != null">
+            <if test="day031 != null" >
                 #{day031,jdbcType=VARCHAR},
             </if>
-            <if test="day032 != null">
+            <if test="day032 != null" >
                 #{day032,jdbcType=VARCHAR},
             </if>
-            <if test="day041 != null">
+            <if test="day041 != null" >
                 #{day041,jdbcType=VARCHAR},
             </if>
-            <if test="day042 != null">
+            <if test="day042 != null" >
                 #{day042,jdbcType=VARCHAR},
             </if>
-            <if test="day051 != null">
+            <if test="day051 != null" >
                 #{day051,jdbcType=VARCHAR},
             </if>
-            <if test="day052 != null">
+            <if test="day052 != null" >
                 #{day052,jdbcType=VARCHAR},
             </if>
-            <if test="day061 != null">
+            <if test="day061 != null" >
                 #{day061,jdbcType=VARCHAR},
             </if>
-            <if test="day062 != null">
+            <if test="day062 != null" >
                 #{day062,jdbcType=VARCHAR},
             </if>
-            <if test="day071 != null">
+            <if test="day071 != null" >
                 #{day071,jdbcType=VARCHAR},
             </if>
-            <if test="day072 != null">
+            <if test="day072 != null" >
                 #{day072,jdbcType=VARCHAR},
             </if>
-            <if test="day081 != null">
+            <if test="day081 != null" >
                 #{day081,jdbcType=VARCHAR},
             </if>
-            <if test="day082 != null">
+            <if test="day082 != null" >
                 #{day082,jdbcType=VARCHAR},
             </if>
-            <if test="day091 != null">
+            <if test="day091 != null" >
                 #{day091,jdbcType=VARCHAR},
             </if>
-            <if test="day092 != null">
+            <if test="day092 != null" >
                 #{day092,jdbcType=VARCHAR},
             </if>
-            <if test="day101 != null">
+            <if test="day101 != null" >
                 #{day101,jdbcType=VARCHAR},
             </if>
-            <if test="day102 != null">
+            <if test="day102 != null" >
                 #{day102,jdbcType=VARCHAR},
             </if>
-            <if test="day111 != null">
+            <if test="day111 != null" >
                 #{day111,jdbcType=VARCHAR},
             </if>
-            <if test="day112 != null">
+            <if test="day112 != null" >
                 #{day112,jdbcType=VARCHAR},
             </if>
-            <if test="day121 != null">
+            <if test="day121 != null" >
                 #{day121,jdbcType=VARCHAR},
             </if>
-            <if test="day122 != null">
+            <if test="day122 != null" >
                 #{day122,jdbcType=VARCHAR},
             </if>
-            <if test="day131 != null">
+            <if test="day131 != null" >
                 #{day131,jdbcType=VARCHAR},
             </if>
-            <if test="day132 != null">
+            <if test="day132 != null" >
                 #{day132,jdbcType=VARCHAR},
             </if>
-            <if test="day141 != null">
+            <if test="day141 != null" >
                 #{day141,jdbcType=VARCHAR},
             </if>
-            <if test="day142 != null">
+            <if test="day142 != null" >
                 #{day142,jdbcType=VARCHAR},
             </if>
-            <if test="day151 != null">
+            <if test="day151 != null" >
                 #{day151,jdbcType=VARCHAR},
             </if>
-            <if test="day152 != null">
+            <if test="day152 != null" >
                 #{day152,jdbcType=VARCHAR},
             </if>
-            <if test="day161 != null">
+            <if test="day161 != null" >
                 #{day161,jdbcType=VARCHAR},
             </if>
-            <if test="day162 != null">
+            <if test="day162 != null" >
                 #{day162,jdbcType=VARCHAR},
             </if>
-            <if test="day171 != null">
+            <if test="day171 != null" >
                 #{day171,jdbcType=VARCHAR},
             </if>
-            <if test="day172 != null">
+            <if test="day172 != null" >
                 #{day172,jdbcType=VARCHAR},
             </if>
-            <if test="day181 != null">
+            <if test="day181 != null" >
                 #{day181,jdbcType=VARCHAR},
             </if>
-            <if test="day182 != null">
+            <if test="day182 != null" >
                 #{day182,jdbcType=VARCHAR},
             </if>
-            <if test="day191 != null">
+            <if test="day191 != null" >
                 #{day191,jdbcType=VARCHAR},
             </if>
-            <if test="day192 != null">
+            <if test="day192 != null" >
                 #{day192,jdbcType=VARCHAR},
             </if>
-            <if test="day201 != null">
+            <if test="day201 != null" >
                 #{day201,jdbcType=VARCHAR},
             </if>
-            <if test="day202 != null">
+            <if test="day202 != null" >
                 #{day202,jdbcType=VARCHAR},
             </if>
-            <if test="day211 != null">
+            <if test="day211 != null" >
                 #{day211,jdbcType=VARCHAR},
             </if>
-            <if test="day212 != null">
+            <if test="day212 != null" >
                 #{day212,jdbcType=VARCHAR},
             </if>
-            <if test="day221 != null">
+            <if test="day221 != null" >
                 #{day221,jdbcType=VARCHAR},
             </if>
-            <if test="day222 != null">
+            <if test="day222 != null" >
                 #{day222,jdbcType=VARCHAR},
             </if>
-            <if test="day231 != null">
+            <if test="day231 != null" >
                 #{day231,jdbcType=VARCHAR},
             </if>
-            <if test="day232 != null">
+            <if test="day232 != null" >
                 #{day232,jdbcType=VARCHAR},
             </if>
-            <if test="day241 != null">
+            <if test="day241 != null" >
                 #{day241,jdbcType=VARCHAR},
             </if>
-            <if test="day242 != null">
+            <if test="day242 != null" >
                 #{day242,jdbcType=VARCHAR},
             </if>
-            <if test="day251 != null">
+            <if test="day251 != null" >
                 #{day251,jdbcType=VARCHAR},
             </if>
-            <if test="day252 != null">
+            <if test="day252 != null" >
                 #{day252,jdbcType=VARCHAR},
             </if>
-            <if test="day261 != null">
+            <if test="day261 != null" >
                 #{day261,jdbcType=VARCHAR},
             </if>
-            <if test="day262 != null">
+            <if test="day262 != null" >
                 #{day262,jdbcType=VARCHAR},
             </if>
-            <if test="day271 != null">
+            <if test="day271 != null" >
                 #{day271,jdbcType=VARCHAR},
             </if>
-            <if test="day272 != null">
+            <if test="day272 != null" >
                 #{day272,jdbcType=VARCHAR},
             </if>
-            <if test="day281 != null">
+            <if test="day281 != null" >
                 #{day281,jdbcType=VARCHAR},
             </if>
-            <if test="day282 != null">
+            <if test="day282 != null" >
                 #{day282,jdbcType=VARCHAR},
             </if>
-            <if test="day291 != null">
+            <if test="day291 != null" >
                 #{day291,jdbcType=VARCHAR},
             </if>
-            <if test="day292 != null">
+            <if test="day292 != null" >
                 #{day292,jdbcType=VARCHAR},
             </if>
-            <if test="day301 != null">
+            <if test="day301 != null" >
                 #{day301,jdbcType=VARCHAR},
             </if>
-            <if test="day302 != null">
+            <if test="day302 != null" >
                 #{day302,jdbcType=VARCHAR},
             </if>
-            <if test="day311 != null">
+            <if test="day311 != null" >
                 #{day311,jdbcType=VARCHAR},
             </if>
-            <if test="day312 != null">
+            <if test="day312 != null" >
                 #{day312,jdbcType=VARCHAR},
             </if>
-            <if test="perunits != null" >
-        		#{perunits,jdbcType=VARCHAR},
-      		</if>
-      		<if test="period != null" >
-        		#{period,jdbcType=INTEGER},
-      		</if>
-      		<if test="schedStyle != null" >
-        		#{schedStyle,jdbcType=VARCHAR}
-      		</if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="com.hpe.msbireport.domain.MonthReportExample"
-            resultType="java.lang.Integer">
+    <select id="countByExample" parameterType="com.hpe.msbireport.domain.MonthReportExample" resultType="java.lang.Integer" >
         select count(*) from month_report
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
         </if>
     </select>
-    <update id="updateByExampleSelective" parameterType="map">
+    <update id="updateByExampleSelective" parameterType="map" >
         update month_report
-        <set>
-            <if test="record.id != null">
+        <set >
+            <if test="record.id != null" >
                 id = #{record.id,jdbcType=INTEGER},
             </if>
-            <if test="record.monthIndicator != null">
+            <if test="record.monthIndicator != null" >
                 month_indicator = #{record.monthIndicator,jdbcType=INTEGER},
             </if>
-            <if test="record.serverName != null">
+            <if test="record.serverName != null" >
                 server_name = #{record.serverName,jdbcType=VARCHAR},
             </if>
-            <if test="record.scheduleName != null">
+            <if test="record.scheduleName != null" >
                 schedule_name = #{record.scheduleName,jdbcType=VARCHAR},
             </if>
-            <if test="record.dateOfWeek != null">
+            <if test="record.schedStyle != null" >
+                sched_style = #{record.schedStyle,jdbcType=VARCHAR},
+            </if>
+            <if test="record.dateOfWeek != null" >
                 date_of_week = #{record.dateOfWeek,jdbcType=VARCHAR},
             </if>
-            <if test="record.eachMonth != null">
+            <if test="record.eachMonth != null" >
                 each_month = #{record.eachMonth,jdbcType=VARCHAR},
             </if>
-            <if test="record.dateOfMonth != null">
+            <if test="record.dateOfMonth != null" >
                 date_of_month = #{record.dateOfMonth,jdbcType=VARCHAR},
             </if>
-            <if test="record.weekOfMonth != null">
+            <if test="record.weekOfMonth != null" >
                 week_of_month = #{record.weekOfMonth,jdbcType=VARCHAR},
             </if>
-            <if test="record.bsr != null">
+            <if test="record.perunits != null" >
+                perunits = #{record.perunits,jdbcType=VARCHAR},
+            </if>
+            <if test="record.period != null" >
+                period = #{record.period,jdbcType=INTEGER},
+            </if>
+            <if test="record.bsr != null" >
                 bsr = #{record.bsr,jdbcType=VARCHAR},
             </if>
-            <if test="record.totalSchedule != null">
+            <if test="record.totalSchedule != null" >
                 total_schedule = #{record.totalSchedule,jdbcType=VARCHAR},
             </if>
-            <if test="record.totalSuccessful != null">
+            <if test="record.totalSuccessful != null" >
                 total_successful = #{record.totalSuccessful,jdbcType=VARCHAR},
             </if>
-            <if test="record.day011 != null">
+            <if test="record.day011 != null" >
                 day_01_1 = #{record.day011,jdbcType=VARCHAR},
             </if>
-            <if test="record.day012 != null">
+            <if test="record.day012 != null" >
                 day_01_2 = #{record.day012,jdbcType=VARCHAR},
             </if>
-            <if test="record.day021 != null">
+            <if test="record.day021 != null" >
                 day_02_1 = #{record.day021,jdbcType=VARCHAR},
             </if>
-            <if test="record.day022 != null">
+            <if test="record.day022 != null" >
                 day_02_2 = #{record.day022,jdbcType=VARCHAR},
             </if>
-            <if test="record.day031 != null">
+            <if test="record.day031 != null" >
                 day_03_1 = #{record.day031,jdbcType=VARCHAR},
             </if>
-            <if test="record.day032 != null">
+            <if test="record.day032 != null" >
                 day_03_2 = #{record.day032,jdbcType=VARCHAR},
             </if>
-            <if test="record.day041 != null">
+            <if test="record.day041 != null" >
                 day_04_1 = #{record.day041,jdbcType=VARCHAR},
             </if>
-            <if test="record.day042 != null">
+            <if test="record.day042 != null" >
                 day_04_2 = #{record.day042,jdbcType=VARCHAR},
             </if>
-            <if test="record.day051 != null">
+            <if test="record.day051 != null" >
                 day_05_1 = #{record.day051,jdbcType=VARCHAR},
             </if>
-            <if test="record.day052 != null">
+            <if test="record.day052 != null" >
                 day_05_2 = #{record.day052,jdbcType=VARCHAR},
             </if>
-            <if test="record.day061 != null">
+            <if test="record.day061 != null" >
                 day_06_1 = #{record.day061,jdbcType=VARCHAR},
             </if>
-            <if test="record.day062 != null">
+            <if test="record.day062 != null" >
                 day_06_2 = #{record.day062,jdbcType=VARCHAR},
             </if>
-            <if test="record.day071 != null">
+            <if test="record.day071 != null" >
                 day_07_1 = #{record.day071,jdbcType=VARCHAR},
             </if>
-            <if test="record.day072 != null">
+            <if test="record.day072 != null" >
                 day_07_2 = #{record.day072,jdbcType=VARCHAR},
             </if>
-            <if test="record.day081 != null">
+            <if test="record.day081 != null" >
                 day_08_1 = #{record.day081,jdbcType=VARCHAR},
             </if>
-            <if test="record.day082 != null">
+            <if test="record.day082 != null" >
                 day_08_2 = #{record.day082,jdbcType=VARCHAR},
             </if>
-            <if test="record.day091 != null">
+            <if test="record.day091 != null" >
                 day_09_1 = #{record.day091,jdbcType=VARCHAR},
             </if>
-            <if test="record.day092 != null">
+            <if test="record.day092 != null" >
                 day_09_2 = #{record.day092,jdbcType=VARCHAR},
             </if>
-            <if test="record.day101 != null">
+            <if test="record.day101 != null" >
                 day_10_1 = #{record.day101,jdbcType=VARCHAR},
             </if>
-            <if test="record.day102 != null">
+            <if test="record.day102 != null" >
                 day_10_2 = #{record.day102,jdbcType=VARCHAR},
             </if>
-            <if test="record.day111 != null">
+            <if test="record.day111 != null" >
                 day_11_1 = #{record.day111,jdbcType=VARCHAR},
             </if>
-            <if test="record.day112 != null">
+            <if test="record.day112 != null" >
                 day_11_2 = #{record.day112,jdbcType=VARCHAR},
             </if>
-            <if test="record.day121 != null">
+            <if test="record.day121 != null" >
                 day_12_1 = #{record.day121,jdbcType=VARCHAR},
             </if>
-            <if test="record.day122 != null">
+            <if test="record.day122 != null" >
                 day_12_2 = #{record.day122,jdbcType=VARCHAR},
             </if>
-            <if test="record.day131 != null">
+            <if test="record.day131 != null" >
                 day_13_1 = #{record.day131,jdbcType=VARCHAR},
             </if>
-            <if test="record.day132 != null">
+            <if test="record.day132 != null" >
                 day_13_2 = #{record.day132,jdbcType=VARCHAR},
             </if>
-            <if test="record.day141 != null">
+            <if test="record.day141 != null" >
                 day_14_1 = #{record.day141,jdbcType=VARCHAR},
             </if>
-            <if test="record.day142 != null">
+            <if test="record.day142 != null" >
                 day_14_2 = #{record.day142,jdbcType=VARCHAR},
             </if>
-            <if test="record.day151 != null">
+            <if test="record.day151 != null" >
                 day_15_1 = #{record.day151,jdbcType=VARCHAR},
             </if>
-            <if test="record.day152 != null">
+            <if test="record.day152 != null" >
                 day_15_2 = #{record.day152,jdbcType=VARCHAR},
             </if>
-            <if test="record.day161 != null">
+            <if test="record.day161 != null" >
                 day_16_1 = #{record.day161,jdbcType=VARCHAR},
             </if>
-            <if test="record.day162 != null">
+            <if test="record.day162 != null" >
                 day_16_2 = #{record.day162,jdbcType=VARCHAR},
             </if>
-            <if test="record.day171 != null">
+            <if test="record.day171 != null" >
                 day_17_1 = #{record.day171,jdbcType=VARCHAR},
             </if>
-            <if test="record.day172 != null">
+            <if test="record.day172 != null" >
                 day_17_2 = #{record.day172,jdbcType=VARCHAR},
             </if>
-            <if test="record.day181 != null">
+            <if test="record.day181 != null" >
                 day_18_1 = #{record.day181,jdbcType=VARCHAR},
             </if>
-            <if test="record.day182 != null">
+            <if test="record.day182 != null" >
                 day_18_2 = #{record.day182,jdbcType=VARCHAR},
             </if>
-            <if test="record.day191 != null">
+            <if test="record.day191 != null" >
                 day_19_1 = #{record.day191,jdbcType=VARCHAR},
             </if>
-            <if test="record.day192 != null">
+            <if test="record.day192 != null" >
                 day_19_2 = #{record.day192,jdbcType=VARCHAR},
             </if>
-            <if test="record.day201 != null">
+            <if test="record.day201 != null" >
                 day_20_1 = #{record.day201,jdbcType=VARCHAR},
             </if>
-            <if test="record.day202 != null">
+            <if test="record.day202 != null" >
                 day_20_2 = #{record.day202,jdbcType=VARCHAR},
             </if>
-            <if test="record.day211 != null">
+            <if test="record.day211 != null" >
                 day_21_1 = #{record.day211,jdbcType=VARCHAR},
             </if>
-            <if test="record.day212 != null">
+            <if test="record.day212 != null" >
                 day_21_2 = #{record.day212,jdbcType=VARCHAR},
             </if>
-            <if test="record.day221 != null">
+            <if test="record.day221 != null" >
                 day_22_1 = #{record.day221,jdbcType=VARCHAR},
             </if>
-            <if test="record.day222 != null">
+            <if test="record.day222 != null" >
                 day_22_2 = #{record.day222,jdbcType=VARCHAR},
             </if>
-            <if test="record.day231 != null">
+            <if test="record.day231 != null" >
                 day_23_1 = #{record.day231,jdbcType=VARCHAR},
             </if>
-            <if test="record.day232 != null">
+            <if test="record.day232 != null" >
                 day_23_2 = #{record.day232,jdbcType=VARCHAR},
             </if>
-            <if test="record.day241 != null">
+            <if test="record.day241 != null" >
                 day_24_1 = #{record.day241,jdbcType=VARCHAR},
             </if>
-            <if test="record.day242 != null">
+            <if test="record.day242 != null" >
                 day_24_2 = #{record.day242,jdbcType=VARCHAR},
             </if>
-            <if test="record.day251 != null">
+            <if test="record.day251 != null" >
                 day_25_1 = #{record.day251,jdbcType=VARCHAR},
             </if>
-            <if test="record.day252 != null">
+            <if test="record.day252 != null" >
                 day_25_2 = #{record.day252,jdbcType=VARCHAR},
             </if>
-            <if test="record.day261 != null">
+            <if test="record.day261 != null" >
                 day_26_1 = #{record.day261,jdbcType=VARCHAR},
             </if>
-            <if test="record.day262 != null">
+            <if test="record.day262 != null" >
                 day_26_2 = #{record.day262,jdbcType=VARCHAR},
             </if>
-            <if test="record.day271 != null">
+            <if test="record.day271 != null" >
                 day_27_1 = #{record.day271,jdbcType=VARCHAR},
             </if>
-            <if test="record.day272 != null">
+            <if test="record.day272 != null" >
                 day_27_2 = #{record.day272,jdbcType=VARCHAR},
             </if>
-            <if test="record.day281 != null">
+            <if test="record.day281 != null" >
                 day_28_1 = #{record.day281,jdbcType=VARCHAR},
             </if>
-            <if test="record.day282 != null">
+            <if test="record.day282 != null" >
                 day_28_2 = #{record.day282,jdbcType=VARCHAR},
             </if>
-            <if test="record.day291 != null">
+            <if test="record.day291 != null" >
                 day_29_1 = #{record.day291,jdbcType=VARCHAR},
             </if>
-            <if test="record.day292 != null">
+            <if test="record.day292 != null" >
                 day_29_2 = #{record.day292,jdbcType=VARCHAR},
             </if>
-            <if test="record.day301 != null">
+            <if test="record.day301 != null" >
                 day_30_1 = #{record.day301,jdbcType=VARCHAR},
             </if>
-            <if test="record.day302 != null">
+            <if test="record.day302 != null" >
                 day_30_2 = #{record.day302,jdbcType=VARCHAR},
             </if>
-            <if test="record.day311 != null">
+            <if test="record.day311 != null" >
                 day_31_1 = #{record.day311,jdbcType=VARCHAR},
             </if>
-            <if test="record.day312 != null">
+            <if test="record.day312 != null" >
                 day_31_2 = #{record.day312,jdbcType=VARCHAR},
             </if>
-            <if test="record.perunits != null" >
-        		PERUNITS = #{record.perunits,jdbcType=VARCHAR},
-      		</if>
-      		<if test="record.period != null" >
-        		PERIOD = #{record.period,jdbcType=INTEGER},
-      		</if>
-      		<if test="record.schedStyle != null" >
-        		SCHED_STYLE = #{record.schedStyle,jdbcType=VARCHAR}
-      		</if>
         </set>
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
         </if>
     </update>
-    <update id="updateByExample" parameterType="map">
+    <update id="updateByExample" parameterType="map" >
         update month_report
         set id = #{record.id,jdbcType=INTEGER},
         month_indicator = #{record.monthIndicator,jdbcType=INTEGER},
         server_name = #{record.serverName,jdbcType=VARCHAR},
         schedule_name = #{record.scheduleName,jdbcType=VARCHAR},
+        sched_style = #{record.schedStyle,jdbcType=VARCHAR},
         date_of_week = #{record.dateOfWeek,jdbcType=VARCHAR},
         each_month = #{record.eachMonth,jdbcType=VARCHAR},
         date_of_month = #{record.dateOfMonth,jdbcType=VARCHAR},
         week_of_month = #{record.weekOfMonth,jdbcType=VARCHAR},
+        perunits = #{record.perunits,jdbcType=VARCHAR},
+        period = #{record.period,jdbcType=INTEGER},
         bsr = #{record.bsr,jdbcType=VARCHAR},
         total_schedule = #{record.totalSchedule,jdbcType=VARCHAR},
         total_successful = #{record.totalSuccessful,jdbcType=VARCHAR},
@@ -1014,321 +1015,329 @@
         day_30_2 = #{record.day302,jdbcType=VARCHAR},
         day_31_1 = #{record.day311,jdbcType=VARCHAR},
         day_31_2 = #{record.day312,jdbcType=VARCHAR}
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="com.hpe.msbireport.domain.MonthReport">
+    <update id="updateByPrimaryKeySelective" parameterType="com.hpe.msbireport.domain.MonthReport" >
         update month_report
-        <set>
-            <if test="monthIndicator != null">
+        <set >
+            <if test="monthIndicator != null" >
                 month_indicator = #{monthIndicator,jdbcType=INTEGER},
             </if>
-            <if test="serverName != null">
+            <if test="serverName != null" >
                 server_name = #{serverName,jdbcType=VARCHAR},
             </if>
-            <if test="scheduleName != null">
+            <if test="scheduleName != null" >
                 schedule_name = #{scheduleName,jdbcType=VARCHAR},
             </if>
-            <if test="dateOfWeek != null">
+            <if test="schedStyle != null" >
+                sched_style = #{schedStyle,jdbcType=VARCHAR},
+            </if>
+            <if test="dateOfWeek != null" >
                 date_of_week = #{dateOfWeek,jdbcType=VARCHAR},
             </if>
-            <if test="eachMonth != null">
+            <if test="eachMonth != null" >
                 each_month = #{eachMonth,jdbcType=VARCHAR},
             </if>
-            <if test="dateOfMonth != null">
+            <if test="dateOfMonth != null" >
                 date_of_month = #{dateOfMonth,jdbcType=VARCHAR},
             </if>
-            <if test="weekOfMonth != null">
+            <if test="weekOfMonth != null" >
                 week_of_month = #{weekOfMonth,jdbcType=VARCHAR},
             </if>
-            <if test="bsr != null">
+            <if test="perunits != null" >
+                perunits = #{perunits,jdbcType=VARCHAR},
+            </if>
+            <if test="period != null" >
+                period = #{period,jdbcType=INTEGER},
+            </if>
+            <if test="bsr != null" >
                 bsr = #{bsr,jdbcType=VARCHAR},
             </if>
-            <if test="totalSchedule != null">
+            <if test="totalSchedule != null" >
                 total_schedule = #{totalSchedule,jdbcType=VARCHAR},
             </if>
-            <if test="totalSuccessful != null">
+            <if test="totalSuccessful != null" >
                 total_successful = #{totalSuccessful,jdbcType=VARCHAR},
             </if>
-            <if test="day011 != null">
+            <if test="day011 != null" >
                 day_01_1 = #{day011,jdbcType=VARCHAR},
             </if>
-            <if test="day012 != null">
+            <if test="day012 != null" >
                 day_01_2 = #{day012,jdbcType=VARCHAR},
             </if>
-            <if test="day021 != null">
+            <if test="day021 != null" >
                 day_02_1 = #{day021,jdbcType=VARCHAR},
             </if>
-            <if test="day022 != null">
+            <if test="day022 != null" >
                 day_02_2 = #{day022,jdbcType=VARCHAR},
             </if>
-            <if test="day031 != null">
+            <if test="day031 != null" >
                 day_03_1 = #{day031,jdbcType=VARCHAR},
             </if>
-            <if test="day032 != null">
+            <if test="day032 != null" >
                 day_03_2 = #{day032,jdbcType=VARCHAR},
             </if>
-            <if test="day041 != null">
+            <if test="day041 != null" >
                 day_04_1 = #{day041,jdbcType=VARCHAR},
             </if>
-            <if test="day042 != null">
+            <if test="day042 != null" >
                 day_04_2 = #{day042,jdbcType=VARCHAR},
             </if>
-            <if test="day051 != null">
+            <if test="day051 != null" >
                 day_05_1 = #{day051,jdbcType=VARCHAR},
             </if>
-            <if test="day052 != null">
+            <if test="day052 != null" >
                 day_05_2 = #{day052,jdbcType=VARCHAR},
             </if>
-            <if test="day061 != null">
+            <if test="day061 != null" >
                 day_06_1 = #{day061,jdbcType=VARCHAR},
             </if>
-            <if test="day062 != null">
+            <if test="day062 != null" >
                 day_06_2 = #{day062,jdbcType=VARCHAR},
             </if>
-            <if test="day071 != null">
+            <if test="day071 != null" >
                 day_07_1 = #{day071,jdbcType=VARCHAR},
             </if>
-            <if test="day072 != null">
+            <if test="day072 != null" >
                 day_07_2 = #{day072,jdbcType=VARCHAR},
             </if>
-            <if test="day081 != null">
+            <if test="day081 != null" >
                 day_08_1 = #{day081,jdbcType=VARCHAR},
             </if>
-            <if test="day082 != null">
+            <if test="day082 != null" >
                 day_08_2 = #{day082,jdbcType=VARCHAR},
             </if>
-            <if test="day091 != null">
+            <if test="day091 != null" >
                 day_09_1 = #{day091,jdbcType=VARCHAR},
             </if>
-            <if test="day092 != null">
+            <if test="day092 != null" >
                 day_09_2 = #{day092,jdbcType=VARCHAR},
             </if>
-            <if test="day101 != null">
+            <if test="day101 != null" >
                 day_10_1 = #{day101,jdbcType=VARCHAR},
             </if>
-            <if test="day102 != null">
+            <if test="day102 != null" >
                 day_10_2 = #{day102,jdbcType=VARCHAR},
             </if>
-            <if test="day111 != null">
+            <if test="day111 != null" >
                 day_11_1 = #{day111,jdbcType=VARCHAR},
             </if>
-            <if test="day112 != null">
+            <if test="day112 != null" >
                 day_11_2 = #{day112,jdbcType=VARCHAR},
             </if>
-            <if test="day121 != null">
+            <if test="day121 != null" >
                 day_12_1 = #{day121,jdbcType=VARCHAR},
             </if>
-            <if test="day122 != null">
+            <if test="day122 != null" >
                 day_12_2 = #{day122,jdbcType=VARCHAR},
             </if>
-            <if test="day131 != null">
+            <if test="day131 != null" >
                 day_13_1 = #{day131,jdbcType=VARCHAR},
             </if>
-            <if test="day132 != null">
+            <if test="day132 != null" >
                 day_13_2 = #{day132,jdbcType=VARCHAR},
             </if>
-            <if test="day141 != null">
+            <if test="day141 != null" >
                 day_14_1 = #{day141,jdbcType=VARCHAR},
             </if>
-            <if test="day142 != null">
+            <if test="day142 != null" >
                 day_14_2 = #{day142,jdbcType=VARCHAR},
             </if>
-            <if test="day151 != null">
+            <if test="day151 != null" >
                 day_15_1 = #{day151,jdbcType=VARCHAR},
             </if>
-            <if test="day152 != null">
+            <if test="day152 != null" >
                 day_15_2 = #{day152,jdbcType=VARCHAR},
             </if>
-            <if test="day161 != null">
+            <if test="day161 != null" >
                 day_16_1 = #{day161,jdbcType=VARCHAR},
             </if>
-            <if test="day162 != null">
+            <if test="day162 != null" >
                 day_16_2 = #{day162,jdbcType=VARCHAR},
             </if>
-            <if test="day171 != null">
+            <if test="day171 != null" >
                 day_17_1 = #{day171,jdbcType=VARCHAR},
             </if>
-            <if test="day172 != null">
+            <if test="day172 != null" >
                 day_17_2 = #{day172,jdbcType=VARCHAR},
             </if>
-            <if test="day181 != null">
+            <if test="day181 != null" >
                 day_18_1 = #{day181,jdbcType=VARCHAR},
             </if>
-            <if test="day182 != null">
+            <if test="day182 != null" >
                 day_18_2 = #{day182,jdbcType=VARCHAR},
             </if>
-            <if test="day191 != null">
+            <if test="day191 != null" >
                 day_19_1 = #{day191,jdbcType=VARCHAR},
             </if>
-            <if test="day192 != null">
+            <if test="day192 != null" >
                 day_19_2 = #{day192,jdbcType=VARCHAR},
             </if>
-            <if test="day201 != null">
+            <if test="day201 != null" >
                 day_20_1 = #{day201,jdbcType=VARCHAR},
             </if>
-            <if test="day202 != null">
+            <if test="day202 != null" >
                 day_20_2 = #{day202,jdbcType=VARCHAR},
             </if>
-            <if test="day211 != null">
+            <if test="day211 != null" >
                 day_21_1 = #{day211,jdbcType=VARCHAR},
             </if>
-            <if test="day212 != null">
+            <if test="day212 != null" >
                 day_21_2 = #{day212,jdbcType=VARCHAR},
             </if>
-            <if test="day221 != null">
+            <if test="day221 != null" >
                 day_22_1 = #{day221,jdbcType=VARCHAR},
             </if>
-            <if test="day222 != null">
+            <if test="day222 != null" >
                 day_22_2 = #{day222,jdbcType=VARCHAR},
             </if>
-            <if test="day231 != null">
+            <if test="day231 != null" >
                 day_23_1 = #{day231,jdbcType=VARCHAR},
             </if>
-            <if test="day232 != null">
+            <if test="day232 != null" >
                 day_23_2 = #{day232,jdbcType=VARCHAR},
             </if>
-            <if test="day241 != null">
+            <if test="day241 != null" >
                 day_24_1 = #{day241,jdbcType=VARCHAR},
             </if>
-            <if test="day242 != null">
+            <if test="day242 != null" >
                 day_24_2 = #{day242,jdbcType=VARCHAR},
             </if>
-            <if test="day251 != null">
+            <if test="day251 != null" >
                 day_25_1 = #{day251,jdbcType=VARCHAR},
             </if>
-            <if test="day252 != null">
+            <if test="day252 != null" >
                 day_25_2 = #{day252,jdbcType=VARCHAR},
             </if>
-            <if test="day261 != null">
+            <if test="day261 != null" >
                 day_26_1 = #{day261,jdbcType=VARCHAR},
             </if>
-            <if test="day262 != null">
+            <if test="day262 != null" >
                 day_26_2 = #{day262,jdbcType=VARCHAR},
             </if>
-            <if test="day271 != null">
+            <if test="day271 != null" >
                 day_27_1 = #{day271,jdbcType=VARCHAR},
             </if>
-            <if test="day272 != null">
+            <if test="day272 != null" >
                 day_27_2 = #{day272,jdbcType=VARCHAR},
             </if>
-            <if test="day281 != null">
+            <if test="day281 != null" >
                 day_28_1 = #{day281,jdbcType=VARCHAR},
             </if>
-            <if test="day282 != null">
+            <if test="day282 != null" >
                 day_28_2 = #{day282,jdbcType=VARCHAR},
             </if>
-            <if test="day291 != null">
+            <if test="day291 != null" >
                 day_29_1 = #{day291,jdbcType=VARCHAR},
             </if>
-            <if test="day292 != null">
+            <if test="day292 != null" >
                 day_29_2 = #{day292,jdbcType=VARCHAR},
             </if>
-            <if test="day301 != null">
+            <if test="day301 != null" >
                 day_30_1 = #{day301,jdbcType=VARCHAR},
             </if>
-            <if test="day302 != null">
+            <if test="day302 != null" >
                 day_30_2 = #{day302,jdbcType=VARCHAR},
             </if>
-            <if test="day311 != null">
+            <if test="day311 != null" >
                 day_31_1 = #{day311,jdbcType=VARCHAR},
             </if>
-            <if test="day312 != null">
+            <if test="day312 != null" >
                 day_31_2 = #{day312,jdbcType=VARCHAR},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.hpe.msbireport.domain.MonthReport">
-    update month_report
-    set month_indicator = #{monthIndicator,jdbcType=INTEGER},
-      server_name = #{serverName,jdbcType=VARCHAR},
-      schedule_name = #{scheduleName,jdbcType=VARCHAR},
-      date_of_week = #{dateOfWeek,jdbcType=VARCHAR},
-      each_month = #{eachMonth,jdbcType=VARCHAR},
-      date_of_month = #{dateOfMonth,jdbcType=VARCHAR},
-      week_of_month = #{weekOfMonth,jdbcType=VARCHAR},
-      bsr = #{bsr,jdbcType=VARCHAR},
-      total_schedule = #{totalSchedule,jdbcType=VARCHAR},
-      total_successful = #{totalSuccessful,jdbcType=VARCHAR},
-      day_01_1 = #{day011,jdbcType=VARCHAR},
-      day_01_2 = #{day012,jdbcType=VARCHAR},
-      day_02_1 = #{day021,jdbcType=VARCHAR},
-      day_02_2 = #{day022,jdbcType=VARCHAR},
-      day_03_1 = #{day031,jdbcType=VARCHAR},
-      day_03_2 = #{day032,jdbcType=VARCHAR},
-      day_04_1 = #{day041,jdbcType=VARCHAR},
-      day_04_2 = #{day042,jdbcType=VARCHAR},
-      day_05_1 = #{day051,jdbcType=VARCHAR},
-      day_05_2 = #{day052,jdbcType=VARCHAR},
-      day_06_1 = #{day061,jdbcType=VARCHAR},
-      day_06_2 = #{day062,jdbcType=VARCHAR},
-      day_07_1 = #{day071,jdbcType=VARCHAR},
-      day_07_2 = #{day072,jdbcType=VARCHAR},
-      day_08_1 = #{day081,jdbcType=VARCHAR},
-      day_08_2 = #{day082,jdbcType=VARCHAR},
-      day_09_1 = #{day091,jdbcType=VARCHAR},
-      day_09_2 = #{day092,jdbcType=VARCHAR},
-      day_10_1 = #{day101,jdbcType=VARCHAR},
-      day_10_2 = #{day102,jdbcType=VARCHAR},
-      day_11_1 = #{day111,jdbcType=VARCHAR},
-      day_11_2 = #{day112,jdbcType=VARCHAR},
-      day_12_1 = #{day121,jdbcType=VARCHAR},
-      day_12_2 = #{day122,jdbcType=VARCHAR},
-      day_13_1 = #{day131,jdbcType=VARCHAR},
-      day_13_2 = #{day132,jdbcType=VARCHAR},
-      day_14_1 = #{day141,jdbcType=VARCHAR},
-      day_14_2 = #{day142,jdbcType=VARCHAR},
-      day_15_1 = #{day151,jdbcType=VARCHAR},
-      day_15_2 = #{day152,jdbcType=VARCHAR},
-      day_16_1 = #{day161,jdbcType=VARCHAR},
-      day_16_2 = #{day162,jdbcType=VARCHAR},
-      day_17_1 = #{day171,jdbcType=VARCHAR},
-      day_17_2 = #{day172,jdbcType=VARCHAR},
-      day_18_1 = #{day181,jdbcType=VARCHAR},
-      day_18_2 = #{day182,jdbcType=VARCHAR},
-      day_19_1 = #{day191,jdbcType=VARCHAR},
-      day_19_2 = #{day192,jdbcType=VARCHAR},
-      day_20_1 = #{day201,jdbcType=VARCHAR},
-      day_20_2 = #{day202,jdbcType=VARCHAR},
-      day_21_1 = #{day211,jdbcType=VARCHAR},
-      day_21_2 = #{day212,jdbcType=VARCHAR},
-      day_22_1 = #{day221,jdbcType=VARCHAR},
-      day_22_2 = #{day222,jdbcType=VARCHAR},
-      day_23_1 = #{day231,jdbcType=VARCHAR},
-      day_23_2 = #{day232,jdbcType=VARCHAR},
-      day_24_1 = #{day241,jdbcType=VARCHAR},
-      day_24_2 = #{day242,jdbcType=VARCHAR},
-      day_25_1 = #{day251,jdbcType=VARCHAR},
-      day_25_2 = #{day252,jdbcType=VARCHAR},
-      day_26_1 = #{day261,jdbcType=VARCHAR},
-      day_26_2 = #{day262,jdbcType=VARCHAR},
-      day_27_1 = #{day271,jdbcType=VARCHAR},
-      day_27_2 = #{day272,jdbcType=VARCHAR},
-      day_28_1 = #{day281,jdbcType=VARCHAR},
-      day_28_2 = #{day282,jdbcType=VARCHAR},
-      day_29_1 = #{day291,jdbcType=VARCHAR},
-      day_29_2 = #{day292,jdbcType=VARCHAR},
-      day_30_1 = #{day301,jdbcType=VARCHAR},
-      day_30_2 = #{day302,jdbcType=VARCHAR},
-      day_31_1 = #{day311,jdbcType=VARCHAR},
-      day_31_2 = #{day312,jdbcType=VARCHAR},
-      SCHED_STYLE = #{schedStyle,jdbcType=VARCHAR},
-      PERUNITS = #{perunits,jdbcType=VARCHAR},
-      PERIOD = #{period,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-    <select resultMap="BaseResultMap" parameterType="com.hpe.msbireport.domain.MonthReportExample"
-            id="selectByExampleWithRowbounds">
+    <update id="updateByPrimaryKey" parameterType="com.hpe.msbireport.domain.MonthReport" >
+        update month_report
+        set month_indicator = #{monthIndicator,jdbcType=INTEGER},
+        server_name = #{serverName,jdbcType=VARCHAR},
+        schedule_name = #{scheduleName,jdbcType=VARCHAR},
+        sched_style = #{schedStyle,jdbcType=VARCHAR},
+        date_of_week = #{dateOfWeek,jdbcType=VARCHAR},
+        each_month = #{eachMonth,jdbcType=VARCHAR},
+        date_of_month = #{dateOfMonth,jdbcType=VARCHAR},
+        week_of_month = #{weekOfMonth,jdbcType=VARCHAR},
+        perunits = #{perunits,jdbcType=VARCHAR},
+        period = #{period,jdbcType=INTEGER},
+        bsr = #{bsr,jdbcType=VARCHAR},
+        total_schedule = #{totalSchedule,jdbcType=VARCHAR},
+        total_successful = #{totalSuccessful,jdbcType=VARCHAR},
+        day_01_1 = #{day011,jdbcType=VARCHAR},
+        day_01_2 = #{day012,jdbcType=VARCHAR},
+        day_02_1 = #{day021,jdbcType=VARCHAR},
+        day_02_2 = #{day022,jdbcType=VARCHAR},
+        day_03_1 = #{day031,jdbcType=VARCHAR},
+        day_03_2 = #{day032,jdbcType=VARCHAR},
+        day_04_1 = #{day041,jdbcType=VARCHAR},
+        day_04_2 = #{day042,jdbcType=VARCHAR},
+        day_05_1 = #{day051,jdbcType=VARCHAR},
+        day_05_2 = #{day052,jdbcType=VARCHAR},
+        day_06_1 = #{day061,jdbcType=VARCHAR},
+        day_06_2 = #{day062,jdbcType=VARCHAR},
+        day_07_1 = #{day071,jdbcType=VARCHAR},
+        day_07_2 = #{day072,jdbcType=VARCHAR},
+        day_08_1 = #{day081,jdbcType=VARCHAR},
+        day_08_2 = #{day082,jdbcType=VARCHAR},
+        day_09_1 = #{day091,jdbcType=VARCHAR},
+        day_09_2 = #{day092,jdbcType=VARCHAR},
+        day_10_1 = #{day101,jdbcType=VARCHAR},
+        day_10_2 = #{day102,jdbcType=VARCHAR},
+        day_11_1 = #{day111,jdbcType=VARCHAR},
+        day_11_2 = #{day112,jdbcType=VARCHAR},
+        day_12_1 = #{day121,jdbcType=VARCHAR},
+        day_12_2 = #{day122,jdbcType=VARCHAR},
+        day_13_1 = #{day131,jdbcType=VARCHAR},
+        day_13_2 = #{day132,jdbcType=VARCHAR},
+        day_14_1 = #{day141,jdbcType=VARCHAR},
+        day_14_2 = #{day142,jdbcType=VARCHAR},
+        day_15_1 = #{day151,jdbcType=VARCHAR},
+        day_15_2 = #{day152,jdbcType=VARCHAR},
+        day_16_1 = #{day161,jdbcType=VARCHAR},
+        day_16_2 = #{day162,jdbcType=VARCHAR},
+        day_17_1 = #{day171,jdbcType=VARCHAR},
+        day_17_2 = #{day172,jdbcType=VARCHAR},
+        day_18_1 = #{day181,jdbcType=VARCHAR},
+        day_18_2 = #{day182,jdbcType=VARCHAR},
+        day_19_1 = #{day191,jdbcType=VARCHAR},
+        day_19_2 = #{day192,jdbcType=VARCHAR},
+        day_20_1 = #{day201,jdbcType=VARCHAR},
+        day_20_2 = #{day202,jdbcType=VARCHAR},
+        day_21_1 = #{day211,jdbcType=VARCHAR},
+        day_21_2 = #{day212,jdbcType=VARCHAR},
+        day_22_1 = #{day221,jdbcType=VARCHAR},
+        day_22_2 = #{day222,jdbcType=VARCHAR},
+        day_23_1 = #{day231,jdbcType=VARCHAR},
+        day_23_2 = #{day232,jdbcType=VARCHAR},
+        day_24_1 = #{day241,jdbcType=VARCHAR},
+        day_24_2 = #{day242,jdbcType=VARCHAR},
+        day_25_1 = #{day251,jdbcType=VARCHAR},
+        day_25_2 = #{day252,jdbcType=VARCHAR},
+        day_26_1 = #{day261,jdbcType=VARCHAR},
+        day_26_2 = #{day262,jdbcType=VARCHAR},
+        day_27_1 = #{day271,jdbcType=VARCHAR},
+        day_27_2 = #{day272,jdbcType=VARCHAR},
+        day_28_1 = #{day281,jdbcType=VARCHAR},
+        day_28_2 = #{day282,jdbcType=VARCHAR},
+        day_29_1 = #{day291,jdbcType=VARCHAR},
+        day_29_2 = #{day292,jdbcType=VARCHAR},
+        day_30_1 = #{day301,jdbcType=VARCHAR},
+        day_30_2 = #{day302,jdbcType=VARCHAR},
+        day_31_1 = #{day311,jdbcType=VARCHAR},
+        day_31_2 = #{day312,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select resultMap="BaseResultMap" parameterType="com.hpe.msbireport.domain.MonthReportExample" id="selectByExampleWithRowbounds" >
         select
-        <if test="distinct">
+        <if test="distinct" >
             distinct
         </if>
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from month_report
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
         </if>
         <if test="orderByClause != null" >
             order by ${orderByClause}
@@ -1341,7 +1350,7 @@
         WHERE month_indicator = #{monthIndicator,jdbcType=INTEGER}
     </select>
     <select id="selectAllAvaiableMonthFromDB" resultType="java.lang.Integer">
-        SELECT DISTINCT month_indicator FROM month_report
+        SELECT DISTINCT month_indicator FROM month_report ORDER BY month_indicator DESC
     </select>
         <select id="selectAll" resultMap="BaseResultMap"  >
         select 
@@ -1429,5 +1438,4 @@
 		delete from month_report
 	    where month_indicator = #{month,jdbcType=INTEGER}
 	</delete>
-	
 </mapper>

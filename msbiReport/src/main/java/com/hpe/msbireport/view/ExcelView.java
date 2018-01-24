@@ -5,6 +5,7 @@ import com.hpe.msbireport.domain.LookupSummary;
 import com.hpe.msbireport.domain.MonthReport;
 import com.hpe.msbireport.domain.TotalSummary;
 import com.hpe.msbireport.utils.CommonUtils;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -23,8 +24,10 @@ import java.util.Map;
  * Project:
  * Author: HONGMIN GAO
  * Date: 27/12/17
- * Description: ...
+ * Description:
  */
+@Deprecated
+@Ignore
 public class ExcelView extends AbstractXlsxStreamingView {
 
     private final String[] weekOfDays = {"", "(Monday)", "(Tuesday)", "(Wednesday)", "(Thursday)", "(Friday)", "(Saturday)", "(Sunday)"};
