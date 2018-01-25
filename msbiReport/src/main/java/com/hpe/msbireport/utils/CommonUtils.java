@@ -704,217 +704,217 @@ public class CommonUtils {
         totalSummaryCode2.setDay01(code01_0 + code01_1 + code01_2);
         totalSummaryCode3.setDay01(code01_0 + code01_1 + code01_2);
         totalSummaryCode4.setDay01(code01_1);
-        totalSummaryCode5.setDay01(code01_3 - code01_4);
+        totalSummaryCode5.setDay01(code01_0 + code01_2);
         totalSummaryCdoe6.setDay01(code01_2);
 
         totalSummaryCode1.setDay02(code02_0 + code02_5);
         totalSummaryCode2.setDay02(code02_0 + code02_1 + code02_2);
         totalSummaryCode3.setDay02(code02_0 + code02_1 + code02_2);
         totalSummaryCode4.setDay02(code02_1);
-        totalSummaryCode5.setDay02(code02_3 - code02_4);
+        totalSummaryCode5.setDay02(code02_0 + code02_2);
         totalSummaryCdoe6.setDay02(code02_2);
 
         totalSummaryCode1.setDay03(code03_0 + code03_5);
         totalSummaryCode2.setDay03(code03_0 + code03_1 + code03_2);
         totalSummaryCode3.setDay03(code03_0 + code03_1 + code03_2);
         totalSummaryCode4.setDay03(code03_1);
-        totalSummaryCode5.setDay03(code03_3 - code03_4);
+        totalSummaryCode5.setDay03(code03_0 + code03_2);
         totalSummaryCdoe6.setDay03(code03_2);
 
         totalSummaryCode1.setDay04(code04_0 + code04_5);
         totalSummaryCode2.setDay04(code04_0 + code04_1 + code04_2);
         totalSummaryCode3.setDay04(code04_0 + code04_1 + code04_2);
         totalSummaryCode4.setDay04(code04_1);
-        totalSummaryCode5.setDay04(code04_3 - code04_4);
+        totalSummaryCode5.setDay04(code04_0 + code04_2);
         totalSummaryCdoe6.setDay04(code04_2);
 
         totalSummaryCode1.setDay05(code05_0 + code05_5);
         totalSummaryCode2.setDay05(code05_0 + code05_1 + code05_2);
         totalSummaryCode3.setDay05(code05_0 + code05_1 + code05_2);
         totalSummaryCode4.setDay05(code05_1);
-        totalSummaryCode5.setDay05(code05_3 - code05_4);
+        totalSummaryCode5.setDay05(code05_0 + code05_2);
         totalSummaryCdoe6.setDay05(code05_2);
 
         totalSummaryCode1.setDay06(code06_0 + code06_5);
         totalSummaryCode2.setDay06(code06_0 + code06_1 + code06_2);
         totalSummaryCode3.setDay06(code06_0 + code06_1 + code06_2);
         totalSummaryCode4.setDay06(code06_1);
-        totalSummaryCode5.setDay06(code06_3 - code06_4);
+        totalSummaryCode5.setDay06(code06_0 + code06_2);
         totalSummaryCdoe6.setDay06(code06_2);
 
         totalSummaryCode1.setDay07(code07_0 + code07_5);
         totalSummaryCode2.setDay07(code07_0 + code07_1 + code07_2);
         totalSummaryCode3.setDay07(code07_0 + code07_1 + code07_2);
         totalSummaryCode4.setDay07(code07_1);
-        totalSummaryCode5.setDay07(code07_3 - code07_4);
+        totalSummaryCode5.setDay07(code07_0 + code07_2);
         totalSummaryCdoe6.setDay07(code07_2);
 
         totalSummaryCode1.setDay08(code08_0 + code08_5);
         totalSummaryCode2.setDay08(code08_0 + code08_1 + code08_2);
         totalSummaryCode3.setDay08(code08_0 + code08_1 + code08_2);
         totalSummaryCode4.setDay08(code08_1);
-        totalSummaryCode5.setDay08(code08_3 - code08_4);
+        totalSummaryCode5.setDay08(code08_0 + code08_2);
         totalSummaryCdoe6.setDay08(code08_2);
 
         totalSummaryCode1.setDay09(code09_0 + code09_5);
         totalSummaryCode2.setDay09(code09_0 + code09_1 + code09_2);
         totalSummaryCode3.setDay09(code09_0 + code09_1 + code09_2);
         totalSummaryCode4.setDay09(code09_1);
-        totalSummaryCode5.setDay09(code09_3 - code09_4);
+        totalSummaryCode5.setDay09(code09_0 + code09_2);
         totalSummaryCdoe6.setDay09(code09_2);
 
         totalSummaryCode1.setDay10(code10_0 + code10_5);
         totalSummaryCode2.setDay10(code10_0 + code10_1 + code10_2);
         totalSummaryCode3.setDay10(code10_0 + code10_1 + code10_2);
         totalSummaryCode4.setDay10(code10_1);
-        totalSummaryCode5.setDay10(code10_3 - code10_4);
+        totalSummaryCode5.setDay10(code10_0 + code10_2);
         totalSummaryCdoe6.setDay10(code10_2);
 
         totalSummaryCode1.setDay11(code11_0 + code11_5);
         totalSummaryCode2.setDay11(code11_0 + code11_1 + code11_2);
         totalSummaryCode3.setDay11(code11_0 + code11_1 + code11_2);
         totalSummaryCode4.setDay11(code11_1);
-        totalSummaryCode5.setDay11(code11_3 - code11_4);
+        totalSummaryCode5.setDay11(code11_0 + code11_2);
         totalSummaryCdoe6.setDay11(code11_2);
 
         totalSummaryCode1.setDay12(code12_0 + code12_5);
         totalSummaryCode2.setDay12(code12_0 + code12_1 + code12_2);
         totalSummaryCode3.setDay12(code12_0 + code12_1 + code12_2);
         totalSummaryCode4.setDay12(code12_1);
-        totalSummaryCode5.setDay12(code12_3 - code12_4);
+        totalSummaryCode5.setDay12(code12_0 + code12_2);
         totalSummaryCdoe6.setDay12(code12_2);
 
         totalSummaryCode1.setDay13(code13_0 + code13_5);
         totalSummaryCode2.setDay13(code13_0 + code13_1 + code13_2);
         totalSummaryCode3.setDay13(code13_0 + code13_1 + code13_2);
         totalSummaryCode4.setDay13(code13_1);
-        totalSummaryCode5.setDay13(code13_3 - code13_4);
+        totalSummaryCode5.setDay13(code13_0 + code13_2);
         totalSummaryCdoe6.setDay13(code13_2);
 
         totalSummaryCode1.setDay14(code14_0 + code14_5);
         totalSummaryCode2.setDay14(code14_0 + code14_1 + code14_2);
         totalSummaryCode3.setDay14(code14_0 + code14_1 + code14_2);
         totalSummaryCode4.setDay14(code14_1);
-        totalSummaryCode5.setDay14(code14_3 - code14_4);
+        totalSummaryCode5.setDay14(code14_0 + code14_2);
         totalSummaryCdoe6.setDay14(code14_2);
 
         totalSummaryCode1.setDay15(code15_0 + code15_5);
         totalSummaryCode2.setDay15(code15_0 + code15_1 + code15_2);
         totalSummaryCode3.setDay15(code15_0 + code15_1 + code15_2);
         totalSummaryCode4.setDay15(code15_1);
-        totalSummaryCode5.setDay15(code15_3 - code15_4);
+        totalSummaryCode5.setDay15(code15_0 + code15_2);
         totalSummaryCdoe6.setDay15(code15_2);
 
         totalSummaryCode1.setDay16(code16_0 + code16_5);
         totalSummaryCode2.setDay16(code16_0 + code16_1 + code16_2);
         totalSummaryCode3.setDay16(code16_0 + code16_1 + code16_2);
         totalSummaryCode4.setDay16(code16_1);
-        totalSummaryCode5.setDay16(code16_3 - code16_4);
+        totalSummaryCode5.setDay16(code16_0 + code16_2);
         totalSummaryCdoe6.setDay16(code16_2);
 
         totalSummaryCode1.setDay17(code17_0 + code17_5);
         totalSummaryCode2.setDay17(code17_0 + code17_1 + code17_2);
         totalSummaryCode3.setDay17(code17_0 + code17_1 + code17_2);
         totalSummaryCode4.setDay17(code17_1);
-        totalSummaryCode5.setDay17(code17_3 - code17_4);
+        totalSummaryCode5.setDay17(code17_0 + code17_2);
         totalSummaryCdoe6.setDay17(code17_2);
 
         totalSummaryCode1.setDay18(code18_0 + code18_5);
         totalSummaryCode2.setDay18(code18_0 + code18_1 + code18_2);
         totalSummaryCode3.setDay18(code18_0 + code18_1 + code18_2);
         totalSummaryCode4.setDay18(code18_1);
-        totalSummaryCode5.setDay18(code18_3 - code18_4);
+        totalSummaryCode5.setDay18(code18_0 + code18_2);
         totalSummaryCdoe6.setDay18(code18_2);
 
         totalSummaryCode1.setDay19(code19_0 + code19_5);
         totalSummaryCode2.setDay19(code19_0 + code19_1 + code19_2);
         totalSummaryCode3.setDay19(code19_0 + code19_1 + code19_2);
         totalSummaryCode4.setDay19(code19_1);
-        totalSummaryCode5.setDay19(code19_3 - code19_4);
+        totalSummaryCode5.setDay19(code19_0 + code19_2);
         totalSummaryCdoe6.setDay19(code19_2);
 
         totalSummaryCode1.setDay20(code20_0 + code20_5);
         totalSummaryCode2.setDay20(code20_0 + code20_1 + code20_2);
         totalSummaryCode3.setDay20(code20_0 + code20_1 + code20_2);
         totalSummaryCode4.setDay20(code20_1);
-        totalSummaryCode5.setDay20(code20_3 - code20_4);
+        totalSummaryCode5.setDay20(code20_0 + code20_2);
         totalSummaryCdoe6.setDay20(code20_2);
 
         totalSummaryCode1.setDay21(code21_0 + code21_5);
         totalSummaryCode2.setDay21(code21_0 + code21_1 + code21_2);
         totalSummaryCode3.setDay21(code21_0 + code21_1 + code21_2);
         totalSummaryCode4.setDay21(code21_1);
-        totalSummaryCode5.setDay21(code21_3 - code21_4);
+        totalSummaryCode5.setDay21(code21_0 + code21_2);
         totalSummaryCdoe6.setDay21(code21_2);
 
         totalSummaryCode1.setDay22(code22_0 + code22_5);
         totalSummaryCode2.setDay22(code22_0 + code22_1 + code22_2);
         totalSummaryCode3.setDay22(code22_0 + code22_1 + code22_2);
         totalSummaryCode4.setDay22(code22_1);
-        totalSummaryCode5.setDay22(code22_3 - code22_4);
+        totalSummaryCode5.setDay22(code22_0 + code22_2);
         totalSummaryCdoe6.setDay22(code22_2);
 
         totalSummaryCode1.setDay23(code23_0 + code23_5);
         totalSummaryCode2.setDay23(code23_0 + code23_1 + code23_2);
         totalSummaryCode3.setDay23(code23_0 + code23_1 + code23_2);
         totalSummaryCode4.setDay23(code23_1);
-        totalSummaryCode5.setDay23(code23_3 - code23_4);
+        totalSummaryCode5.setDay23(code23_0 + code23_2);
         totalSummaryCdoe6.setDay23(code23_2);
 
         totalSummaryCode1.setDay24(code24_0 + code24_5);
         totalSummaryCode2.setDay24(code24_0 + code24_1 + code24_2);
         totalSummaryCode3.setDay24(code24_0 + code24_1 + code24_2);
         totalSummaryCode4.setDay24(code24_1);
-        totalSummaryCode5.setDay24(code24_3 - code24_4);
+        totalSummaryCode5.setDay24(code24_0 + code24_2);
         totalSummaryCdoe6.setDay24(code24_2);
 
         totalSummaryCode1.setDay25(code25_0 + code25_5);
         totalSummaryCode2.setDay25(code25_0 + code25_1 + code25_2);
         totalSummaryCode3.setDay25(code25_0 + code25_1 + code25_2);
         totalSummaryCode4.setDay25(code25_1);
-        totalSummaryCode5.setDay25(code25_3 - code25_4);
+        totalSummaryCode5.setDay25(code25_0 + code25_2);
         totalSummaryCdoe6.setDay25(code25_2);
 
         totalSummaryCode1.setDay26(code26_0 + code26_5);
         totalSummaryCode2.setDay26(code26_0 + code26_1 + code26_2);
         totalSummaryCode3.setDay26(code26_0 + code26_1 + code26_2);
         totalSummaryCode4.setDay26(code26_1);
-        totalSummaryCode5.setDay26(code26_3 - code26_4);
+        totalSummaryCode5.setDay26(code26_0 + code26_2);
         totalSummaryCdoe6.setDay26(code26_2);
 
         totalSummaryCode1.setDay27(code27_0 + code27_5);
         totalSummaryCode2.setDay27(code27_0 + code27_1 + code27_2);
         totalSummaryCode3.setDay27(code27_0 + code27_1 + code27_2);
         totalSummaryCode4.setDay27(code27_1);
-        totalSummaryCode5.setDay27(code27_3 - code27_4);
+        totalSummaryCode5.setDay27(code27_0 + code27_2);
         totalSummaryCdoe6.setDay27(code27_2);
 
         totalSummaryCode1.setDay28(code28_0 + code28_5);
         totalSummaryCode2.setDay28(code28_0 + code28_1 + code28_2);
         totalSummaryCode3.setDay28(code28_0 + code28_1 + code28_2);
         totalSummaryCode4.setDay28(code28_1);
-        totalSummaryCode5.setDay28(code28_3 - code28_4);
+        totalSummaryCode5.setDay28(code28_0 + code28_2);
         totalSummaryCdoe6.setDay28(code28_2);
 
         totalSummaryCode1.setDay29(code29_0 + code29_5);
         totalSummaryCode2.setDay29(code29_0 + code29_1 + code29_2);
         totalSummaryCode3.setDay29(code29_0 + code29_1 + code29_2);
         totalSummaryCode4.setDay29(code29_1);
-        totalSummaryCode5.setDay29(code29_3 - code29_4);
+        totalSummaryCode5.setDay29(code29_0 + code29_2);
         totalSummaryCdoe6.setDay29(code29_2);
 
         totalSummaryCode1.setDay30(code30_0 + code30_5);
         totalSummaryCode2.setDay30(code30_0 + code30_1 + code30_2);
         totalSummaryCode3.setDay30(code30_0 + code30_1 + code30_2);
         totalSummaryCode4.setDay30(code30_1);
-        totalSummaryCode5.setDay30(code30_3 - code30_4);
+        totalSummaryCode5.setDay30(code30_0 + code30_2);
         totalSummaryCdoe6.setDay30(code30_2);
 
         totalSummaryCode1.setDay31(code31_0 + code31_5);
         totalSummaryCode2.setDay31(code31_0 + code31_1 + code31_2);
         totalSummaryCode3.setDay31(code31_0 + code31_1 + code31_2);
         totalSummaryCode4.setDay31(code31_1);
-        totalSummaryCode5.setDay31(code31_3 - code31_4);
+        totalSummaryCode5.setDay31(code31_0 + code31_2);
         totalSummaryCdoe6.setDay31(code31_2);
 
 //        totalSummaries
