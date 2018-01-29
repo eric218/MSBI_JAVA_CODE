@@ -551,7 +551,7 @@ public class PoiExcelServiceImpl implements PoiExcelService {
                 monthReportContent.createCell(3).setCellValue(monthReport.getEachMonth());
                 monthReportContent.createCell(4).setCellValue(monthReport.getDateOfMonth());
                 monthReportContent.createCell(5).setCellValue(monthReport.getWeekOfMonth());
-                monthReportContent.createCell(6).setCellValue(monthReport.getBsr());
+                monthReportContent.createCell(6).setCellValue(monthReport.getBsr()+"%");
                 monthReportContent.createCell(7).setCellValue(monthReport.getTotalSchedule());
                 monthReportContent.createCell(8).setCellValue(monthReport.getTotalSuccessful());
                 monthReportContent.createCell(9).setCellValue("");
