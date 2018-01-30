@@ -16,6 +16,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hpe.msbireport.domain.BackupLog;
 import com.hpe.msbireport.domain.MonthReport;
 import com.hpe.msbireport.domain.RunTimeByDate;
 import com.hpe.msbireport.domain.ScheduleHistory;
@@ -780,4 +781,10 @@ public class MonthReportServiceImpl implements MonthReportService {
     public List<Integer> selectAllAvaiableMonthFromDB() {
         return this.monthReportMapper.selectAllAvaiableMonthFromDB();
     }
+
+	@Override
+	public Date getEndDate() {
+		BackupLog bl = backupLogMapper.selectEndDate();
+		return bl.getStartDate();
+	}
 }

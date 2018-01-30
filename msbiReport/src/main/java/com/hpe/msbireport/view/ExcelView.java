@@ -1,24 +1,33 @@
 package com.hpe.msbireport.view;
 
-import com.hpe.msbireport.domain.Lookup;
-import com.hpe.msbireport.domain.LookupSummary;
-import com.hpe.msbireport.domain.MonthReport;
-import com.hpe.msbireport.domain.TotalSummary;
-import com.hpe.msbireport.utils.CommonUtils;
-import jdk.nashorn.internal.ir.annotations.Ignore;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.util.CellRangeAddress;
-import org.springframework.web.servlet.view.document.AbstractXlsxStreamingView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 //import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.junit.Ignore;
+import org.springframework.web.servlet.view.document.AbstractXlsxStreamingView;
+
+import com.hpe.msbireport.domain.Lookup;
+import com.hpe.msbireport.domain.LookupSummary;
+import com.hpe.msbireport.domain.MonthReport;
+import com.hpe.msbireport.domain.TotalSummary;
+import com.hpe.msbireport.utils.CommonUtils;
 
 /**
  * Project:

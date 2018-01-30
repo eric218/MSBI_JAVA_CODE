@@ -1,18 +1,21 @@
 package com.hpe.msbireport.config;
 
-import com.hpe.msbireport.viewResolver.ExcelViewResolver;
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Ignore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.hpe.msbireport.viewResolver.ExcelViewResolver;
 
 /**
  * Project:

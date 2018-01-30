@@ -21,4 +21,6 @@ public interface BackupLogMapper {
     int updateByPrimaryKey(BackupLog record);
     
     List<RunTimeByDate> selectRunTimeByDate(@Param("startDate")String startDate,@Param("endDate")String endDate);
+    
+    BackupLog selectEndDate();
 }

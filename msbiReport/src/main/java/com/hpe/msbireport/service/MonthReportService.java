@@ -2,6 +2,7 @@ package com.hpe.msbireport.service;
 
 import com.hpe.msbireport.domain.MonthReport;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,4 +27,10 @@ public interface MonthReportService {
     public boolean formatMonthReportTable(String startDate,String currentDate,boolean hasHistory,int insertSize) throws Exception;
     
     List<Integer> selectAllAvaiableMonthFromDB();
+    
+    /**
+     * 从backup_log表中获得最大时间，用来做更新monthreport表的current时间
+     * @return
+     */
+    Date getEndDate();
 }

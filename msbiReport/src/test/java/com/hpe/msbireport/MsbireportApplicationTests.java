@@ -1,5 +1,9 @@
 package com.hpe.msbireport;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,6 +19,7 @@ import java.util.Map;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -38,16 +43,28 @@ public class MsbireportApplicationTests {
 	@Autowired
 	private ScheduleHistoryMapper scheduleHistoryMapper;
 	
+	@Value("${msbi.app.monthreport.currentdate}")
+    private String currentDate;
+    
+    @Value("${msbi.app.monthreport.history}")
+    private boolean hasHistory;
+    
+    @Value("${msbi.app.monthreport.insertSize}")
+    private int insertSize;
+	
 	private final static Map<String, Integer> Day = new HashMap<String, Integer>();
 	private final static Map<String, Integer> Week = new HashMap<String, Integer>();
 	
 	@Test
 	public void testService(){
 		try {
-			String currentDate = "2017-4-30";
-			String sDate = null;
-			boolean s = monthReportService.formatMonthReportTable(sDate, currentDate, false, 200);
-			System.out.println(s);
+			if(null != currentDate && !"".equals(currentDate) ){
+				System.out.println("no");
+			}else{
+				System.out.println("yes");
+			}
+			System.out.println(hasHistory);
+			System.out.println(insertSize);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -438,29 +455,84 @@ public class MsbireportApplicationTests {
 		
 	}
 	
+	@SuppressWarnings("resource")
 	public static void main(String[] args) {
-		String strDateTime = "2017-2-2";
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            Date ndate = format.parse(strDateTime);
-            String str = format.format(ndate);
-            System.out.println(ndate);
-            System.out.println(str);
-            
-            String [] d = strDateTime.split("-");
-            String m = d[1];
-            String day = d[2];
-            if(d[1].length() <= 1){ m = "0" + d[1]; }
-            if(d[2].length() <= 1){ day = "0" + d[2]; }
-            strDateTime = d[0] + "-" + m + "-"+ day;
-            
-            System.out.println("strDateTime=" + strDateTime);
-            //success
-            if (str.equals(strDateTime))
-                System.out.println("1");
-            //datetime is not validate
-            else
-            	System.out.println("0");
+        	
+        	/*String oldPath = "C:/myPRO/work/project/wangwei/folder/";
+        	String newPath = "C:/myPRO/work/project/wangwei/folders/";
+        	
+        	List<String> oldFileName = new ArrayList<String>();
+        	List<String> newFileName = new ArrayList<String>();
+        	
+        	Map<String,File> oldFileMap = new HashMap<String, File>();
+        	
+        	File oldFiles = new File(oldPath);
+        	File[] oldArray = oldFiles.listFiles();
+        	for (File file : oldArray) {
+        		if(file.getName().indexOf("schedules.txt") != -1){
+        			String a = file.getName().split("_")[2];
+        			String keyTime = "";
+        			if(a.length() == 7){
+            			String y = a.substring(0, 4);
+            			String m = "0"+a.substring(4, 5);
+            			String d = a.substring(a.length()-2, a.length());
+            			keyTime = y+m+d;
+            		}else if(a.length() == 8){
+            			keyTime = a;
+            		}
+        			
+        			if("" != keyTime){
+        				oldFileMap.put(keyTime, file);
+        				oldFileName.add(keyTime);
+        			}
+        		}
+			}
+        	
+        	File newFiles = new File(newPath);
+        	File[] newArray = newFiles.listFiles();
+        	for (File file : newArray) {
+        		String keyName = file.getName().split("_")[1].substring(0,8);
+        		newFileName.add(keyName);
+			}
+        	
+        	for (String newName : newFileName) {
+				for (int i = 0; i < oldFileName.size(); i++) {
+					if(newName.equals(oldFileName.get(i))){
+						oldFileName.remove(i);
+					}
+				}
+			}
+        	
+        	for (String name : oldFileName) {
+        		FileChannel inputChannel = null;    
+                FileChannel outputChannel = null;    
+                inputChannel = new FileInputStream(oldFileMap.get(name)).getChannel();
+                outputChannel = new FileOutputStream(new File(newPath+"schedule_"+name+".txt")).getChannel();
+                outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
+                inputChannel.close();
+                outputChannel.close();
+			}*/
+        	
+        	String s = "newclient_schedules.txt_201823_600";
+        	if(s.indexOf("schedules.txt") != -1){
+        		String a = s.split("_")[2];
+        		System.out.println(a.length());
+        		if(a.length() == 7){
+        			String y = a.substring(0, 4);
+        			String m = "0"+a.substring(4, 5);
+        			String d = a.substring(a.length()-2, a.length());
+        			System.out.println(y+"--"+m+"-"+d);
+        		}else if(a.length() == 8){
+        			System.out.println(a);
+        		}else if(a.length() == 6){
+        			String y = a.substring(0, 4);
+        			String m = "0"+a.substring(4, 5);
+        			String d = "0"+a.substring(a.length()-1, a.length());
+        			System.out.println(y+"--"+m+"-"+d);
+        		}
+        	}
+        	
         } catch (Exception e) {
         	System.out.println("-1");
             e.printStackTrace();
