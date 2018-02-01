@@ -5,7 +5,7 @@
 <generatorConfiguration>
     <properties resource="application.properties"/>
     <classPathEntry location="${mbg.jdbc.driver-location}"/>
-    <!-- <context id="mysql" defaultModelType="conditional" targetRuntime="MyBatis3">
+    <context id="mysql" defaultModelType="conditional" targetRuntime="MyBatis3">
         <property name="javaFileEncoding" value="UTF-8"/>
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
@@ -32,11 +32,6 @@
                              targetPackage="${mbg.target-package.mapper}">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-        <table tableName = "lookup"/>
-        <table tableName = "month_report"/>
-        <table tableName = "total_title"/>
-        <table tableName = "total_summary"/>
-        <table tableName = "lookup_summary"/>
-        <table tableName = "schedule_status"/>
-    </context> -->
+        <table tableName = "files_load"/>
+    </context>
 </generatorConfiguration>

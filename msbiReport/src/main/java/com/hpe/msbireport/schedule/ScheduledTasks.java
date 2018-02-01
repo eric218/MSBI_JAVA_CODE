@@ -85,7 +85,7 @@ public class ScheduledTasks {
     }
     
     // every day at 02:00 AM
-    @Scheduled(cron = "${msbi.app.scheduled.time.daily}")
+    @Scheduled(cron = "${msbi.generate.scheduled.time.daily}")
     public void autoFormatMonthReportTable() throws Exception {
         log.info("@Scheduled Task: AutoFormatMonthReportTable scheduled tasks start at:  {}", dateFormat.format(new Date()));
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -116,7 +116,7 @@ public class ScheduledTasks {
     
     // every day at 02:00 AM
     @SuppressWarnings("resource")
-	@Scheduled(cron = "${msbi.app.scheduled.time.daily}")
+	@Scheduled(cron = "${msbi.copy.scheduled.time.daily}")
     public void autoCopyFile() throws Exception {
         log.info("@Scheduled Task: AutoCopyFile scheduled tasks start at:  {}", dateFormat.format(new Date()));
     	
@@ -128,7 +128,7 @@ public class ScheduledTasks {
     	File[] oldArray = oldFiles.listFiles();
     	//把符合要求的文件保存为Map，key：文件名 value：File对象
     	for (File file : oldArray) {
-    		if(file.getName().indexOf("schedules.txt") != -1){
+    		if(file.getName().contains("schedules.txt")){
     			String a = file.getName().split("_")[2];
     			String keyTime = "";
     			if(a.length() == 7){
