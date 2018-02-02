@@ -2,6 +2,7 @@ package com.hpe.msbireport;
 
 import com.hpe.msbireport.mapper.ProcedureCallMapper;
 import com.hpe.msbireport.service.FileLoadService;
+import com.hpe.msbireport.service.MonthReportService;
 import com.hpe.msbireport.service.ProcedureCallService;
 import com.hpe.msbireport.utils.CopyFileUtils;
 import com.hpe.msbireport.utils.FileUtils;
@@ -42,7 +43,15 @@ public class ProcedureCall {
     @Autowired
     private ProcedureCallService procedureCallService;
     @Autowired
+    MonthReportService monthReportService;
+    @Autowired
     private FileLoadService fileLoadService;
+    @Value("${msbi.app.file.location.monthly}")
+    private String monthlyReportPath;
+
+    @Value("${msbi.app.file.location.daily}")
+    private String dailyReportPath;
+
     @Test
     @Transactional
     public void num(){
@@ -61,6 +70,10 @@ public class ProcedureCall {
     @Test
     public void test3() throws Exception{
         new CopyFileUtils().copy(oldPath,newPath);
+        procedureCallService.autoRun(logLocation,scheduleLocation);
+        monthReportService.formatMonthReportTableForTask(3,null, true, 1000);
+        monthReportService.autoDailyGenerate(dailyReportPath);
+        monthReportService.autoMonthlyGenerate(monthlyReportPath);
     }
 
 }

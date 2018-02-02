@@ -23,4 +23,6 @@ public interface BackupLogMapper {
     List<RunTimeByDate> selectRunTimeByDate(@Param("startDate")String startDate,@Param("endDate")String endDate);
     
     BackupLog selectEndDate();
+    
+    BackupLog selectStartDate();
 }

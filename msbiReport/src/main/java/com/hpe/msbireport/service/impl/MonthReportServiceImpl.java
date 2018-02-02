@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.hpe.msbireport.service.PoiExcelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,9 @@ public class MonthReportServiceImpl implements MonthReportService {
     
     @Autowired
     ScheduleHistoryMapper scheduleHistoryMapper;
+
+	@Autowired
+	PoiExcelService poiExcelService;
     
     private final static Map<String, Integer> PERUNITS = new HashMap<String, Integer>();
     private final static Map<String, Integer> Day = new HashMap<String, Integer>();
@@ -789,7 +793,9 @@ public class MonthReportServiceImpl implements MonthReportService {
 	}
 
 	@Override
-	public boolean formatMonthReportTableForTask(String currentDate, boolean hasHistory, int insertSize) throws Exception {
+	public boolean formatMonthReportTableForTask(int day,String currentDate, boolean hasHistory, int insertSize) throws Exception {
+		
+		List<MonthReport> list = monthReportMapper.selectAll();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date endDate = null;
         if(null != currentDate && !"".equals(currentDate)){
@@ -797,22 +803,55 @@ public class MonthReportServiceImpl implements MonthReportService {
         }else{
         	endDate = getEndDate();
         }
-        if(null != endDate){
-    		String endDateS = format.format(endDate);
-    		String [] endDateSN = endDateS.split("-");
-    		
-    		Calendar cal = Calendar.getInstance();
-    		cal.setTime(endDate);
-    		cal.add(Calendar.DATE, -3);
-    		String en = format.format(cal.getTime());
-    		String[] ens = en.split("-");
-    		
-    		if(endDateSN[1].equals(ens[1])){
-    			return formatMonthReportTable(null, endDateS, hasHistory, insertSize);
-    		}else{
-    			return formatMonthReportTable(en, endDateS, hasHistory, insertSize);
-    		}
-    	}
+        String endDateS = format.format(endDate);
+        String endDateE = format.format(getStartDate());
+		if(null == list){
+			return formatMonthReportTable(endDateE, endDateS, hasHistory, insertSize);
+		}else{
+			if(null != endDate){
+	    		String [] endDateSN = endDateS.split("-");
+	    		
+	    		Calendar cal = Calendar.getInstance();
+	    		cal.setTime(endDate);
+	    		cal.add(Calendar.DATE, day);
+	    		String en = format.format(cal.getTime());
+	    		String[] ens = en.split("-");
+	    		
+	    		if(endDateSN[1].equals(ens[1])){
+	    			return formatMonthReportTable(null, endDateS, hasHistory, insertSize);
+	    		}else{
+	    			return formatMonthReportTable(en, endDateS, hasHistory, insertSize);
+	    		}
+	    	}
+		}
+		
         return false;
+	}
+
+	@Override
+	public List<MonthReport> selectAll() {
+		return monthReportMapper.selectAll();
+	}
+
+	@Override
+	public void autoDailyGenerate(String dailyReportPath) throws Exception{
+		List<Integer> availableMonthLists = this.selectAllAvaiableMonthFromDB();
+		if (availableMonthLists != null) {
+			poiExcelService.generateExcelFileToAFixedPath(availableMonthLists.get(0), dailyReportPath);
+		}
+	}
+
+	@Override
+	public void autoMonthlyGenerate(String monthlyReportPath) throws Exception {
+		List<Integer> availableMonthLists = this.selectAllAvaiableMonthFromDB();
+		for (Integer monthIndicator : availableMonthLists) {
+			poiExcelService.generateExcelFileToAFixedPath(monthIndicator, monthlyReportPath);
+		}
+	}
+
+	@Override
+	public Date getStartDate() {
+		BackupLog bl = backupLogMapper.selectStartDate();
+		return bl.getStartDate();
 	}
 }

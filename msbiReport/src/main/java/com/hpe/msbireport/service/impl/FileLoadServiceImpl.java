@@ -37,8 +37,8 @@ public class FileLoadServiceImpl implements FileLoadService {
         //比对 assoc 和 newdaily 文件夹
         List<String> list = FileUtils.getfilesInFolder(logLocation);
         for (String fileName : list) {
-            //如果不在数据库里,则放入准备插入的list里
-            if ((String) dbMap.get(fileName) == null) {
+            //如果不在数据库里,则放入准备插入的list里,不包含原始的newclient_schedules
+            if ((String) dbMap.get(fileName) == null && !fileName.contains("newclient_schedules")) {
                 autoInsertList.add(fileName);
             }
         }

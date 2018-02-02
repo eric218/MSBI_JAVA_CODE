@@ -143,7 +143,7 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
             log.warn("there is no new Log and assoc files");
         }
 
-        if(list2==null || list.size()==0){
+        if(list2==null || list2.size()==0){
             log.warn("there is no new schedule files");
         }
 

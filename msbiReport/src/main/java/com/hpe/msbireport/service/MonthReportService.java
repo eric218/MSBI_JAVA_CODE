@@ -26,7 +26,16 @@ public interface MonthReportService {
      */
     public boolean formatMonthReportTable(String startDate,String currentDate,boolean hasHistory,int insertSize) throws Exception;
     
-    public boolean formatMonthReportTableForTask(String currentDate,boolean hasHistory,int insertSize) throws Exception;
+    /**
+     * 
+     * @param day 以currentDate为起点，向前推几天
+     * @param currentDate 当前日期
+     * @param hasHistory 是否需要历史
+     * @param insertSize 写入记录条数大小
+     * @return
+     * @throws Exception
+     */
+    public boolean formatMonthReportTableForTask(int day,String currentDate,boolean hasHistory,int insertSize) throws Exception;
     
     List<Integer> selectAllAvaiableMonthFromDB();
     
@@ -35,4 +44,15 @@ public interface MonthReportService {
      * @return
      */
     Date getEndDate();
+    
+    /**
+     * 从backup_log表中获得开始时间，初始化monthreport表
+     * @return
+     */
+    Date getStartDate();
+    
+    List<MonthReport> selectAll();
+
+    public void autoDailyGenerate(String dailyReportPath)throws Exception;
+    public void autoMonthlyGenerate(String monthlyReportPath)throws Exception;
 }

@@ -40,8 +40,8 @@ public class ScheduledTasks {
     @Value("${msbi.app.file.location.daily}")
     private String dailyReportPath;
     
-    @Value("${msbi.app.monthreport.currentdate}")
-    private String currentDate;
+    @Value("${msbi.app.monthreport.day}")
+    private int day;
     
     @Value("${msbi.app.monthreport.history}")
     private boolean hasHistory;
@@ -55,14 +55,18 @@ public class ScheduledTasks {
     @Value("${msbi.app.copyfile.to}")
     private String newPath;
     
+    private String currentDate = "";
+    
     //0 59 23 1 1/1 *  = every 1st day of each month at 23:59 PM
     @Scheduled(cron = "${msbi.app.scheduled.time.monthly}")
     public void autoGeneratePastMonthlyReport() throws Exception {
         log.info("@Scheduled Task: AutoGeneratePastMonthlyReport scheduled tasks start at:  {}", dateFormat.format(new Date()));
-        List<Integer> availableMonthLists = this.monthReportService.selectAllAvaiableMonthFromDB();
-        for (Integer monthIndicator : availableMonthLists) {
-            this.poiExcelService.generateExcelFileToAFixedPath(monthIndicator, monthlyReportPath);
-        }
+        monthReportService.autoMonthlyGenerate(monthlyReportPath);
+
+//        List<Integer> availableMonthLists = this.monthReportService.selectAllAvaiableMonthFromDB();
+//        for (Integer monthIndicator : availableMonthLists) {
+//            this.poiExcelService.generateExcelFileToAFixedPath(monthIndicator, monthlyReportPath);
+//        }
         log.info("@Scheduled Task: AutoGeneratePastMonthlyReport scheduled tasks finished at:  {}", dateFormat.format(new Date()));
     }
 
@@ -70,10 +74,11 @@ public class ScheduledTasks {
     @Scheduled(cron = "${msbi.app.scheduled.time.daily}")
     public void autoDailyGenerateCurrentMonthlyReport() throws Exception {
         log.info("@Scheduled Task: AutoDailyGenerateCurrentMonthlyReport scheduled tasks start at:  {}", dateFormat.format(new Date()));
-        List<Integer> availableMonthLists = this.monthReportService.selectAllAvaiableMonthFromDB();
-        if (availableMonthLists != null) {
-            this.poiExcelService.generateExcelFileToAFixedPath(availableMonthLists.get(0), dailyReportPath);
-        }
+        monthReportService.autoDailyGenerate(dailyReportPath);
+        //        List<Integer> availableMonthLists = this.monthReportService.selectAllAvaiableMonthFromDB();
+//        if (availableMonthLists != null) {
+//            this.poiExcelService.generateExcelFileToAFixedPath(availableMonthLists.get(0), dailyReportPath);
+//        }
         log.info("@Scheduled Task: AutoDailyGenerateCurrentMonthlyReport scheduled tasks finished at:  {}", dateFormat.format(new Date()));
     }
     
@@ -81,7 +86,7 @@ public class ScheduledTasks {
     @Scheduled(cron = "${msbi.generate.scheduled.time.daily}")
     public void autoFormatMonthReportTable() throws Exception {
         log.info("@Scheduled Task: AutoFormatMonthReportTable scheduled tasks start at:  {}", dateFormat.format(new Date()));
-		monthReportService.formatMonthReportTableForTask(currentDate, hasHistory, insertSize);
+		monthReportService.formatMonthReportTableForTask(day,currentDate, hasHistory, insertSize);
         log.info("@Scheduled Task: AutoFormatMonthReportTable scheduled tasks finished at:  {}", dateFormat.format(new Date()));
     }
     

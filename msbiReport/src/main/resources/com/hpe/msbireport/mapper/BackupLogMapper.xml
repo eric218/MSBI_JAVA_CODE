@@ -224,5 +224,8 @@
   <select id="selectEndDate" resultMap="BaseResultMap">
   	SELECT bl.START_DATE FROM backup_log bl ORDER BY bl.START_DATE DESC LIMIT 1;
   </select>
+  <select id="selectStartDate" resultMap="BaseResultMap">
+  	SELECT bl.START_DATE FROM backup_log bl ORDER BY bl.START_DATE LIMIT 1;
+  </select>
   
 </mapper>
