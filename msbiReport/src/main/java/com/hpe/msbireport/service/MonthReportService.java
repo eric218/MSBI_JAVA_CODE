@@ -26,6 +26,8 @@ public interface MonthReportService {
      */
     public boolean formatMonthReportTable(String startDate,String currentDate,boolean hasHistory,int insertSize) throws Exception;
     
+    public boolean formatMonthReportTableForTask(String currentDate,boolean hasHistory,int insertSize) throws Exception;
+    
     List<Integer> selectAllAvaiableMonthFromDB();
     
     /**
