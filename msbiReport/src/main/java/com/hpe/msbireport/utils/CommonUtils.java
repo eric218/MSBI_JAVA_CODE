@@ -1412,4 +1412,32 @@ public class CommonUtils {
         lookupSummaries.add(5, lookupSummaryCode6);
         return lookupSummaries;
     }
+
+    /***
+     * @discription: 计算时间间隔
+     * @param startDate
+     * @param endDate
+     * @return 返回时间map
+     */
+    public static Map getTimeInterval(Date startDate,Date endDate){
+        Map map = new HashMap();
+        long diff = endDate.getTime() - startDate.getTime();
+        long days = diff / (1000 * 60 * 60 * 24);
+        long hours = (diff - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+        long minutes = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
+        long seconds = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60) - minutes * (1000 * 60)) / (1000);
+        long ms = (diff - days * 24 * 60 * 60 * 1000 - hours * 60 * 60 * 1000 - minutes * 60 * 1000 - seconds * 1000);
+        map.put("days",days);
+        map.put("hours",hours);
+        map.put("minutes",minutes);
+        map.put("seconds",seconds);
+        map.put("ms",ms);
+        return map;
+    }
+
+    public static String getTimeIntervalFormat1(Date startDate,Date endDate){
+        Map map = getTimeInterval(startDate,endDate);
+        return map.get("minutes") + " minutes, "+ map.get("seconds")+" seconds, "+map.get("ms") + " ms";
+    }
+
 }

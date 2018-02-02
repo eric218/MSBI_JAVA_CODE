@@ -44,4 +44,11 @@ public class FileLoadServiceImpl implements FileLoadService {
         }
         return autoInsertList;
     }
+
+    @Override
+    public void insertFile(String fileName) {
+        FilesLoad file = new FilesLoad();
+        file.setFileName(fileName);
+        filesLoadMapper.insertSelective(file);
+    }
 }

@@ -12,4 +12,5 @@ import java.util.List;
  */
 public interface FileLoadService {
     public List<String> getInsertFile(String logLocation) throws IOException;
+    public void insertFile(String fileName);
 }
