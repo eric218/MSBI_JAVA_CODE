@@ -14,4 +14,6 @@ public interface ProcedureCallService {
     public void insertFile(Map map);
     public int insertLog(List<String> logList,String logLocation);
     public int insertMain(List<String> logList,String logLocation);
+    public int insertSchedule(List<String> logList,String logLocation);
+    public void autoRun(String logLocation,String scheduleLocation) throws Exception;
 }

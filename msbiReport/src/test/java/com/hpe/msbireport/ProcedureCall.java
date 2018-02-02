@@ -31,6 +31,8 @@ import java.util.*;
 public class ProcedureCall {
     @Value("${msbi.app.log.location1}")
     private String logLocation;
+    @Value("${msbi.app.copyfile.to}")
+    private String scheduleLocation;
     @Value("${msbi.app.copyfile.from}")
     private String oldPath;
 
@@ -51,11 +53,12 @@ public class ProcedureCall {
     }
 
     @Test
-    public void test2() throws IOException {
-        List<String> list = fileLoadService.getInsertFile(logLocation);
-        //procedureCallService.insertLog(list,logLocation);
-        //procedureCallService.insertMain(list,logLocation);
+    public void test2() throws Exception {
+//        List<String> list = fileLoadService.getInsertFile(logLocation);
+//        procedureCallService.insertLog(list,logLocation);
+//        procedureCallService.insertMain(list,logLocation);
 //        System.out.println(list.size());
+        procedureCallService.autoRun(logLocation,scheduleLocation);
     }
 
     @Test
