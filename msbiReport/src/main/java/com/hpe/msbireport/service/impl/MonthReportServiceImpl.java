@@ -787,4 +787,32 @@ public class MonthReportServiceImpl implements MonthReportService {
 		BackupLog bl = backupLogMapper.selectEndDate();
 		return bl.getStartDate();
 	}
+
+	@Override
+	public boolean formatMonthReportTableForTask(String currentDate, boolean hasHistory, int insertSize) throws Exception {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date endDate = null;
+        if(null != currentDate && !"".equals(currentDate)){
+        	endDate = format.parse(currentDate);
+        }else{
+        	endDate = getEndDate();
+        }
+        if(null != endDate){
+    		String endDateS = format.format(endDate);
+    		String [] endDateSN = endDateS.split("-");
+    		
+    		Calendar cal = Calendar.getInstance();
+    		cal.setTime(endDate);
+    		cal.add(Calendar.DATE, -3);
+    		String en = format.format(cal.getTime());
+    		String[] ens = en.split("-");
+    		
+    		if(endDateSN[1].equals(ens[1])){
+    			return formatMonthReportTable(null, endDateS, hasHistory, insertSize);
+    		}else{
+    			return formatMonthReportTable(en, endDateS, hasHistory, insertSize);
+    		}
+    	}
+        return false;
+	}
 }
