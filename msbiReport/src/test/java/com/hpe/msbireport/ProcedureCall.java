@@ -52,6 +52,9 @@ public class ProcedureCall {
     @Value("${msbi.app.file.location.daily}")
     private String dailyReportPath;
 
+    @Value("${msbi.app.monthreport.day}")
+    private int day;
+
     @Test
     @Transactional
     public void num(){
@@ -69,11 +72,7 @@ public class ProcedureCall {
 
     @Test
     public void test3() throws Exception{
-        new CopyFileUtils().copy(oldPath,newPath);
-        procedureCallService.autoRun(logLocation,scheduleLocation);
-        monthReportService.formatMonthReportTableForTask(3,null, true, 1000);
-        monthReportService.autoDailyGenerate(dailyReportPath);
-        monthReportService.autoMonthlyGenerate(monthlyReportPath);
+        procedureCallService.autoRunDaily();
     }
 
 }

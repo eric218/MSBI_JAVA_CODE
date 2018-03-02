@@ -124,6 +124,9 @@
                             <a onclick="GenerateLatest()" class="btn btn-app">
                                 <i class="fa fa-play"></i> Generate Latest Month
                             </a>
+                            <a onclick="autoRunDaily()" class="btn btn-app">
+                                <i class="fa fa-play"></i> Auto Batch Run
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -205,6 +208,20 @@
             type: 'GET',
             dataType: 'text',
             url: '/api/excel/generateLatestMonthReports',
+            success: function () {
+                alert("Operation succeed !");
+            },
+            error: function () {
+                alert("Operation failed !");
+            }
+        });
+    }
+
+    function autoRunDaily() {
+        $.ajax({
+            type: 'GET',
+            dataType: 'text',
+            url: '/api/autoRunDaily',
             success: function () {
                 alert("Operation succeed !");
             },

@@ -16,4 +16,5 @@ public interface ProcedureCallService {
     public boolean insertMain(List<String> logList,String logLocation);
     public boolean insertSchedule(List<String> logList,String logLocation);
     public void autoRun(String logLocation,String scheduleLocation) throws Exception;
+    public void autoRunDaily() throws Exception;
 }

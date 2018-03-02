@@ -37,6 +37,9 @@ public class MsbiReportController {
     @Autowired
     PoiExcelService poiExcelService;
 
+    @Autowired
+    private ProcedureCallService procedureCallService;
+
     @RequestMapping(value = "/excel/generateSpecificMonthReports", method = RequestMethod.GET)
     public @ResponseBody
     String generateExcelFileToTheFixedPath(Integer monthIndicator) throws Exception {
@@ -70,6 +73,11 @@ public class MsbiReportController {
 			e.printStackTrace();
 		}
         return false;
+    }
+
+    @RequestMapping(value = "/autoRunDaily", method = RequestMethod.GET)
+    public void autoRunDaily() throws Exception{
+        procedureCallService.autoRunDaily();
     }
 	
 }

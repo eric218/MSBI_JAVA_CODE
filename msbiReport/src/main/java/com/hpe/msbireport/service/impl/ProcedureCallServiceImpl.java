@@ -2,11 +2,14 @@ package com.hpe.msbireport.service.impl;
 
 import com.hpe.msbireport.mapper.ProcedureCallMapper;
 import com.hpe.msbireport.service.FileLoadService;
+import com.hpe.msbireport.service.MonthReportService;
 import com.hpe.msbireport.service.ProcedureCallService;
 import com.hpe.msbireport.utils.CommonUtils;
+import com.hpe.msbireport.utils.CopyFileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -23,12 +26,36 @@ import java.util.*;
  */
 @Service
 public class ProcedureCallServiceImpl implements ProcedureCallService {
+    @Value("${msbi.app.log.beginDate}")
+    private String logBeginDate;
     @Autowired
     private ProcedureCallMapper procedureCallMapper;
     @Autowired
     private FileLoadService fileLoadService;
+    @Autowired
+    MonthReportService monthReportService;
     private static final Logger log = LoggerFactory.getLogger(ProcedureCallServiceImpl.class);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    @Value("${msbi.app.monthreport.day}")
+    private int day;
+
+    @Value("${msbi.app.copyfile.from}")
+    private String oldPath;
+
+    @Value("${msbi.app.copyfile.to}")
+    private String newPath;
+
+    @Value("${msbi.app.log.location1}")
+    private String logLocation;
+    @Value("${msbi.app.copyfile.to}")
+    private String scheduleLocation;
+
+    @Value("${msbi.app.file.location.monthly}")
+    private String monthlyReportPath;
+
+    @Value("${msbi.app.file.location.daily}")
+    private String dailyReportPath;
 
     @Override
     public void insertFile(Map map) {
@@ -46,7 +73,8 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
         insertFile(map);
 
         for (String logs : logList) {
-            if (logs.contains("newdaily")) {
+            //从配置有log开始时间,开始插入log数据
+            if (logs.contains("newdaily") && Integer.parseInt(logs.split("_")[1]) >= Integer.parseInt(logBeginDate)) {
                 //step2.插入每天的log文件
                 String inserLogSql = new String();
                 inserLogSql = "load data local infile \"" + logLocation + logs + "\" into table logtxt(log)  set LOG_TYPE=1";
@@ -165,7 +193,6 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
         }
     }
 
-
     /**
      * Description:选取列表中最大日期的文件
      * @param logList
@@ -194,6 +221,15 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
             mainLog = (String) map.get((String)list.get(0));
         }
         return mainLog;
+    }
+
+    @Override
+    public void autoRunDaily() throws Exception {
+        new CopyFileUtils().copy(oldPath,newPath);
+        this.autoRun(logLocation,scheduleLocation);
+        monthReportService.formatMonthReportTableForTask(day,null, true, 1000);
+        monthReportService.autoDailyGenerate(dailyReportPath);
+        monthReportService.autoMonthlyGenerate(monthlyReportPath);
     }
 }
 
