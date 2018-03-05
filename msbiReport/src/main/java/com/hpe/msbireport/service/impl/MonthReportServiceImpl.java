@@ -801,11 +801,13 @@ public class MonthReportServiceImpl implements MonthReportService {
         if(null != currentDate && !"".equals(currentDate)){
         	endDate = format.parse(currentDate);
         }else{
+        	//从log表里读取记录
         	endDate = getEndDate();
         }
         String endDateS = format.format(endDate);
         String endDateE = format.format(getStartDate());
-		if(null == list){
+        //如果report里没记录，计算所有时间段的记录
+		if(null == list || (list!=null && list.size()==0)){
 			return formatMonthReportTable(endDateE, endDateS, hasHistory, insertSize);
 		}else{
 			if(null != endDate){

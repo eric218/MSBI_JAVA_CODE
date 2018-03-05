@@ -222,10 +222,10 @@
 	GROUP BY bl.SCHEDULE_NAME,bl.START_DATE
   </select>
   <select id="selectEndDate" resultMap="BaseResultMap">
-  	SELECT bl.START_DATE FROM backup_log bl ORDER BY bl.START_DATE DESC LIMIT 1;
+  	SELECT date_sub(max(log_date),interval 1 day) as START_DATE FROM msbi.backup_log
   </select>
   <select id="selectStartDate" resultMap="BaseResultMap">
-  	SELECT bl.START_DATE FROM backup_log bl ORDER BY bl.START_DATE LIMIT 1;
+  	SELECT min(DONE_DATE) as START_DATE FROM backup_log
   </select>
   
 </mapper>
