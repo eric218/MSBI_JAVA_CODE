@@ -579,580 +579,580 @@ public class PoiExcelServiceImpl implements PoiExcelService {
 
                 monthReportContent.createCell(12).setCellValue(monthReport.getDay021());
                 monthReportContent.createCell(13).setCellValue(monthReport.getDay022());
-                if (monthReport.getDay021().equalsIgnoreCase("0")) {
+                if (monthReport.getDay021()!=null && monthReport.getDay021().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(12).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(13).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay021().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay021()!=null && monthReport.getDay021().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(12).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(13).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay021().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay021()!=null && monthReport.getDay021().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(12).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(13).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay021().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay021()!=null && monthReport.getDay021().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(12).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(13).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay021().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay021()!=null && monthReport.getDay021().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(12).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(13).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay021().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay021()!=null && monthReport.getDay021().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(12).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(13).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(14).setCellValue(monthReport.getDay031());
                 monthReportContent.createCell(15).setCellValue(monthReport.getDay032());
-                if (monthReport.getDay031().equalsIgnoreCase("0")) {
+                if (monthReport.getDay031()!=null && monthReport.getDay031().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(14).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(15).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay031().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay031()!=null && monthReport.getDay031().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(14).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(15).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay031().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay031()!=null && monthReport.getDay031().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(14).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(15).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay031().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay031()!=null && monthReport.getDay031().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(14).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(15).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay031().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay031()!=null && monthReport.getDay031().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(14).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(15).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay031().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay031()!=null && monthReport.getDay031().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(14).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(15).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(16).setCellValue(monthReport.getDay041());
                 monthReportContent.createCell(17).setCellValue(monthReport.getDay042());
-                if (monthReport.getDay041().equalsIgnoreCase("0")) {
+                if (monthReport.getDay041()!=null && monthReport.getDay041().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(16).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(17).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay041().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay041()!=null && monthReport.getDay041().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(16).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(17).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay041().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay041()!=null && monthReport.getDay041().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(16).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(17).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay041().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay041()!=null && monthReport.getDay041().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(16).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(17).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay041().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay041()!=null && monthReport.getDay041().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(16).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(17).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay041().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay041()!=null && monthReport.getDay041().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(16).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(17).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(18).setCellValue(monthReport.getDay051());
                 monthReportContent.createCell(19).setCellValue(monthReport.getDay052());
-                if (monthReport.getDay051().equalsIgnoreCase("0")) {
+                if (monthReport.getDay051()!=null && monthReport.getDay051().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(18).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(19).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay051().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay051()!=null && monthReport.getDay051().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(18).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(19).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay051().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay051()!=null && monthReport.getDay051().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(18).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(19).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay051().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay051()!=null && monthReport.getDay051().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(18).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(19).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay051().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay051()!=null && monthReport.getDay051().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(18).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(19).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay051().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay051()!=null && monthReport.getDay051().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(18).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(19).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(20).setCellValue(monthReport.getDay061());
                 monthReportContent.createCell(21).setCellValue(monthReport.getDay062());
-                if (monthReport.getDay061().equalsIgnoreCase("0")) {
+                if (monthReport.getDay061()!=null && monthReport.getDay061().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(20).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(21).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay061().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay061()!=null && monthReport.getDay061().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(20).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(21).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay061().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay061()!=null && monthReport.getDay061().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(20).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(21).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay061().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay061()!=null && monthReport.getDay061().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(20).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(21).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay061().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay061()!=null && monthReport.getDay061().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(20).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(21).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay061().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay061()!=null && monthReport.getDay061().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(20).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(21).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(22).setCellValue(monthReport.getDay071());
                 monthReportContent.createCell(23).setCellValue(monthReport.getDay072());
-                if (monthReport.getDay071().equalsIgnoreCase("0")) {
+                if (monthReport.getDay071()!=null && monthReport.getDay071().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(22).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(23).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay071().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay071()!=null && monthReport.getDay071().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(22).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(23).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay071().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay071()!=null && monthReport.getDay071().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(22).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(23).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay071().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay071()!=null && monthReport.getDay071().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(22).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(23).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay071().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay071()!=null && monthReport.getDay071().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(22).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(23).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay071().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay071()!=null && monthReport.getDay071().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(22).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(23).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(24).setCellValue(monthReport.getDay081());
                 monthReportContent.createCell(25).setCellValue(monthReport.getDay082());
-                if (monthReport.getDay081().equalsIgnoreCase("0")) {
+                if (monthReport.getDay081()!=null && monthReport.getDay081().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(24).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(25).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay081().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay081()!=null && monthReport.getDay081().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(24).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(25).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay081().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay081()!=null && monthReport.getDay081().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(24).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(25).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay081().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay081()!=null && monthReport.getDay081().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(24).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(25).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay081().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay081()!=null && monthReport.getDay081().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(24).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(25).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay081().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay081()!=null && monthReport.getDay081().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(24).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(25).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(26).setCellValue(monthReport.getDay091());
                 monthReportContent.createCell(27).setCellValue(monthReport.getDay092());
-                if (monthReport.getDay091().equalsIgnoreCase("0")) {
+                if (monthReport.getDay091()!=null && monthReport.getDay091().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(26).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(27).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay091().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay091()!=null && monthReport.getDay091().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(26).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(27).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay091().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay091()!=null && monthReport.getDay091().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(26).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(27).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay091().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay091()!=null && monthReport.getDay091().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(26).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(27).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay091().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay091()!=null && monthReport.getDay091().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(26).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(27).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay091().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay091()!=null && monthReport.getDay091().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(26).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(27).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(28).setCellValue(monthReport.getDay101());
                 monthReportContent.createCell(29).setCellValue(monthReport.getDay102());
-                if (monthReport.getDay101().equalsIgnoreCase("0")) {
+                if (monthReport.getDay101()!=null && monthReport.getDay101().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(28).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(29).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay101().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay101()!=null && monthReport.getDay101().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(28).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(29).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay101().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay101()!=null && monthReport.getDay101().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(28).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(29).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay101().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay101()!=null && monthReport.getDay101().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(28).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(29).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay101().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay101()!=null && monthReport.getDay101().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(28).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(29).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay101().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay101()!=null && monthReport.getDay101().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(28).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(29).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(30).setCellValue(monthReport.getDay111());
                 monthReportContent.createCell(31).setCellValue(monthReport.getDay112());
-                if (monthReport.getDay111().equalsIgnoreCase("0")) {
+                if (monthReport.getDay111()!=null && monthReport.getDay111().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(30).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(31).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay111().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay111()!=null && monthReport.getDay111().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(30).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(31).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay111().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay111()!=null && monthReport.getDay111().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(30).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(31).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay111().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay111()!=null && monthReport.getDay111().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(30).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(31).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay111().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay111()!=null && monthReport.getDay111().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(30).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(31).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay111().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay111()!=null && monthReport.getDay111().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(30).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(31).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(32).setCellValue(monthReport.getDay121());
                 monthReportContent.createCell(33).setCellValue(monthReport.getDay122());
-                if (monthReport.getDay121().equalsIgnoreCase("0")) {
+                if (monthReport.getDay121()!=null && monthReport.getDay121().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(32).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(33).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay121().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay121()!=null && monthReport.getDay121().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(32).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(33).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay121().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay121()!=null && monthReport.getDay121().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(32).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(33).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay121().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay121()!=null && monthReport.getDay121().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(32).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(33).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay121().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay121()!=null && monthReport.getDay121().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(32).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(33).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay121().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay121()!=null && monthReport.getDay121().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(32).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(33).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(34).setCellValue(monthReport.getDay131());
                 monthReportContent.createCell(35).setCellValue(monthReport.getDay132());
-                if (monthReport.getDay131().equalsIgnoreCase("0")) {
+                if (monthReport.getDay131()!=null && monthReport.getDay131().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(34).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(35).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay131().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay131()!=null && monthReport.getDay131().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(34).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(35).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay131().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay131()!=null && monthReport.getDay131().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(34).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(35).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay131().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay131()!=null && monthReport.getDay131().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(34).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(35).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay131().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay131()!=null && monthReport.getDay131().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(34).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(35).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay131().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay131()!=null && monthReport.getDay131().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(34).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(35).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(36).setCellValue(monthReport.getDay141());
                 monthReportContent.createCell(37).setCellValue(monthReport.getDay142());
-                if (monthReport.getDay141().equalsIgnoreCase("0")) {
+                if (monthReport.getDay141()!=null && monthReport.getDay141().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(36).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(37).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay141().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay141()!=null && monthReport.getDay141().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(36).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(37).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay141().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay141()!=null && monthReport.getDay141().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(36).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(37).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay141().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay141()!=null && monthReport.getDay141().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(36).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(37).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay141().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay141()!=null && monthReport.getDay141().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(36).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(37).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay141().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay141()!=null && monthReport.getDay141().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(36).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(37).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(38).setCellValue(monthReport.getDay151());
                 monthReportContent.createCell(39).setCellValue(monthReport.getDay152());
-                if (monthReport.getDay151().equalsIgnoreCase("0")) {
+                if (monthReport.getDay151()!=null && monthReport.getDay151().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(38).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(39).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay151().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay151()!=null && monthReport.getDay151().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(38).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(39).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay151().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay151()!=null && monthReport.getDay151().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(38).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(39).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay151().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay151()!=null && monthReport.getDay151().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(38).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(39).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay151().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay151()!=null && monthReport.getDay151().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(38).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(39).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay151().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay151()!=null && monthReport.getDay151().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(38).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(39).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(40).setCellValue(monthReport.getDay161());
                 monthReportContent.createCell(41).setCellValue(monthReport.getDay162());
-                if (monthReport.getDay161().equalsIgnoreCase("0")) {
+                if (monthReport.getDay161()!=null && monthReport.getDay161().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(40).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(41).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay161().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay161()!=null && monthReport.getDay161().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(40).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(41).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay161().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay161()!=null && monthReport.getDay161().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(40).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(41).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay161().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay161()!=null && monthReport.getDay161().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(40).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(41).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay161().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay161()!=null && monthReport.getDay161().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(40).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(41).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay161().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay161()!=null && monthReport.getDay161().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(40).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(41).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(42).setCellValue(monthReport.getDay171());
                 monthReportContent.createCell(43).setCellValue(monthReport.getDay172());
-                if (monthReport.getDay171().equalsIgnoreCase("0")) {
+                if (monthReport.getDay171()!=null && monthReport.getDay171().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(42).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(43).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay171().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay171()!=null && monthReport.getDay171().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(42).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(43).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay171().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay171()!=null && monthReport.getDay171().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(42).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(43).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay171().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay171()!=null && monthReport.getDay171().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(42).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(43).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay171().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay171()!=null && monthReport.getDay171().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(42).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(43).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay171().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay171()!=null && monthReport.getDay171().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(42).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(43).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(44).setCellValue(monthReport.getDay181());
                 monthReportContent.createCell(45).setCellValue(monthReport.getDay182());
-                if (monthReport.getDay181().equalsIgnoreCase("0")) {
+                if (monthReport.getDay181()!=null && monthReport.getDay181().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(44).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(45).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay181().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay181()!=null && monthReport.getDay181().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(44).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(45).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay181().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay181()!=null && monthReport.getDay181().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(44).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(45).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay181().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay181()!=null && monthReport.getDay181().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(44).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(45).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay181().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay181()!=null && monthReport.getDay181().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(44).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(45).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay181().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay181()!=null && monthReport.getDay181().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(44).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(45).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(46).setCellValue(monthReport.getDay191());
                 monthReportContent.createCell(47).setCellValue(monthReport.getDay192());
-                if (monthReport.getDay191().equalsIgnoreCase("0")) {
+                if (monthReport.getDay191()!=null && monthReport.getDay191().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(46).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(47).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay191().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay191()!=null && monthReport.getDay191().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(46).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(47).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay191().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay191()!=null && monthReport.getDay191().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(46).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(47).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay191().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay191()!=null && monthReport.getDay191().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(46).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(47).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay191().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay191()!=null && monthReport.getDay191().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(46).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(47).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay191().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay191()!=null && monthReport.getDay191().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(46).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(47).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(48).setCellValue(monthReport.getDay201());
                 monthReportContent.createCell(49).setCellValue(monthReport.getDay202());
-                if (monthReport.getDay201().equalsIgnoreCase("0")) {
+                if (monthReport.getDay201()!=null && monthReport.getDay201().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(48).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(49).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay201().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay201()!=null && monthReport.getDay201().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(48).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(49).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay201().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay201()!=null && monthReport.getDay201().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(48).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(49).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay201().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay201()!=null && monthReport.getDay201().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(48).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(49).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay201().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay201()!=null && monthReport.getDay201().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(48).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(49).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay201().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay201()!=null && monthReport.getDay201().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(48).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(49).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(50).setCellValue(monthReport.getDay211());
                 monthReportContent.createCell(51).setCellValue(monthReport.getDay212());
-                if (monthReport.getDay211().equalsIgnoreCase("0")) {
+                if (monthReport.getDay211()!=null && monthReport.getDay211().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(50).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(51).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay211().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay211()!=null && monthReport.getDay211().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(50).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(51).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay211().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay211()!=null && monthReport.getDay211().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(50).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(51).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay211().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay211()!=null && monthReport.getDay211().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(50).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(51).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay211().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay211()!=null && monthReport.getDay211().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(50).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(51).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay211().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay211()!=null && monthReport.getDay211().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(50).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(51).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(52).setCellValue(monthReport.getDay221());
                 monthReportContent.createCell(53).setCellValue(monthReport.getDay222());
-                if (monthReport.getDay221().equalsIgnoreCase("0")) {
+                if (monthReport.getDay221()!=null && monthReport.getDay221().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(52).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(53).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay221().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay221()!=null && monthReport.getDay221().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(52).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(53).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay221().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay221()!=null && monthReport.getDay221().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(52).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(53).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay221().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay221()!=null && monthReport.getDay221().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(52).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(53).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay221().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay221()!=null && monthReport.getDay221().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(52).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(53).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay221().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay221()!=null && monthReport.getDay221().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(52).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(53).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(54).setCellValue(monthReport.getDay231());
                 monthReportContent.createCell(55).setCellValue(monthReport.getDay232());
-                if (monthReport.getDay231().equalsIgnoreCase("0")) {
+                if (monthReport.getDay231()!=null && monthReport.getDay231().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(54).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(55).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay231().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay231()!=null && monthReport.getDay231().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(54).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(55).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay231().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay231()!=null && monthReport.getDay231().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(54).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(55).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay231().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay231()!=null && monthReport.getDay231().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(54).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(55).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay231().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay231()!=null && monthReport.getDay231().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(54).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(55).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay231().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay231()!=null && monthReport.getDay231().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(54).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(55).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(56).setCellValue(monthReport.getDay241());
                 monthReportContent.createCell(57).setCellValue(monthReport.getDay242());
-                if (monthReport.getDay241().equalsIgnoreCase("0")) {
+                if (monthReport.getDay241()!=null && monthReport.getDay241().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(56).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(57).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay241().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay241()!=null && monthReport.getDay241().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(56).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(57).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay241().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay241()!=null && monthReport.getDay241().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(56).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(57).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay241().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay241()!=null && monthReport.getDay241().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(56).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(57).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay241().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay241()!=null && monthReport.getDay241().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(56).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(57).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay241().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay241()!=null && monthReport.getDay241().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(56).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(57).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(58).setCellValue(monthReport.getDay251());
                 monthReportContent.createCell(59).setCellValue(monthReport.getDay252());
-                if (monthReport.getDay251().equalsIgnoreCase("0")) {
+                if (monthReport.getDay251()!=null && monthReport.getDay251().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(58).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(59).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay251().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay251()!=null && monthReport.getDay251().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(58).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(59).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay251().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay251()!=null && monthReport.getDay251().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(58).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(59).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay251().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay251()!=null && monthReport.getDay251().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(58).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(59).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay251().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay251()!=null && monthReport.getDay251().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(58).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(59).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay251().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay251()!=null && monthReport.getDay251().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(58).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(59).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(60).setCellValue(monthReport.getDay261());
                 monthReportContent.createCell(61).setCellValue(monthReport.getDay262());
-                if (monthReport.getDay261().equalsIgnoreCase("0")) {
+                if (monthReport.getDay261()!=null && monthReport.getDay261().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(60).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(61).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay261().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay261()!=null && monthReport.getDay261().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(60).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(61).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay261().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay261()!=null && monthReport.getDay261().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(60).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(61).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay261().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay261()!=null && monthReport.getDay261().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(60).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(61).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay261().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay261()!=null && monthReport.getDay261().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(60).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(61).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay261().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay261()!=null && monthReport.getDay261().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(60).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(61).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(62).setCellValue(monthReport.getDay271());
                 monthReportContent.createCell(63).setCellValue(monthReport.getDay272());
-                if (monthReport.getDay271().equalsIgnoreCase("0")) {
+                if (monthReport.getDay271()!=null && monthReport.getDay271().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(62).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(63).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay271().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay271()!=null && monthReport.getDay271().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(62).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(63).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay271().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay271()!=null && monthReport.getDay271().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(62).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(63).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay271().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay271()!=null && monthReport.getDay271().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(62).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(62).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay271().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay271()!=null && monthReport.getDay271().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(62).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(63).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay271().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay271()!=null && monthReport.getDay271().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(62).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(63).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(64).setCellValue(monthReport.getDay281());
                 monthReportContent.createCell(65).setCellValue(monthReport.getDay282());
-                if (monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("0")) {
+                if (monthReport.getDay281()!=null && monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(64).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(65).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay281()!=null && monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(64).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(65).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay281()!=null && monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(64).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(65).setCellStyle(lookupCode2Style);
-                } else if (monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("3")) {
+                } else if (monthReport.getDay281()!=null && monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("3")) {
                     monthReportContent.getCell(64).setCellStyle(lookupCode3Style);
                     monthReportContent.getCell(65).setCellStyle(lookupCode3Style);
-                } else if (monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("4")) {
+                } else if (monthReport.getDay281()!=null && monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("4")) {
                     monthReportContent.getCell(64).setCellStyle(lookupCode4Style);
                     monthReportContent.getCell(65).setCellStyle(lookupCode4Style);
-                } else if (monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("5")) {
+                } else if (monthReport.getDay281()!=null && monthReport.getDay281() != null && monthReport.getDay281().equalsIgnoreCase("5")) {
                     monthReportContent.getCell(64).setCellStyle(lookupCode5Style);
                     monthReportContent.getCell(65).setCellStyle(lookupCode5Style);
                 }
                 monthReportContent.createCell(66).setCellValue(monthReport.getDay291());
                 monthReportContent.createCell(67).setCellValue(monthReport.getDay292());
-                if (monthReport.getDay291() != null && monthReport.getDay291().equalsIgnoreCase("0")) {
+                if (monthReport.getDay291()!=null && monthReport.getDay291() != null && monthReport.getDay291().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(66).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(67).setCellStyle(lookupCode0Style);
-                } else if (monthReport.getDay291() != null && monthReport.getDay291().equalsIgnoreCase("1")) {
+                } else if (monthReport.getDay291()!=null && monthReport.getDay291() != null && monthReport.getDay291().equalsIgnoreCase("1")) {
                     monthReportContent.getCell(66).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(67).setCellStyle(lookupCode1Style);
-                } else if (monthReport.getDay291() != null && monthReport.getDay291().equalsIgnoreCase("2")) {
+                } else if (monthReport.getDay291()!=null && monthReport.getDay291() != null && monthReport.getDay291().equalsIgnoreCase("2")) {
                     monthReportContent.getCell(66).setCellStyle(lookupCode2Style);
                     monthReportContent.getCell(67).setCellStyle(lookupCode2Style);
                 } else if (monthReport.getDay291() != null && monthReport.getDay291().equalsIgnoreCase("3")) {
