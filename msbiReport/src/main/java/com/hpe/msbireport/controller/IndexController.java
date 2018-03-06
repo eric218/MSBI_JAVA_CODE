@@ -22,7 +22,7 @@ public class IndexController {
 
     @RequestMapping("/index.html")
     public String index(Model model){
-        model.addAttribute("welcome","This is index page.");
+        model.addAttribute("welcome","This is index page..");
         return "index";
     }
 
