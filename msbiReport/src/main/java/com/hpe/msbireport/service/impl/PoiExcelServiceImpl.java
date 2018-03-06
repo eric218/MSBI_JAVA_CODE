@@ -8,6 +8,7 @@ import com.hpe.msbireport.mapper.LookupMapper;
 import com.hpe.msbireport.mapper.MonthReportMapper;
 import com.hpe.msbireport.service.PoiExcelService;
 import com.hpe.msbireport.utils.CommonUtils;
+import com.hpe.msbireport.utils.ExcelUnits;
 import org.apache.poi.hssf.usermodel.HSSFPalette;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
@@ -17,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -43,6 +45,8 @@ public class PoiExcelServiceImpl implements PoiExcelService {
     @Autowired
     MonthReportMapper monthReportMapper;
 
+    ExcelUnits excelUnits = new ExcelUnits();
+
     @Override
     public String generateExcelFileToAFixedPath(Integer monthIndicator, String path) throws Exception {
         {
@@ -67,6 +71,16 @@ public class PoiExcelServiceImpl implements PoiExcelService {
             // create excel xls sheet
             Sheet sheet = workbook.createSheet("MonthReport_daily");
             sheet.setDefaultColumnWidth(18);
+            //B列40个字符,256是单位
+            sheet.setColumnWidth(1, 40 * 256);
+            sheet.setColumnWidth(2, 34 * 256);
+            sheet.setColumnWidth(7, 13 * 256);
+            sheet.setColumnWidth(8, 13 * 256);
+            //设置每日的列的宽度
+            for(int i = 10;i<72;i++){
+                sheet.setColumnWidth(i, 13 * 256);
+            }
+
 
             // display content data in center
             CellStyle monthReportContentStyle = workbook.createCellStyle();
@@ -239,6 +253,12 @@ public class PoiExcelServiceImpl implements PoiExcelService {
             lookupColumn2Style.setBottomBorderColor(HSSFColor.GREY_25_PERCENT.index);
             lookupColumn2Style.setRightBorderColor(HSSFColor.GREY_25_PERCENT.index);
             lookupColumn2Style.setLeftBorderColor(HSSFColor.GREY_25_PERCENT.index);
+
+
+            CellStyle redRightStyle = excelUnits.setRedRightStyle(workbook);
+            CellStyle greenRightStyle = excelUnits.setGreenRightStyle(workbook);
+            CellStyle rightIntStyle = excelUnits.setRightIntStyle(workbook);
+
 
             for (int i = 0; i < lookupSize; i++) {
                 sheet.addMergedRegion(new CellRangeAddress(i + 1, i + 1, 0, 1));
@@ -551,12 +571,25 @@ public class PoiExcelServiceImpl implements PoiExcelService {
                 monthReportContent.createCell(3).setCellValue(monthReport.getEachMonth());
                 monthReportContent.createCell(4).setCellValue(monthReport.getDateOfMonth());
                 monthReportContent.createCell(5).setCellValue(monthReport.getWeekOfMonth());
-                monthReportContent.createCell(6).setCellValue(monthReport.getBsr()+"%");
-                monthReportContent.createCell(7).setCellValue(monthReport.getTotalSchedule());
-                monthReportContent.createCell(8).setCellValue(monthReport.getTotalSuccessful());
+                //bsr %
+                monthReportContent.createCell(6).setCellValue(Double.parseDouble(monthReport.getBsr())/100);
+                monthReportContent.createCell(7).setCellValue(Integer.parseInt(monthReport.getTotalSchedule()));
+                monthReportContent.createCell(8).setCellValue(Integer.parseInt(monthReport.getTotalSuccessful()));
                 monthReportContent.createCell(9).setCellValue("");
                 monthReportContent.createCell(10).setCellValue(monthReport.getDay011());
                 monthReportContent.createCell(11).setCellValue(monthReport.getDay012());
+                if(!StringUtils.isEmpty(monthReport.getBsr())){
+                    Double bsr = Double.parseDouble(monthReport.getBsr());
+                    if(bsr.compareTo(100.00)<0){
+                        //monthReportContent.getCell(6).setCellStyle(lookupCode0Style);
+                        monthReportContent.getCell(6).setCellStyle(redRightStyle);
+                    }else{
+                        //monthReportContent.getCell(6).setCellStyle(lookupCode1Style);
+                        monthReportContent.getCell(6).setCellStyle(greenRightStyle);
+                    }
+                }
+                monthReportContent.getCell(7).setCellStyle(rightIntStyle);
+                monthReportContent.getCell(8).setCellStyle(rightIntStyle);
                 if (monthReport.getDay011().equalsIgnoreCase("0")) {
                     monthReportContent.getCell(10).setCellStyle(lookupCode0Style);
                     monthReportContent.getCell(11).setCellStyle(lookupCode0Style);
