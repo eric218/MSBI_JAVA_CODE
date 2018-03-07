@@ -806,7 +806,7 @@ public class MonthReportServiceImpl implements MonthReportService {
         }
         String endDateS = format.format(endDate);
         String endDateE = format.format(getStartDate());
-        //如果report里没记录，计算所有时间段的记录
+        //如果report里没记录，计算所有时间段的记录(第一次初始化)
 		if(null == list || (list!=null && list.size()==0)){
 			return formatMonthReportTable(endDateE, endDateS, hasHistory, insertSize);
 		}else{
@@ -820,8 +820,10 @@ public class MonthReportServiceImpl implements MonthReportService {
 	    		String[] ens = en.split("-");
 	    		
 	    		if(endDateSN[1].equals(ens[1])){
+	    			//同月的情况只计算当月
 	    			return formatMonthReportTable(null, endDateS, hasHistory, insertSize);
 	    		}else{
+					//不同月的情况计算时间段
 	    			return formatMonthReportTable(en, endDateS, hasHistory, insertSize);
 	    		}
 	    	}
