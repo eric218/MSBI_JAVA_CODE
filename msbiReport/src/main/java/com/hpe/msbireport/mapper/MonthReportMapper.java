@@ -33,7 +33,9 @@ public interface MonthReportMapper {
     int updateByPrimaryKey(MonthReport record);
 
     List<MonthReport> selectAllMonthReportsByMonth(Integer monthIndicator);
-    
+
+    List<MonthReport> selectAllMonthReportsByMonthForNon_Prod(Integer monthIndicator);
+
     List<MonthReport> selectAll();
     
     List<Integer> selectAllAvaiableMonthFromDB();
