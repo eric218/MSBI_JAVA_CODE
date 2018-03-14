@@ -103,4 +103,14 @@
       INSERT_DATE_TIME = #{insertDateTime,jdbcType=TIMESTAMP}
     where MESSAGE = #{message,jdbcType=VARCHAR}
   </update>
+  <select id="selectAllScheduleInNonProd" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from main_non_prod
+  </select>
+  <select id="selectAllScheduleInProd" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from main
+  </select>
 </mapper>

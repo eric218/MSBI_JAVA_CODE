@@ -2,6 +2,8 @@ package com.hpe.msbireport.mapper;
 
 import com.hpe.msbireport.domain.ScheduleMain;
 
+import java.util.List;
+
 public interface ScheduleMainMapper {
     int deleteByPrimaryKey(String message);
 
@@ -14,4 +16,8 @@ public interface ScheduleMainMapper {
     int updateByPrimaryKeySelective(ScheduleMain record);
 
     int updateByPrimaryKey(ScheduleMain record);
+
+    List<ScheduleMain> selectAllScheduleInNonProd();
+
+    List<ScheduleMain> selectAllScheduleInProd();
 }
