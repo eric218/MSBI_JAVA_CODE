@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CopyFileUtils {
-	
+	//type 不同的表,PRO 代表main表;NONPROD 代表main_non_prod
 	public void copy(String oldPath,String newPath) throws Exception{
 		List<String> oldFileName = new ArrayList<String>();
     	List<String> newFileName = new ArrayList<String>();
