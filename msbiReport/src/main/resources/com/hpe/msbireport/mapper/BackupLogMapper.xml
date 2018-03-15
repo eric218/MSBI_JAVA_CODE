@@ -214,18 +214,19 @@
   <resultMap id="RunTimeByDate" type="com.hpe.msbireport.domain.RunTimeByDate" >
     <result column="runnum" property="runnum" jdbcType="VARCHAR" />
     <result column="schedulename" property="schedulename" jdbcType="VARCHAR" />
+    <result column="servername" property="servername" jdbcType="VARCHAR" />
     <result column="startdate" property="startdate" jdbcType="VARCHAR" />
   </resultMap>
-  <select id="selectRunTimeByDate" resultMap="RunTimeByDate" parameterType="java.lang.String">
-  	select count(1) as runnum,bl.SCHEDULE_NAME as schedulename,DATE_FORMAT(bl.START_DATE,'%e') as startdate from backup_log bl where bl.SCHEDULE_NAME not like '%@%'
+  <select id="selectRunTimeByDate" resultMap="RunTimeByDate" parameterType="Map">
+  	select count(1) as runnum,bl.SCHEDULE_NAME as schedulename,bl.SERVER_NAME as servername,DATE_FORMAT(bl.START_DATE,'%e') as startdate from ${backup_log_table} bl where bl.SCHEDULE_NAME not like '%@%'
 	and bl.START_DATE &lt;= #{endDate} and bl.START_DATE &gt;= #{startDate}
-	GROUP BY bl.SCHEDULE_NAME,bl.START_DATE
+	GROUP BY bl.SCHEDULE_NAME,bl.START_DATE,bl.SERVER_NAME
   </select>
-  <select id="selectEndDate" resultMap="BaseResultMap">
-  	SELECT date_sub(max(log_date),interval 1 day) as START_DATE FROM msbi.backup_log
+  <select id="selectEndDate" resultMap="BaseResultMap" parameterType="Map">
+  	SELECT date_sub(max(log_date),interval 1 day) as START_DATE FROM ${backup_log_table}
   </select>
-  <select id="selectStartDate" resultMap="BaseResultMap">
-  	SELECT min(DONE_DATE) as START_DATE FROM backup_log
+  <select id="selectStartDate" resultMap="BaseResultMap" parameterType="Map">
+  	SELECT min(DONE_DATE) as START_DATE FROM ${backup_log_table}
   </select>
   
 </mapper>

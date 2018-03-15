@@ -68,7 +68,7 @@ public class MsbiReportController {
         try {
         	month = "2017-4-18";
         	size = 100;
-			return this.monthReportService.formatMonthReportTable(null,month,false, size);
+			return this.monthReportService.formatMonthReportTable(null,month,false, size,null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

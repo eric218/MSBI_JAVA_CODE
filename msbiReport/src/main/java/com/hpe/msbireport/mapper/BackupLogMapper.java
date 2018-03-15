@@ -1,6 +1,7 @@
 package com.hpe.msbireport.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -20,9 +21,9 @@ public interface BackupLogMapper {
 
     int updateByPrimaryKey(BackupLog record);
     
-    List<RunTimeByDate> selectRunTimeByDate(@Param("startDate")String startDate,@Param("endDate")String endDate);
+    List<RunTimeByDate> selectRunTimeByDate(Map map);
     
-    BackupLog selectEndDate();
+    BackupLog selectEndDate(Map map);
     
-    BackupLog selectStartDate();
+    BackupLog selectStartDate(Map map);
 }

@@ -4,6 +4,8 @@ import com.hpe.msbireport.domain.MonthReport;
 import com.hpe.msbireport.domain.MonthReportExample;
 
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
@@ -36,13 +38,13 @@ public interface MonthReportMapper {
 
     List<MonthReport> selectAllMonthReportsByMonthForNon_Prod(Integer monthIndicator);
 
-    List<MonthReport> selectAll();
+    List<MonthReport> selectAll(Map map);
     
     List<Integer> selectAllAvaiableMonthFromDB();
     
-    List<MonthReport> selectAllForUpate();
+    List<MonthReport> selectAllForUpate(Map map);
     
     void insertBatch(List<MonthReport> list);
     
-    void deleteByMonth(Integer month);
+    void deleteByMonth(Map map);
 }

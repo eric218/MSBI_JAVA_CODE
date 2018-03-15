@@ -57,8 +57,9 @@ public class MonthReportServiceImpl implements MonthReportService {
     }
     
     @Override
-    public boolean formatMonthReportTable(String startDate,String currentDate,boolean hasHistory,int insertSize) throws Exception{
+    public boolean formatMonthReportTable(String startDate,String currentDate,boolean hasHistory,int insertSize,Map tableMap) throws Exception{
     	boolean result = false;
+
     	PERUNITS.put("HOURS", 24);
 		PERUNITS.put("DAYS", 1);
 		PERUNITS.put("ONE TIME", 1);
@@ -76,9 +77,8 @@ public class MonthReportServiceImpl implements MonthReportService {
 		Day.put("Fri", 4);
 		Day.put("Sat", 5);
 		Day.put("Sun", 6);
-		
-		//查询所有最新scheduleName数据
-		List<MonthReport> list = monthReportMapper.selectAllForUpate();
+		//读取所有schedule的数据
+		List<MonthReport> list = monthReportMapper.selectAllForUpate(tableMap);
 		
 		//历史记录 hasHistory为true ， 则查询历史
 		Map<String,List<ScheduleHistory>> hisMap = new HashMap<String,List<ScheduleHistory>>();
@@ -134,45 +134,52 @@ public class MonthReportServiceImpl implements MonthReportService {
         		Date d2 = new SimpleDateFormat("yyyy-MM").parse(currentDate);//定义结束日期
         		Calendar dd = Calendar.getInstance();//定义日期实例
         		dd.setTime(d1);//设置日期起始时间
+				//按月份添加记录
         		while(dd.getTime().before(d2)){//判断是否到结束日期
         			dd.add(Calendar.MONTH, 1);  
         			dd.set(Calendar.DAY_OF_MONTH, 0);
         			String str = sdf.format(dd.getTime());
         			//System.out.println(str);//输出日期结果
-        			formatMonthReport(list,hisMap,str,insertSize,hasHistory);
+        			formatMonthReport(list,hisMap,str,insertSize,hasHistory,tableMap);
         			dd.add(Calendar.MONTH, 1);//进行当前日期月份加1
         		}
     		}
     	}
     	if(checkTime(currentDate)){
-			formatMonthReport(list,hisMap,sdf.format(d3),insertSize,hasHistory);
+			formatMonthReport(list,hisMap,sdf.format(d3),insertSize,hasHistory,tableMap);
 			result = true;
 		}
     	return result;
 	}
     
-    public void formatMonthReport(List<MonthReport> list,Map<String,List<ScheduleHistory>> hisMap,String currentDate,int insertSize,boolean hasHistory) throws Exception{
+    public void formatMonthReport(List<MonthReport> list,Map<String,List<ScheduleHistory>> hisMap,String currentDate,int insertSize,boolean hasHistory,Map tableMap) throws Exception{
 		//入参currentDate 格式：yyyy-mm-dd
 		//String currentDate = "2017-04-27";
+		//只处理月份数据
 		String [] currentDates = currentDate.split("-");
 		
 		//删除当月记录
-		monthReportMapper.deleteByMonth(Integer.parseInt(currentDates[0]+currentDates[1]));
+		tableMap.put("month",Integer.parseInt(currentDates[0]+currentDates[1]));
+		monthReportMapper.deleteByMonth(tableMap);
 		
 		//查询backuplog表所有数据，用来写入monthreport表中的执行次数字段
-		List<RunTimeByDate> blList = backupLogMapper.selectRunTimeByDate(currentDates[0]+"-"+currentDates[1]+"-1",currentDate);
+		tableMap.put("startDate",currentDates[0]+"-"+currentDates[1]+"-1");
+		tableMap.put("endDate",currentDate);
+		List<RunTimeByDate> blList = backupLogMapper.selectRunTimeByDate(tableMap);
 		
 		//格式化backuplog List为Map，key：scheduleName value:RunTimeByDate
 		Map<String, List<RunTimeByDate>> blMap = new HashMap<String, List<RunTimeByDate>>();
 		List<RunTimeByDate> repeatList = new ArrayList<RunTimeByDate>();
+
 		for (RunTimeByDate runTimeByDate : blList) {
-			if(blMap.containsKey(runTimeByDate.getSchedulename())){
+			//如果map存在Schedulename+servername就 添加repeatList
+			if(blMap.containsKey(runTimeByDate.getSchedulename()+runTimeByDate.getServername())){
 				repeatList.add(runTimeByDate);
-                blMap.put(runTimeByDate.getSchedulename(), repeatList);
+                blMap.put(runTimeByDate.getSchedulename()+runTimeByDate.getServername(), repeatList);
             }else{
             	repeatList = new ArrayList<RunTimeByDate>();
             	repeatList.add(runTimeByDate);
-            	blMap.put(runTimeByDate.getSchedulename(), repeatList);
+            	blMap.put(runTimeByDate.getSchedulename()+runTimeByDate.getServername(), repeatList);
             }
 		}
 		
@@ -280,7 +287,7 @@ public class MonthReportServiceImpl implements MonthReportService {
     public List<MonthReport> sumBackLog(List<MonthReport> monthReports,Map<String, List<RunTimeByDate>> blMap){
     	if(null != monthReports && monthReports.size() > 0){
     		for (MonthReport monthReport : monthReports) {
-    			List<RunTimeByDate> runTimeByDates = blMap.get(monthReport.getScheduleName());
+    			List<RunTimeByDate> runTimeByDates = blMap.get(monthReport.getScheduleName()+monthReport.getScheduleName());
     			if(null != runTimeByDates && runTimeByDates.size() > 0){
     				for (RunTimeByDate runTimeByDate : runTimeByDates) {
 						if(runTimeByDate.getStartdate().equals("1")){ if(null != monthReport.getDay012() && "" != monthReport.getDay012()){ int a = monthReport.getDay012().indexOf("("); String l = monthReport.getDay012().substring(a, monthReport.getDay012().length());monthReport.setDay012(runTimeByDate.getRunnum()+l);}else{monthReport.setDay012(runTimeByDate.getRunnum()+"(0)/0");}}
@@ -787,28 +794,43 @@ public class MonthReportServiceImpl implements MonthReportService {
     }
 
 	@Override
-	public Date getEndDate() {
-		BackupLog bl = backupLogMapper.selectEndDate();
+	public Date getEndDate(Map map) {
+		BackupLog bl = backupLogMapper.selectEndDate(map);
 		return bl.getStartDate();
 	}
 
 	@Override
-	public boolean formatMonthReportTableForTask(int day,String currentDate, boolean hasHistory, int insertSize) throws Exception {
-		
-		List<MonthReport> list = monthReportMapper.selectAll();
+	public boolean formatMonthReportTableForTask(int day,String currentDate, boolean hasHistory, int insertSize,String reportType) throws Exception {
+		//查询所有最新scheduleName数据
+		Map tableMap = new HashMap();
+		if("A".equals(reportType)){
+			tableMap.put("month_report_table","month_report");
+			tableMap.put("schedule_table","schedule_newest");
+			tableMap.put("backup_log_table","backup_log");
+			tableMap.put("main_table","main");
+
+
+		}else if("B".equals(reportType)){
+			tableMap.put("month_report_table","month_report_non_prod");
+			tableMap.put("backup_log_table","backup_log_non_prod");
+			tableMap.put("schedule_table","schedule_newest_non_prod");
+			tableMap.put("main_table","main_non_prod");
+		}
+
+		List<MonthReport> list = monthReportMapper.selectAll(tableMap);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date endDate = null;
         if(null != currentDate && !"".equals(currentDate)){
         	endDate = format.parse(currentDate);
         }else{
         	//从log表里读取记录
-        	endDate = getEndDate();
+        	endDate = getEndDate(tableMap);
         }
         String endDateS = format.format(endDate);
-        String endDateE = format.format(getStartDate());
+        String endDateE = format.format(getStartDate(tableMap));
         //如果report里没记录，计算所有时间段的记录(第一次初始化)
 		if(null == list || (list!=null && list.size()==0)){
-			return formatMonthReportTable(endDateE, endDateS, hasHistory, insertSize);
+			return formatMonthReportTable(endDateE, endDateS, hasHistory, insertSize,tableMap);
 		}else{
 			if(null != endDate){
 	    		String [] endDateSN = endDateS.split("-");
@@ -821,10 +843,10 @@ public class MonthReportServiceImpl implements MonthReportService {
 	    		
 	    		if(endDateSN[1].equals(ens[1])){
 	    			//同月的情况只计算当月
-	    			return formatMonthReportTable(null, endDateS, hasHistory, insertSize);
+	    			return formatMonthReportTable(null, endDateS, hasHistory, insertSize,tableMap);
 	    		}else{
 					//不同月的情况计算时间段
-	    			return formatMonthReportTable(en, endDateS, hasHistory, insertSize);
+	    			return formatMonthReportTable(en, endDateS, hasHistory, insertSize,tableMap);
 	    		}
 	    	}
 		}
@@ -833,8 +855,8 @@ public class MonthReportServiceImpl implements MonthReportService {
 	}
 
 	@Override
-	public List<MonthReport> selectAll() {
-		return monthReportMapper.selectAll();
+	public List<MonthReport> selectAll(Map map) {
+		return monthReportMapper.selectAll(map);
 	}
 
 	@Override
@@ -854,8 +876,8 @@ public class MonthReportServiceImpl implements MonthReportService {
 	}
 
 	@Override
-	public Date getStartDate() {
-		BackupLog bl = backupLogMapper.selectStartDate();
+	public Date getStartDate(Map map) {
+		BackupLog bl = backupLogMapper.selectStartDate(map);
 		return bl.getStartDate();
 	}
 }

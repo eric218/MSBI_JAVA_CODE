@@ -8,6 +8,16 @@ public class RunTimeByDate {
 	
 	private String startdate;
 
+	private String servername;
+
+	public String getServername() {
+		return servername;
+	}
+
+	public void setServername(String servername) {
+		this.servername = servername;
+	}
+
 	public String getRunnum() {
 		return runnum;
 	}

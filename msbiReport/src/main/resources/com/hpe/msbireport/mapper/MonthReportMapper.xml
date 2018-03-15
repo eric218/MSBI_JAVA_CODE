@@ -1358,27 +1358,42 @@
     <select id="selectAllAvaiableMonthFromDB" resultType="java.lang.Integer">
         SELECT DISTINCT month_indicator FROM month_report ORDER BY month_indicator DESC
     </select>
-        <select id="selectAll" resultMap="BaseResultMap"  >
+        <select id="selectAll" resultMap="BaseResultMap" parameterType="Map">
         select 
         <include refid="Base_Column_List" />
-        from month_report
+        from ${month_report_table}
     </select>
-	
-	<select id="selectAllForUpate" resultMap="BaseResultMap">
-		SELECT
-			ta.SERVER_NAME AS server_name,
-			ta.SCHEDULE_NAME AS schedule_name,
-			sn.SCHED_STYLE AS SCHED_STYLE,
-			sn.DATE_OF_WEEK AS date_of_week,
-			sn.EACH_MONTH AS each_month,
-			sn.DATE_OF_MONTH AS date_of_month,
-			sn.WEEK_OF_MONTH AS week_of_month,
-			sn.PERUNITS AS PERUNITS,
-			sn.PERIOD AS PERIOD
-		from (select SCHEDULE_NAME,SERVER_NAME from main a WHERE SCHEDULE_NAME NOT REGEXP '@'
-		and SERVER_NAME &lt;&gt;'RBITBUR7' and exists(select 1 from schedule_newest b where a.SCHEDULE_NAME = b.SCHEDULE_NAME)
-		GROUP BY SCHEDULE_NAME,SERVER_NAME) ta LEFT JOIN schedule_newest sn on ta.SCHEDULE_NAME = sn.SCHEDULE_NAME;
-	</select>
+
+    <select id="selectAllForUpate" resultMap="BaseResultMap" parameterType="Map">
+        SELECT
+			SERVER_NAME AS server_name,
+			SCHEDULE_NAME AS schedule_name,
+			SCHED_STYLE AS SCHED_STYLE,
+			DATE_OF_WEEK AS date_of_week,
+			EACH_MONTH AS each_month,
+			DATE_OF_MONTH AS date_of_month,
+			WEEK_OF_MONTH AS week_of_month,
+			PERUNITS AS PERUNITS,
+			PERIOD AS PERIOD
+		from ${schedule_table} a
+		where SCHEDULE_NAME NOT REGEXP '@' and exists(select 1 from ${main_table} b where a.SCHEDULE_NAME = b.SCHEDULE_NAME)
+    </select>
+
+	<!--<select id="selectAllForUpate" resultMap="BaseResultMap">-->
+		<!--SELECT-->
+			<!--ta.SERVER_NAME AS server_name,-->
+			<!--ta.SCHEDULE_NAME AS schedule_name,-->
+			<!--sn.SCHED_STYLE AS SCHED_STYLE,-->
+			<!--sn.DATE_OF_WEEK AS date_of_week,-->
+			<!--sn.EACH_MONTH AS each_month,-->
+			<!--sn.DATE_OF_MONTH AS date_of_month,-->
+			<!--sn.WEEK_OF_MONTH AS week_of_month,-->
+			<!--sn.PERUNITS AS PERUNITS,-->
+			<!--sn.PERIOD AS PERIOD-->
+		<!--from (select SCHEDULE_NAME,SERVER_NAME from main a WHERE SCHEDULE_NAME NOT REGEXP '@'-->
+		<!--and SERVER_NAME &lt;&gt;'RBITBUR7' and exists(select 1 from schedule_newest b where a.SCHEDULE_NAME = b.SCHEDULE_NAME)-->
+		<!--GROUP BY SCHEDULE_NAME,SERVER_NAME) ta LEFT JOIN schedule_newest sn on ta.SCHEDULE_NAME = sn.SCHEDULE_NAME;-->
+	<!--</select>-->
 	
 	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">  
 	    <selectKey resultType="int" keyProperty="id" order="AFTER">  
@@ -1440,8 +1455,8 @@
 	      #{item.schedStyle,jdbcType=VARCHAR})
 	    </foreach>  
 	</insert>
-	<delete id="deleteByMonth" parameterType="java.lang.Integer">
-		delete from month_report
+	<delete id="deleteByMonth" parameterType="Map" >
+		delete from ${month_report_table}
 	    where month_indicator = #{month,jdbcType=INTEGER}
 	</delete>
 </mapper>

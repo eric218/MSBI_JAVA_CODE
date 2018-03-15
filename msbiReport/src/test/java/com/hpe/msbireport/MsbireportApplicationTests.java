@@ -91,7 +91,7 @@ public class MsbireportApplicationTests {
 			
 			String schedName = "DCBPP0735_WINOS_BACKUP";
 			String currentDate = "2017-4-17";
-			List<MonthReport> list = monthReportMapper.selectAllForUpate();
+			List<MonthReport> list = monthReportMapper.selectAllForUpate(null);
 			MonthReport currentMR = null;
 			for (MonthReport monthReport : list) {
 				if(monthReport.getScheduleName().equals(schedName)){
@@ -255,7 +255,7 @@ public class MsbireportApplicationTests {
 		try {
 			String schedName = "LBITARC2_MONTHLY_15M_BACKUP";
 			String currentDate = "2017-4-30";
-			List<MonthReport> list = monthReportMapper.selectAllForUpate();
+			List<MonthReport> list = monthReportMapper.selectAllForUpate(null);
 			MonthReport currentMR = null;
 			for (MonthReport monthReport : list) {
 				if(monthReport.getScheduleName().equals(schedName)){
@@ -572,7 +572,7 @@ public class MsbireportApplicationTests {
 	public String num(String name,String date) {
 		String startDate = "2017-4-1";
 		String endDate = "2017-4-30";
-		List<RunTimeByDate> list = backupLogMapper.selectRunTimeByDate(startDate,endDate);
+		List<RunTimeByDate> list = backupLogMapper.selectRunTimeByDate(null);
 		System.out.println(list.size());
 		for (RunTimeByDate runTimeByDate : list) {
 			if(runTimeByDate.getSchedulename().equals(name) && runTimeByDate.getStartdate().equals(date)){

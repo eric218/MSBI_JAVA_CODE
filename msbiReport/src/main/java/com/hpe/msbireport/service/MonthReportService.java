@@ -4,6 +4,7 @@ import com.hpe.msbireport.domain.MonthReport;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Project:
@@ -24,7 +25,7 @@ public interface MonthReportService {
      * @return true：成功；false：失败。
      * @throws Exception
      */
-    public boolean formatMonthReportTable(String startDate,String currentDate,boolean hasHistory,int insertSize) throws Exception;
+    public boolean formatMonthReportTable(String startDate,String currentDate,boolean hasHistory,int insertSize,Map tableMap) throws Exception;
     
     /**
      * 
@@ -35,7 +36,7 @@ public interface MonthReportService {
      * @return
      * @throws Exception
      */
-    public boolean formatMonthReportTableForTask(int day,String currentDate,boolean hasHistory,int insertSize) throws Exception;
+    public boolean formatMonthReportTableForTask(int day,String currentDate,boolean hasHistory,int insertSize,String reportType) throws Exception;
     
     List<Integer> selectAllAvaiableMonthFromDB();
     
@@ -43,15 +44,19 @@ public interface MonthReportService {
      * 从backup_log表中获得最大时间，用来做更新monthreport表的current时间
      * @return
      */
-    Date getEndDate();
+    Date getEndDate(Map map);
     
     /**
      * 从backup_log表中获得开始时间，初始化monthreport表
      * @return
      */
-    Date getStartDate();
-    
-    List<MonthReport> selectAll();
+    Date getStartDate(Map map);
+
+    /**
+     * 查询所有schedule 列表
+     * @return
+     */
+    List<MonthReport> selectAll(Map map);
 
     public void autoDailyGenerate(String dailyReportPath)throws Exception;
     public void autoMonthlyGenerate(String monthlyReportPath)throws Exception;
