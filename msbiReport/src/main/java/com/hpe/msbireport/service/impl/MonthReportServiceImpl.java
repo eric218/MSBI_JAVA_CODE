@@ -275,7 +275,7 @@ public class MonthReportServiceImpl implements MonthReportService {
 		//计算backuplog表中的真实log记录数,并更新monthreport对象
 		List<MonthReport> sunList = sumBackLog(list,blMap);
 		//批量插入
-		monthReportInsert(sunList,insertSize);
+		monthReportInsert(sunList,insertSize,tableMap);
     }
     
     /**
@@ -287,7 +287,7 @@ public class MonthReportServiceImpl implements MonthReportService {
     public List<MonthReport> sumBackLog(List<MonthReport> monthReports,Map<String, List<RunTimeByDate>> blMap){
     	if(null != monthReports && monthReports.size() > 0){
     		for (MonthReport monthReport : monthReports) {
-    			List<RunTimeByDate> runTimeByDates = blMap.get(monthReport.getScheduleName()+monthReport.getScheduleName());
+    			List<RunTimeByDate> runTimeByDates = blMap.get(monthReport.getScheduleName()+monthReport.getServerName());
     			if(null != runTimeByDates && runTimeByDates.size() > 0){
     				for (RunTimeByDate runTimeByDate : runTimeByDates) {
 						if(runTimeByDate.getStartdate().equals("1")){ if(null != monthReport.getDay012() && "" != monthReport.getDay012()){ int a = monthReport.getDay012().indexOf("("); String l = monthReport.getDay012().substring(a, monthReport.getDay012().length());monthReport.setDay012(runTimeByDate.getRunnum()+l);}else{monthReport.setDay012(runTimeByDate.getRunnum()+"(0)/0");}}
@@ -366,7 +366,7 @@ public class MonthReportServiceImpl implements MonthReportService {
      * @param monthReports monthreport集合
      * @param size 大小
      */
-    public void monthReportInsert(List<MonthReport> monthReports,int size){
+    public void monthReportInsert(List<MonthReport> monthReports,int size,Map tableMap){
     	int sign = 0;
     	List<MonthReport> list = new ArrayList<MonthReport>();
     	//插入前计算:totalSuccessful总成功，totalSchedule总记录数，bsr成功率   三个属性的值
@@ -453,7 +453,12 @@ public class MonthReportServiceImpl implements MonthReportService {
     	//根据入参size，批量插入
     	if(list!=null&&list.size()>0){
     		if(size == 0){
-    			monthReportMapper.insertBatch(list);
+    			if( ((String) tableMap.get("month_report_table")).equals("month_report")){
+					monthReportMapper.insertBatch(list);
+				}else if ( ((String) tableMap.get("month_report_table")).equals("month_report_non_prod")){
+					monthReportMapper.insertBatchNonProd(list);
+				}
+
     		}else{
     			int page = (list.size() + size - 1)/size;
                 List<MonthReport> newtimelist=null;
@@ -464,7 +469,7 @@ public class MonthReportServiceImpl implements MonthReportService {
     				}else {
     				    newtimelist=list.subList(i*size, i*size+size);
     				}
-    				monthReportMapper.insertBatch(newtimelist);
+    				//monthReportMapper.insertBatch(newtimelist);
                 }
     		}
         }

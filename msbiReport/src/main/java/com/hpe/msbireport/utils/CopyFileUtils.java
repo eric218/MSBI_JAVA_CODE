@@ -157,7 +157,7 @@ public class CopyFileUtils {
 			map.put("DCAESXDP201_VM_BACKUP", "DCAESXDP201_VM_BACKUP");
 
 
-			copy("c:/MSBI/201803log/","c:/MSBI/201803log/schedule/");
+			copy("c:/SSISInuptFiles/NON_PROD/","c:/SSISInuptFiles/NON_PROD/schedule/");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

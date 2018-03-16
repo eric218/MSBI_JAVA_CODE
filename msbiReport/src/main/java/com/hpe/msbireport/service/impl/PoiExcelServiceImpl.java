@@ -620,6 +620,10 @@ public class PoiExcelServiceImpl implements PoiExcelService {
                     //monthReportContent.getCell(6).setCellStyle(lookupCode1Style);
                     monthReportContent.getCell(6).setCellStyle(greenRightStyle);
                 }
+                //计划执行数为0
+                if(monthReport.getTotalSchedule()!=null && Integer.parseInt(monthReport.getTotalSchedule())==0){
+                    monthReportContent.getCell(6).setCellStyle(greenRightStyle);
+                }
             }
             monthReportContent.getCell(7).setCellStyle(rightIntStyle);
             monthReportContent.getCell(8).setCellStyle(rightIntStyle);

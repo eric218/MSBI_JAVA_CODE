@@ -45,6 +45,8 @@ public interface MonthReportMapper {
     List<MonthReport> selectAllForUpate(Map map);
     
     void insertBatch(List<MonthReport> list);
+
+    void insertBatchNonProd(List<MonthReport> list);
     
     void deleteByMonth(Map map);
 }

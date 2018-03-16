@@ -54,8 +54,9 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
 
     @Value("${msbi.app.log.location1}")
     private String logLocation;
-    @Value("${msbi.app.copyfile.to}")
-    private String scheduleLocation;
+
+    @Value("${msbi.app.log.location_non_prod}")
+    private String logLocationNopProd;
 
     @Value("${msbi.app.file.location.monthly}")
     private String monthlyReportPath;
@@ -236,17 +237,19 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
     @Override
     public void autoRunDaily() throws Exception {
         //prod report
+        this.autoRun(logLocation,newPath);
         new CopyFileUtils().copy(oldPath,newPath);
-        monthReportService.formatMonthReportTableForTask(day,null, false, 1000,reportType_non_pro);
+        monthReportService.formatMonthReportTableForTask(day,null, false, 0,reportType_pro);
         //non prod report
         new CopyFileUtils().copy(oldPathNon,newPathNon);
-        //monthReportService.formatMonthReportTableForTask(day,null, true, 1000,reportType_non_pro);
+        monthReportService.formatMonthReportTableForTask(day,null, false, 0,reportType_non_pro);
+        monthReportService.autoDailyGenerate(dailyReportPath);
+        monthReportService.autoMonthlyGenerate(monthlyReportPath);
 
 
 //        this.autoRun(logLocation,scheduleLocation);
 //        monthReportService.formatMonthReportTableForTask(day,null, true, 1000);
-//        monthReportService.autoDailyGenerate(dailyReportPath);
-//        monthReportService.autoMonthlyGenerate(monthlyReportPath);
+
     }
 }
 
