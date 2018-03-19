@@ -65,10 +65,6 @@ public class ProcedureCall {
         procedureCallService.insertFile(map);
     }
 
-    @Test
-    public void test2() throws Exception {
-        procedureCallService.autoRun(logLocation,scheduleLocation);
-    }
 
     @Test
     public void test3() throws Exception{

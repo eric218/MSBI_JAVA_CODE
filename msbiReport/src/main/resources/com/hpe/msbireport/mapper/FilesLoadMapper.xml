@@ -82,6 +82,20 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByExampleNonProd" resultMap="BaseResultMap" parameterType="com.hpe.msbireport.domain.FilesLoadExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from files_load_non_prod
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -106,6 +120,37 @@
   </insert>
   <insert id="insertSelective" parameterType="com.hpe.msbireport.domain.FilesLoad" >
     insert into files_load
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="insertDate != null" >
+        insert_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="insertDate != null" >
+        #{insertDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertSelectiveNonProd" parameterType="com.hpe.msbireport.domain.FilesLoad" >
+    insert into files_load_non_prod
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,

@@ -17,9 +17,13 @@ public interface FilesLoadMapper {
 
     int insertSelective(FilesLoad record);
 
+    int insertSelectiveNonProd(FilesLoad record);
+
     List<FilesLoad> selectByExampleWithRowbounds(FilesLoadExample example, RowBounds rowBounds);
 
     List<FilesLoad> selectByExample(FilesLoadExample example);
+
+    List<FilesLoad> selectByExampleNonProd(FilesLoadExample example);
 
     FilesLoad selectByPrimaryKey(Integer id);
 

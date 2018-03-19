@@ -26,10 +26,16 @@ public class FileLoadServiceImpl implements FileLoadService {
     FilesLoadMapper filesLoadMapper;
 
     @Override
-    public List<String> getInsertFile(String logLocation) throws IOException {
+    public List<String> getInsertFile(String logLocation, String reportType) throws IOException {
         List<String> autoInsertList = new ArrayList();
         Map dbMap = new HashMap();
-        List<FilesLoad> DBList = filesLoadMapper.selectByExample(null);
+        List<FilesLoad> DBList = null;
+        if("A".equals(reportType)){
+            DBList = filesLoadMapper.selectByExample(null);
+        }else if("B".equals(reportType)){
+            DBList = filesLoadMapper.selectByExampleNonProd(null);
+        }
+
         for (FilesLoad file : DBList) {
             dbMap.put(file.getFileName(), file.getFileName());
         }
@@ -46,9 +52,14 @@ public class FileLoadServiceImpl implements FileLoadService {
     }
 
     @Override
-    public void insertFile(String fileName) {
+    public void insertFile(String fileName, String reportType) {
         FilesLoad file = new FilesLoad();
         file.setFileName(fileName);
-        filesLoadMapper.insertSelective(file);
+        if("A".equals(reportType)){
+            filesLoadMapper.insertSelective(file);
+        }else if("B".equals(reportType)){
+            filesLoadMapper.insertSelectiveNonProd(file);
+        }
+
     }
 }

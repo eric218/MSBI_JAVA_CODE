@@ -96,14 +96,16 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
             if (logs.contains("newdaily") && Integer.parseInt(logs.split("_")[1]) >= Integer.parseInt(logBeginDate)) {
                 //step2.插入每天的log文件
                 String inserLogSql = new String();
-                inserLogSql = "load data local infile \"" + logLocation + logs + "\" into table logtxt(log)  set LOG_TYPE=1";
-                //System.out.println(inserLogSql);
-                map.put("insertSql", inserLogSql);
-                insertFile(map);
                 if(reportType.equals("A")){
+                    inserLogSql = "load data local infile \"" + logLocation + logs + "\" into table logtxt(log)  set LOG_TYPE=1";
+                    map.put("insertSql", inserLogSql);
+                    insertFile(map);
                     log.info("@call insert_backup_log_sucessful_procedure(prod) tasks sql: "+ inserLogSql);
                 }
                 else if(reportType.equals("B")){
+                    inserLogSql = "load data local infile \"" + logLocation + logs + "\" into table logtxt(log)  set LOG_TYPE=4";
+                    map.put("insertSql", inserLogSql);
+                    insertFile(map);
                     log.info("@call insert_backup_log_sucessful_procedure(non prod) tasks sql: "+ inserLogSql);
                 }
             }
@@ -149,20 +151,17 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
         insertFile(map);
         String main = this.getMainLog(logList,"L");
         if(!StringUtils.isEmpty(main)){
-            //System.out.println(main);
-            String inserLogSql = "load data local infile \"" + logLocation + main + "\" into table logtxt(log)  set LOG_TYPE=3";
-            //System.out.println(inserLogSql);
-
+            String insertSql = new String();
             if(reportType.equals("A")){
-                log.info("@call insert_main_procedure(prod) tasks sql: "+ inserLogSql);
+                insertSql = "load data local infile \"" + logLocation + main + "\" into table logtxt(log)  set LOG_TYPE=3";
+                log.info("@call insert_main_procedure(prod) tasks sql: "+ insertSql);
             }
             else if(reportType.equals("B")){
-                log.info("@call insert_main_procedure(non prod) tasks sql: "+ inserLogSql);
+                insertSql = "load data local infile \"" + logLocation + main + "\" into table logtxt(log)  set LOG_TYPE=6";
+                log.info("@call insert_main_procedure(non prod) tasks sql: "+ insertSql);
             }
-
-            map.put("insertSql", inserLogSql);
+            map.put("insertSql", insertSql);
             insertFile(map);
-
             //step3.call 存储过程
             if(reportType.equals("A")){
                 map.put("insertSql", "call insert_main_procedure()");
@@ -175,12 +174,12 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
             if(reportType.equals("A")){
                 log.info("@call insert_main_procedure(prod) tasks complete at:  {}", dateFormat.format(new Date()));
                 log.info("@call insert_main_procedure(prod) cost time: "+ CommonUtils.getTimeIntervalFormat1(startDate,endDate));
-                log.info("@call insert_main_procedure(prod) tasks sql: "+ inserLogSql);
+                log.info("@call insert_main_procedure(prod) tasks sql: "+ insertSql);
             }
             else if(reportType.equals("B")){
                 log.info("@call insert_main_procedure(non_prod) tasks complete at:  {}", dateFormat.format(new Date()));
                 log.info("@call insert_main_procedure(non_prod) cost time: "+ CommonUtils.getTimeIntervalFormat1(startDate,endDate));
-                log.info("@call insert_main_procedure(non_prod) tasks sql: "+ inserLogSql);
+                log.info("@call insert_main_procedure(non_prod) tasks sql: "+ insertSql);
             }
 
         }
@@ -204,19 +203,18 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
         insertFile(map);
         String main = this.getMainLog(logList,"S");
         if(!StringUtils.isEmpty(main)){
-            //System.out.println(main);
-            String inserLogSql = "load data local infile \"" + logLocation + main + "\" into table logtxt(log)  set LOG_TYPE=2";
-            //System.out.println(inserLogSql);
-
+            String insertSql = new String();
             if(reportType.equals("A")){
-                log.info("@call insert_schedule_procedure(prod) tasks sql: "+ inserLogSql);
+                insertSql = "load data local infile \"" + logLocation + main + "\" into table logtxt(log)  set LOG_TYPE=2";
+                log.info("@call insert_schedule_procedure(prod) tasks sql: "+ insertSql);
             }
             else if(reportType.equals("B")){
-                log.info("@call insert_schedule_procedure(non prod) tasks sql: "+ inserLogSql);
+                insertSql = "load data local infile \"" + logLocation + main + "\" into table logtxt(log)  set LOG_TYPE=5";
+                log.info("@call insert_schedule_procedure(non prod) tasks sql: "+ insertSql);
             }
 
             //step2.插入最新的Schedule文件
-            map.put("insertSql", inserLogSql);
+            map.put("insertSql", insertSql);
             insertFile(map);
             //step3.call 存储过程
             if(reportType.equals("A")){
@@ -231,12 +229,12 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
             if(reportType.equals("A")){
                 log.info("@call insert_schedule_procedure(prod) tasks complete at:  {}", dateFormat.format(new Date()));
                 log.info("@call insert_schedule_procedure(prod) cost time: "+ CommonUtils.getTimeIntervalFormat1(startDate,endDate));
-                log.info("@call insert_schedule_procedure(prod) tasks sql: "+ inserLogSql);
+                log.info("@call insert_schedule_procedure(prod) tasks sql: "+ insertSql);
             }
             else if(reportType.equals("B")){
                 log.info("@call insert_schedule_procedure(non prod) tasks complete at:  {}", dateFormat.format(new Date()));
                 log.info("@call insert_schedule_procedure(non prod) cost time: "+ CommonUtils.getTimeIntervalFormat1(startDate,endDate));
-                log.info("@call insert_schedule_procedure(non prod) tasks sql: "+ inserLogSql);
+                log.info("@call insert_schedule_procedure(non prod) tasks sql: "+ insertSql);
             }
 
         }
@@ -248,13 +246,13 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
     @Transactional
     public void autoRun(String logLocation,String scheduleLocation,String reportType) throws Exception{
         Date startDate = new Date(System.currentTimeMillis());
-        List<String> list = fileLoadService.getInsertFile(logLocation);
+        List<String> list = fileLoadService.getInsertFile(logLocation,reportType);
         boolean flag1 = this.insertLog(list,logLocation,reportType);
         boolean flag2 = this.insertMain(list,logLocation,reportType);
-        List<String> list2 = fileLoadService.getInsertFile(scheduleLocation);
+        List<String> list2 = fileLoadService.getInsertFile(scheduleLocation,reportType);
         boolean flag3 = this.insertSchedule(list2,scheduleLocation,reportType);
         if(flag1&flag2&flag3){
-            this.insertFile(list,list2,reportType,String reportType);
+            this.insertFile(list,list2,reportType);
         }
 
         if(list==null || list.size()==0){
@@ -283,18 +281,17 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
             log.info("@call all procedure(non prod) tasks complete at:  {}", dateFormat.format(new Date()));
             log.info("@@call all procedure(non prod) cost totle time: "+ CommonUtils.getTimeIntervalFormat1(startDate,endDate));
         }
-
     }
 
-    private void insertFile(List<String> logList, List<String> scheduleList){
+    private void insertFile(List<String> logList, List<String> scheduleList,String reportType){
         if(logList!=null && logList.size()>=1){
             for(String name : logList){
-                fileLoadService.insertFile(name);
+                fileLoadService.insertFile(name,reportType);
             }
         }
         if(scheduleList!=null && scheduleList.size()>=1){
             for(String name : scheduleList){
-                fileLoadService.insertFile(name);
+                fileLoadService.insertFile(name,reportType);
             }
         }
     }

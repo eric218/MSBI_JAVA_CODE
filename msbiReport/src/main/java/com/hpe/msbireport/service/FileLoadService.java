@@ -11,6 +11,6 @@ import java.util.List;
  * Time: 5:42 PM
  */
 public interface FileLoadService {
-    public List<String> getInsertFile(String logLocation) throws IOException;
-    public void insertFile(String fileName);
+    public List<String> getInsertFile(String logLocation, String reportType) throws IOException;
+    public void insertFile(String fileName, String reportType);
 }

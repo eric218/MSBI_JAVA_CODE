@@ -14,9 +14,10 @@ import org.springframework.stereotype.Component;
 public class ScheduledTasks {
     @Autowired
     private ProcedureCallService procedureCallService;
-
+    //每天调用
     @Scheduled(cron = "${msbi.app.scheduled.autoRun.daily}")
     public void autoRunDaily() throws Exception {
         procedureCallService.autoRunDaily();
+
     }
 }

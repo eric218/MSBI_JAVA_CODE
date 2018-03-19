@@ -12,9 +12,9 @@ import java.util.Map;
  */
 public interface ProcedureCallService {
     public void insertFile(Map map);
-    public boolean insertLog(List<String> logList,String logLocation);
-    public boolean insertMain(List<String> logList,String logLocation);
-    public boolean insertSchedule(List<String> logList,String logLocation);
-    public void autoRun(String logLocation,String scheduleLocation) throws Exception;
+    public boolean insertLog(List<String> logList,String logLocation,String reportType);
+    public boolean insertMain(List<String> logList,String logLocation,String reportType);
+    public boolean insertSchedule(List<String> logList,String logLocation,String reportType);
+    public void autoRun(String logLocation,String scheduleLocation,String reportType) throws Exception;
     public void autoRunDaily() throws Exception;
 }
