@@ -1348,12 +1348,14 @@
         <include refid="Base_Column_List"/>
         FROM month_report
         WHERE month_indicator = #{monthIndicator,jdbcType=INTEGER}
+        order by SERVER_NAME ,SCHEDULE_NAME
     </select>
     <select id="selectAllMonthReportsByMonthForNon_Prod" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         SELECT
         <include refid="Base_Column_List"/>
         FROM month_report_non_prod
         WHERE month_indicator = #{monthIndicator,jdbcType=INTEGER}
+        order by SERVER_NAME ,SCHEDULE_NAME
     </select>
     <select id="selectAllAvaiableMonthFromDB" resultType="java.lang.Integer">
         SELECT DISTINCT month_indicator FROM month_report ORDER BY month_indicator DESC
@@ -1376,7 +1378,7 @@
 			PERUNITS AS PERUNITS,
 			PERIOD AS PERIOD
 		from ${schedule_table} a
-		where SCHEDULE_NAME NOT REGEXP '@' and exists(select 1 from ${main_table} b where a.SCHEDULE_NAME = b.SCHEDULE_NAME)
+		where SCHEDULE_NAME NOT REGEXP '@' and exists(select 1 from ${main_table} b where a.SCHEDULE_NAME = b.SCHEDULE_NAME and a.server_name=b.server_name)
     </select>
 
 	<!--<select id="selectAllForUpate" resultMap="BaseResultMap">-->

@@ -290,6 +290,8 @@ public class PoiExcelServiceImpl implements PoiExcelService {
 
         CellStyle redRightStyle = excelUnits.setRedRightStyle(workbook);
         CellStyle greenRightStyle = excelUnits.setGreenRightStyle(workbook);
+        CellStyle yellowRightStyle = excelUnits.setYellowRightStyle(workbook);
+
         CellStyle rightIntStyle = excelUnits.setRightIntStyle(workbook);
 
 
@@ -613,11 +615,16 @@ public class PoiExcelServiceImpl implements PoiExcelService {
             monthReportContent.createCell(11).setCellValue(monthReport.getDay012());
             if (!StringUtils.isEmpty(monthReport.getBsr())) {
                 Double bsr = Double.parseDouble(monthReport.getBsr());
-                if (bsr.compareTo(100.00) < 0) {
-                    //monthReportContent.getCell(6).setCellStyle(lookupCode0Style);
+                if (bsr.compareTo(90.00) < 0) {
                     monthReportContent.getCell(6).setCellStyle(redRightStyle);
-                } else {
-                    //monthReportContent.getCell(6).setCellStyle(lookupCode1Style);
+                }
+                else if(bsr.compareTo(90.00) >= 0 && bsr.compareTo(95.00) < 0){
+                    monthReportContent.getCell(6).setCellStyle(yellowRightStyle);
+                }
+                else if(bsr.compareTo(95.00) >= 0 && bsr.compareTo(100.00) <= 0){
+                    monthReportContent.getCell(6).setCellStyle(greenRightStyle);
+                }
+                else {
                     monthReportContent.getCell(6).setCellStyle(greenRightStyle);
                 }
                 //计划执行数为0

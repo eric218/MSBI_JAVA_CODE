@@ -329,20 +329,20 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
     @Override
     public void autoRunDaily() throws Exception {
         //prod report
-        this.autoRun(logLocation,newPath,reportType_pro);
+        //处理schedule文件
         new CopyFileUtils().copy(oldPath,newPath);
+        //执行批处理
+        this.autoRun(logLocation,newPath,reportType_pro);
+        //生成excel文件
         monthReportService.formatMonthReportTableForTask(day,null, false, 0,reportType_pro);
         //non prod report
         new CopyFileUtils().copy(oldPathNon,newPathNon);
         this.autoRun(logLocationNopProd,newPathNon,reportType_non_pro);
         monthReportService.formatMonthReportTableForTask(day,null, false, 0,reportType_non_pro);
+
+        //生成报表文件
         monthReportService.autoDailyGenerate(dailyReportPath);
         monthReportService.autoMonthlyGenerate(monthlyReportPath);
-
-
-//        this.autoRun(logLocation,scheduleLocation);
-//        monthReportService.formatMonthReportTableForTask(day,null, true, 1000);
-
     }
 }
 

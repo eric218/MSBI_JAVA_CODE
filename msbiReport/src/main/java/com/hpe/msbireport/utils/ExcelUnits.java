@@ -38,8 +38,27 @@ public class ExcelUnits {
     public CellStyle setGreenRightStyle(HSSFWorkbook workbook){
         CellStyle style = workbook.createCellStyle();
         style.setAlignment(HorizontalAlignment.RIGHT);
-        // background color 0 - RED
+        // background color 0 - green
         style.setFillForegroundColor(HSSFColor.BRIGHT_GREEN.index);
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setBorderTop(BorderStyle.THIN);
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setBorderRight(BorderStyle.THIN);
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setTopBorderColor(HSSFColor.GREY_25_PERCENT.index);
+        style.setBottomBorderColor(HSSFColor.GREY_25_PERCENT.index);
+        style.setRightBorderColor(HSSFColor.GREY_25_PERCENT.index);
+        style.setLeftBorderColor(HSSFColor.GREY_25_PERCENT.index);
+        //设置百分比
+        style.setDataFormat(HSSFDataFormat.getBuiltinFormat("0.00%"));
+        return style;
+    }
+
+    public CellStyle setYellowRightStyle(HSSFWorkbook workbook){
+        CellStyle style = workbook.createCellStyle();
+        style.setAlignment(HorizontalAlignment.RIGHT);
+        // background color 0 - yellow
+        style.setFillForegroundColor(HSSFColor.YELLOW.index);
         style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         style.setBorderTop(BorderStyle.THIN);
         style.setBorderLeft(BorderStyle.THIN);
