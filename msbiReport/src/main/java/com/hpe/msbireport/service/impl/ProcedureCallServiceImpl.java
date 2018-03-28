@@ -154,11 +154,9 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
             String insertSql = new String();
             if(reportType.equals("A")){
                 insertSql = "load data local infile \"" + logLocation + main + "\" into table logtxt(log)  set LOG_TYPE=3";
-                log.info("@call insert_main_procedure(prod) tasks sql: "+ insertSql);
             }
             else if(reportType.equals("B")){
                 insertSql = "load data local infile \"" + logLocation + main + "\" into table logtxt(log)  set LOG_TYPE=6";
-                log.info("@call insert_main_procedure(non prod) tasks sql: "+ insertSql);
             }
             map.put("insertSql", insertSql);
             insertFile(map);
@@ -206,11 +204,9 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
             String insertSql = new String();
             if(reportType.equals("A")){
                 insertSql = "load data local infile \"" + logLocation + main + "\" into table logtxt(log)  set LOG_TYPE=2";
-                log.info("@call insert_schedule_procedure(prod) tasks sql: "+ insertSql);
             }
             else if(reportType.equals("B")){
                 insertSql = "load data local infile \"" + logLocation + main + "\" into table logtxt(log)  set LOG_TYPE=5";
-                log.info("@call insert_schedule_procedure(non prod) tasks sql: "+ insertSql);
             }
 
             //step2.插入最新的Schedule文件
