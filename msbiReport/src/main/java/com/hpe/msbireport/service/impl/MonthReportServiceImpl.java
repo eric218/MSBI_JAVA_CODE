@@ -13,14 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.hpe.msbireport.domain.*;
+import com.hpe.msbireport.mapper.SpecialScheduleMapper;
 import com.hpe.msbireport.service.PoiExcelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hpe.msbireport.domain.BackupLog;
-import com.hpe.msbireport.domain.MonthReport;
-import com.hpe.msbireport.domain.RunTimeByDate;
-import com.hpe.msbireport.domain.ScheduleHistory;
 import com.hpe.msbireport.mapper.BackupLogMapper;
 import com.hpe.msbireport.mapper.MonthReportMapper;
 import com.hpe.msbireport.mapper.ScheduleHistoryMapper;
@@ -45,11 +43,15 @@ public class MonthReportServiceImpl implements MonthReportService {
     ScheduleHistoryMapper scheduleHistoryMapper;
 
 	@Autowired
+	SpecialScheduleMapper specialScheduleMapper;
+
+	@Autowired
 	PoiExcelService poiExcelService;
     
     private final static Map<String, Integer> PERUNITS = new HashMap<String, Integer>();
     private final static Map<String, Integer> Day = new HashMap<String, Integer>();
     private final static Map<String, Integer> Week = new HashMap<String, Integer>();
+    private Map<String,String> specialScheduleMap = new HashMap<String,String>();
     
     @Override
     public List<MonthReport> selectAllMonthReportsByMonth(Integer monthIndicator) {
@@ -271,12 +273,155 @@ public class MonthReportServiceImpl implements MonthReportService {
 				if(Integer.parseInt(currentDates[2]) >= 30 && write(currentDate,30,monthReport)){monthReport.setDay301("1");monthReport.setDay302("0(0)/"+jobNums);}else{if(Integer.parseInt(currentDates[2]) >= 30 ){monthReport.setDay301("4");monthReport.setDay302(null);}else{monthReport.setDay301(null);monthReport.setDay302(null);}}
 				if(Integer.parseInt(currentDates[2]) >= 31 && write(currentDate,31,monthReport)){monthReport.setDay311("1");monthReport.setDay312("0(0)/"+jobNums);}else{if(Integer.parseInt(currentDates[2]) >= 31 ){monthReport.setDay311("4");monthReport.setDay312(null);}else{monthReport.setDay311(null);monthReport.setDay312(null);}}
 			}
+			//处理特殊的schedule，状态3，当前日期则是状态3.
+			updateSpecialScheduleInprogress(monthReport,Integer.parseInt(currentDates[2]));
 		}
 		//计算backuplog表中的真实log记录数,并更新monthreport对象
 		List<MonthReport> sunList = sumBackLog(list,blMap);
 		//批量插入
 		monthReportInsert(sunList,insertSize,tableMap);
     }
+
+    public void setAllSpecialScheduleMap(Map map){
+		List<SpecialSchedule> list = specialScheduleMapper.selectAll(map);
+		if(list!=null && list.size()>0){
+			for(SpecialSchedule s: list){
+				specialScheduleMap.put(s.getScheduleName(),s.getStatus());
+			}
+		}
+	}
+
+	//修改状态为3的
+    public void updateSpecialScheduleInprogress(MonthReport monthReport,Integer currentDates){
+    	//如果特殊数据在列表里
+		if(specialScheduleMap.get(monthReport.getScheduleName()) != null && specialScheduleMap.get(monthReport.getScheduleName()).equals("3")){
+			//如果当前时间匹配并且有任务，那么则给他状态3
+			if(currentDates==1 && monthReport.getDay011().equals("1")){
+				monthReport.setDay011("3");
+				monthReport.setDay012(null);
+			}
+			else if(currentDates==2 && monthReport.getDay021().equals("1")){
+				monthReport.setDay021("3");
+				monthReport.setDay022(null);
+			}
+			else if(currentDates==3 && monthReport.getDay031().equals("1")){
+				monthReport.setDay031("3");
+				monthReport.setDay032(null);
+			}
+			else if(currentDates==4 && monthReport.getDay041().equals("1")){
+				monthReport.setDay041("3");
+				monthReport.setDay042(null);
+			}
+			else if(currentDates==5 && monthReport.getDay051().equals("1")){
+				monthReport.setDay051("3");
+				monthReport.setDay052(null);
+			}
+			else if(currentDates==6 && monthReport.getDay061().equals("1")){
+				monthReport.setDay061("3");
+				monthReport.setDay062(null);
+			}
+			else if(currentDates==7 && monthReport.getDay071().equals("1")){
+				monthReport.setDay071("3");
+				monthReport.setDay072(null);
+			}
+			else if(currentDates==8 && monthReport.getDay081().equals("1")){
+				monthReport.setDay081("3");
+				monthReport.setDay012(null);
+			}
+			else if(currentDates==9 && monthReport.getDay091().equals("1")){
+				monthReport.setDay091("3");
+				monthReport.setDay092(null);
+			}
+			else if(currentDates==10 && monthReport.getDay101().equals("1")){
+				monthReport.setDay101("3");
+				monthReport.setDay102(null);
+			}
+			else if(currentDates==11 && monthReport.getDay111().equals("1")){
+				monthReport.setDay111("3");
+				monthReport.setDay112(null);
+			}
+			else if(currentDates==12 && monthReport.getDay121().equals("1")){
+				monthReport.setDay121("3");
+				monthReport.setDay122(null);
+			}
+			else if(currentDates==13 && monthReport.getDay131().equals("1")){
+				monthReport.setDay131("3");
+				monthReport.setDay132(null);
+			}
+			else if(currentDates==14 && monthReport.getDay141().equals("1")){
+				monthReport.setDay141("3");
+				monthReport.setDay142(null);
+			}
+			else if(currentDates==15 && monthReport.getDay151().equals("1")){
+				monthReport.setDay151("3");
+				monthReport.setDay152(null);
+			}
+			else if(currentDates==16 && monthReport.getDay161().equals("1")){
+				monthReport.setDay161("3");
+				monthReport.setDay162(null);
+			}
+			else if(currentDates==17 && monthReport.getDay171().equals("1")){
+				monthReport.setDay171("3");
+				monthReport.setDay172(null);
+			}
+			else if(currentDates==18 && monthReport.getDay181().equals("1")){
+				monthReport.setDay181("3");
+				monthReport.setDay182(null);
+			}
+			else if(currentDates==19 && monthReport.getDay191().equals("1")){
+				monthReport.setDay191("3");
+				monthReport.setDay192(null);
+			}
+			else if(currentDates==20 && monthReport.getDay201().equals("1")){
+				monthReport.setDay201("3");
+				monthReport.setDay202(null);
+			}
+			else if(currentDates==21 && monthReport.getDay211().equals("1")){
+				monthReport.setDay211("3");
+				monthReport.setDay212(null);
+			}
+			else if(currentDates==22 && monthReport.getDay221().equals("1")){
+				monthReport.setDay221("3");
+				monthReport.setDay222(null);
+			}
+			else if(currentDates==23 && monthReport.getDay231().equals("1")){
+				monthReport.setDay231("3");
+				monthReport.setDay232(null);
+			}
+			else if(currentDates==24 && monthReport.getDay241().equals("1")){
+				monthReport.setDay241("3");
+				monthReport.setDay242(null);
+			}
+			else if(currentDates==25 && monthReport.getDay251().equals("1")){
+				monthReport.setDay251("3");
+				monthReport.setDay252(null);
+			}
+			else if(currentDates==26 && monthReport.getDay261().equals("1")){
+				monthReport.setDay261("3");
+				monthReport.setDay262(null);
+			}
+			else if(currentDates==27 && monthReport.getDay271().equals("1")){
+				monthReport.setDay271("3");
+				monthReport.setDay272(null);
+			}
+			else if(currentDates==28 && monthReport.getDay281().equals("1")){
+				monthReport.setDay281("3");
+				monthReport.setDay282(null);
+			}
+			else if(currentDates==29 && monthReport.getDay291().equals("1")){
+				monthReport.setDay291("3");
+				monthReport.setDay292(null);
+			}
+			else if(currentDates==30 && monthReport.getDay301().equals("1")){
+				monthReport.setDay301("3");
+				monthReport.setDay302(null);
+			}
+			else if(currentDates==31 && monthReport.getDay311().equals("1")){
+				monthReport.setDay311("3");
+				monthReport.setDay312(null);
+			}
+		}
+	}
     
     /**
      * 计算backuplog表中的真实log记录数,并更新monthreport对象
@@ -813,6 +958,7 @@ public class MonthReportServiceImpl implements MonthReportService {
 			tableMap.put("schedule_table","schedule_newest");
 			tableMap.put("backup_log_table","backup_log");
 			tableMap.put("main_table","main");
+			tableMap.put("special_schedule_table","special_schedule");
 
 
 		}else if("B".equals(reportType)){
@@ -820,15 +966,18 @@ public class MonthReportServiceImpl implements MonthReportService {
 			tableMap.put("backup_log_table","backup_log_non_prod");
 			tableMap.put("schedule_table","schedule_newest_non_prod");
 			tableMap.put("main_table","main_non_prod");
+			tableMap.put("special_schedule_table","special_schedule_non_prod");
 		}
 
+		//设置所有SpecialSchedule值
+		setAllSpecialScheduleMap(tableMap);
 		List<MonthReport> list = monthReportMapper.selectAll(tableMap);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date endDate = null;
         if(null != currentDate && !"".equals(currentDate)){
         	endDate = format.parse(currentDate);
         }else{
-        	//从log表里读取记录
+        	//从log表里读取记录,取log记录时间的前1天
         	endDate = getEndDate(tableMap);
         }
         String endDateS = format.format(endDate);

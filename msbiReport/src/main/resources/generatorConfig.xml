@@ -32,6 +32,6 @@
                              targetPackage="${mbg.target-package.mapper}">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-        <table tableName = "files_load"/>
+        <table tableName = "special_schedule"/>
     </context>
 </generatorConfiguration>

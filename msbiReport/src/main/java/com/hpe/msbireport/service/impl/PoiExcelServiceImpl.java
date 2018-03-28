@@ -1192,7 +1192,7 @@ public class PoiExcelServiceImpl implements PoiExcelService {
                 monthReportContent.getCell(63).setCellStyle(lookupCode2Style);
             } else if (monthReport.getDay271() != null && monthReport.getDay271().equalsIgnoreCase("3")) {
                 monthReportContent.getCell(62).setCellStyle(lookupCode3Style);
-                monthReportContent.getCell(62).setCellStyle(lookupCode3Style);
+                monthReportContent.getCell(63).setCellStyle(lookupCode3Style);
             } else if (monthReport.getDay271() != null && monthReport.getDay271().equalsIgnoreCase("4")) {
                 monthReportContent.getCell(62).setCellStyle(lookupCode4Style);
                 monthReportContent.getCell(63).setCellStyle(lookupCode4Style);
