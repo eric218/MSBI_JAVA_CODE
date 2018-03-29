@@ -32,7 +32,7 @@ import com.hpe.msbireport.mapper.ScheduleHistoryMapper;
 import com.hpe.msbireport.service.MonthReportService;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+//@SpringBootTest
 public class MsbireportApplicationTests {
 	@Autowired
 	private BackupLogMapper backupLogMapper;
@@ -55,7 +55,7 @@ public class MsbireportApplicationTests {
 	private final static Map<String, Integer> Day = new HashMap<String, Integer>();
 	private final static Map<String, Integer> Week = new HashMap<String, Integer>();
 	
-	@Test
+	//@Test
 	public void testService(){
 		try {
 			if(null != currentDate && !"".equals(currentDate) ){

@@ -10,8 +10,8 @@ import java.io.IOException;
  */
 public class AppTest
 {
-    @Test
-    public void test1() throws IOException {
-        CopyFiles.copy();
-    }
+//    @Test
+//    public void test1() throws IOException {
+//        CopyFiles.copy();
+//    }
 }

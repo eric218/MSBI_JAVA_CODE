@@ -15,10 +15,15 @@ import java.util.Date;
  * Time: 10:13 AM
  */
 public class CopyFiles {
-    private static String oldPath1="C:/wangwei/LOGS/";
-    private static String oldPath2="C:/wangwei/RELATION/";
-    private static String oldPath3="C:/wangwei/SCHEDULE/";
-    private static String newPath="C:/wangwei/PROD/";
+    private static String oldPath1="D:/wangwei/PROD/LOGS/";
+    private static String oldPath2="D:/wangwei/PROD/RELATION/";
+    private static String oldPath3="D:/wangwei/PROD/SCHEDULE/";
+    private static String newPath="D:/wangwei/PROD/BACK_UP/";
+    private static String oldPath4="D:/wangwei/NON_PROD/LOGS/";
+    private static String oldPath5="D:/wangwei/NON_PROD/RELATION/";
+    private static String oldPath6="D:/wangwei/NON_PROD/SCHEDULE/";
+    private static String newPath2="D:/wangwei/NON_PROD/BACK_UP/";
+
     public static void copy() throws IOException {
         //copy daily
         File fromFile = new File(oldPath1+"daily.txt");
@@ -31,6 +36,21 @@ public class CopyFiles {
         //copy schedules
         fromFile = new File(oldPath3+"client_schedules.txt");
         toFile = new File(newPath+"newclient_schedules.txt"+getDtate());
+        copyFile(fromFile,toFile);
+    }
+
+    public static void copyNonProd() throws IOException {
+        //copy daily for nun
+        File fromFile = new File(oldPath4+"daily.txt");
+        File toFile = new File(newPath2+"newdaily.txt"+getDtate());
+        copyFile(fromFile,toFile);
+        //copy assoc
+        fromFile = new File(oldPath5+"assoc.txt");
+        toFile = new File(newPath2+"newassoc.txt"+getDtate());
+        copyFile(fromFile,toFile);
+        //copy schedules
+        fromFile = new File(oldPath6+"client_schedules.txt");
+        toFile = new File(newPath2+"newclient_schedules.txt"+getDtate());
         copyFile(fromFile,toFile);
     }
 
