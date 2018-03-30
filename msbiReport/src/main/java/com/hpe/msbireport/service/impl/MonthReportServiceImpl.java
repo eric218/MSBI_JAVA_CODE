@@ -1017,7 +1017,7 @@ public class MonthReportServiceImpl implements MonthReportService {
 	public void autoDailyGenerate(String dailyReportPath) throws Exception{
 		List<Integer> availableMonthLists = this.selectAllAvaiableMonthFromDB();
 		if (availableMonthLists != null) {
-			poiExcelService.generateExcelFileToAFixedPath(availableMonthLists.get(0), dailyReportPath);
+			poiExcelService.generateExcelFileToAFixedPath(availableMonthLists.get(0), dailyReportPath,"D");
 		}
 	}
 
@@ -1025,7 +1025,7 @@ public class MonthReportServiceImpl implements MonthReportService {
 	public void autoMonthlyGenerate(String monthlyReportPath) throws Exception {
 		List<Integer> availableMonthLists = this.selectAllAvaiableMonthFromDB();
 		for (Integer monthIndicator : availableMonthLists) {
-			poiExcelService.generateExcelFileToAFixedPath(monthIndicator, monthlyReportPath);
+			poiExcelService.generateExcelFileToAFixedPath(monthIndicator, monthlyReportPath,"H");
 		}
 	}
 

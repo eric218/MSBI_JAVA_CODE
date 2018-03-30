@@ -4,8 +4,10 @@ import com.hpe.msbireport.domain.Lookup;
 import com.hpe.msbireport.domain.LookupSummary;
 import com.hpe.msbireport.domain.MonthReport;
 import com.hpe.msbireport.domain.TotalSummary;
+import com.hpe.msbireport.mapper.BackupLogMapper;
 import com.hpe.msbireport.mapper.LookupMapper;
 import com.hpe.msbireport.mapper.MonthReportMapper;
+import com.hpe.msbireport.service.MonthReportService;
 import com.hpe.msbireport.service.PoiExcelService;
 import com.hpe.msbireport.utils.CommonUtils;
 import com.hpe.msbireport.utils.ExcelUnits;
@@ -22,9 +24,7 @@ import org.thymeleaf.util.StringUtils;
 
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Project:
@@ -40,15 +40,20 @@ public class PoiExcelServiceImpl implements PoiExcelService {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
     @Autowired
-    LookupMapper lookupMapper;
+    private LookupMapper lookupMapper;
 
     @Autowired
-    MonthReportMapper monthReportMapper;
+    private MonthReportMapper monthReportMapper;
 
-    ExcelUnits excelUnits = new ExcelUnits();
+    @Autowired
+    private MonthReportService monthReportService;
+
+    private ExcelUnits excelUnits = new ExcelUnits();
+
+    private SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 
     @Override
-    public String generateExcelFileToAFixedPath(Integer monthIndicator, String path) throws Exception {
+    public String generateExcelFileToAFixedPath(Integer monthIndicator, String path,String type) throws Exception {
         {
             final String[] weekOfDays = {"", "(Monday)", "(Tuesday)", "(Wednesday)", "(Thursday)", "(Friday)", "(Saturday)", "(Sunday)"};
             //Workbook workbook = new HSSFWorkbook();
@@ -62,6 +67,8 @@ public class PoiExcelServiceImpl implements PoiExcelService {
             CommonUtils commonUtils = new CommonUtils();
             // get month
             String month = monthIndicator.toString() + "01";
+
+
             List<Lookup> lookups = this.lookupMapper.selectAllLookup();
             // monthIndicator: 201702
             List<MonthReport> monthReports = this.monthReportMapper.selectAllMonthReportsByMonth(monthIndicator);
@@ -74,6 +81,14 @@ public class PoiExcelServiceImpl implements PoiExcelService {
 
             createDailyAndNonProdSheetsForWorkbook(workbook,"PROD", month, weekOfDays, commonUtils, lookups, monthReports, totalSummaries, lookupSummaries);
             createDailyAndNonProdSheetsForWorkbook(workbook,"NON PROD", month, weekOfDays, commonUtils, lookups, monthReportsNonProd, totalSummariesNonProd, lookupSummariesNonProd);
+
+            if(type.equals("D")){
+                month = getCurrentDate();
+            }
+            //月报不用日期
+            else if(type.equals("H")){
+                month = monthIndicator.toString();
+            }
 
             try {
                 log.info("### ATTENTION PLEASE LOG INFO : EXCEL GENERATION START AT:  {}", dateFormat.format(new Date()));
@@ -1575,6 +1590,13 @@ public class PoiExcelServiceImpl implements PoiExcelService {
         }
 
 
+    }
+
+    private String getCurrentDate(){
+        Map tableMap = new HashMap();
+        tableMap.put("backup_log_table","backup_log");
+        Date date = monthReportService.getEndDate(tableMap);
+        return format.format(date);
     }
 
 

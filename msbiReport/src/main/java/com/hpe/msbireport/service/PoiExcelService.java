@@ -8,6 +8,6 @@ package com.hpe.msbireport.service;
  */
 public interface PoiExcelService {
     
-    public String generateExcelFileToAFixedPath(Integer monthIndicator, String path) throws Exception;
+    public String generateExcelFileToAFixedPath(Integer monthIndicator, String path,String type) throws Exception;
 
 }

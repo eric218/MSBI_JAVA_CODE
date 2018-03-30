@@ -55,15 +55,15 @@ public class ProcedureCall {
     @Value("${msbi.app.monthreport.day}")
     private int day;
 
-    @Test
-    @Transactional
-    public void num(){
-        Map map = new HashMap();
-        map.put("insertSql","load data local infile \"C:/MSBI/log/log_2017_03_30.txt_20170406_200\" into table logtxt(log)  set LOG_TYPE=1;");
-        procedureCallService.insertFile(map);
-        map.put("insertSql","delete from logtxt WHERE LOG_TYPE=1;");
-        procedureCallService.insertFile(map);
-    }
+//    @Test
+//    @Transactional
+//    public void num(){
+//        Map map = new HashMap();
+//        map.put("insertSql","load data local infile \"C:/MSBI/log/log_2017_03_30.txt_20170406_200\" into table logtxt(log)  set LOG_TYPE=1;");
+//        procedureCallService.insertFile(map);
+//        map.put("insertSql","delete from logtxt WHERE LOG_TYPE=1;");
+//        procedureCallService.insertFile(map);
+//    }
 
 
     @Test

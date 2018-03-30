@@ -43,14 +43,14 @@ public class MsbiReportController {
     @RequestMapping(value = "/excel/generateSpecificMonthReports", method = RequestMethod.GET)
     public @ResponseBody
     String generateExcelFileToTheFixedPath(Integer monthIndicator) throws Exception {
-        return this.poiExcelService.generateExcelFileToAFixedPath(monthIndicator, monthlyReportPath);
+        return this.poiExcelService.generateExcelFileToAFixedPath(monthIndicator, monthlyReportPath,"D");
     }
 
     @RequestMapping(value = "/excel/generateAllReports", method = RequestMethod.GET)
     public void autoGeneratePastMonthlyReport() throws Exception {
         List<Integer> availableMonthLists = this.monthReportService.selectAllAvaiableMonthFromDB();
         for (Integer monthIndicator : availableMonthLists) {
-            this.poiExcelService.generateExcelFileToAFixedPath(monthIndicator, monthlyReportPath);
+            this.poiExcelService.generateExcelFileToAFixedPath(monthIndicator, monthlyReportPath,"H");
         }
     }
 
@@ -59,7 +59,7 @@ public class MsbiReportController {
 
         List<Integer> availableMonthLists = this.monthReportService.selectAllAvaiableMonthFromDB();
         if (availableMonthLists != null) {
-            this.poiExcelService.generateExcelFileToAFixedPath(availableMonthLists.get(0), dailyReportPath);
+            this.poiExcelService.generateExcelFileToAFixedPath(availableMonthLists.get(0), dailyReportPath,"D");
         }
     }
 	
