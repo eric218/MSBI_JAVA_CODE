@@ -65,7 +65,6 @@ public class ProcedureCall {
 //        procedureCallService.insertFile(map);
 //    }
 
-
     @Test
     public void test3() throws Exception{
         procedureCallService.autoRunDaily();

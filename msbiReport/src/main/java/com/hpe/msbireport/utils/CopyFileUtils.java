@@ -13,6 +13,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CopyFileUtils {
+	/**
+	 * @Author: Wang,Wei
+	 * @Description:
+	 * @Param: [oldPath, newPath]
+	 * @return: void
+	 * @Date: 4/3/2018
+	 * @time: 3:06 PM
+	 */
 	//reportType:A,prod;B,non prod
 	public static void copy(String oldPath,String newPath) throws Exception{
 		List<String> oldFileName = new ArrayList<String>();

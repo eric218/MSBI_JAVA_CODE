@@ -948,10 +948,20 @@ public class MonthReportServiceImpl implements MonthReportService {
 		BackupLog bl = backupLogMapper.selectEndDate(map);
 		return bl.getStartDate();
 	}
-
+	
+	/**
+	 * @Author: Wang,Wei
+	 * @Description: 生成monthreport记录
+	 * @Param: [day:跨月时间间隔, currentDate:当前日期, hasHistory:是否有历史记录, insertSize:批量插入, reportType：报表类型,A prod,B non prod]
+	 * @return: boolean
+	 * @Date: 4/3/2018
+	 * @time: 3:06 PM
+	 */
 	@Override
 	public boolean formatMonthReportTableForTask(int day,String currentDate, boolean hasHistory, int insertSize,String reportType) throws Exception {
 		//查询所有最新scheduleName数据
+
+		//设置所有读取的table
 		Map tableMap = new HashMap();
 		if("A".equals(reportType)){
 			tableMap.put("month_report_table","month_report");

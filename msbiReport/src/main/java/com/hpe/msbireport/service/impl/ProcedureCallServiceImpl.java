@@ -325,7 +325,7 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
     @Override
     public void autoRunDaily() throws Exception {
         //prod report
-        //处理schedule文件
+        //处理schedule文件,生成新的schedule文件
         new CopyFileUtils().copy(oldPath,newPath);
         //执行批处理
         this.autoRun(logLocation,newPath,reportType_pro);
