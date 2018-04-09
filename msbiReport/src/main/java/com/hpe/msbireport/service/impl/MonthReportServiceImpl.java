@@ -16,6 +16,7 @@ import java.util.Map;
 import com.hpe.msbireport.domain.*;
 import com.hpe.msbireport.mapper.SpecialScheduleMapper;
 import com.hpe.msbireport.service.PoiExcelService;
+import com.hpe.msbireport.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -1024,10 +1025,15 @@ public class MonthReportServiceImpl implements MonthReportService {
 	}
 
 	@Override
-	public void autoDailyGenerate(String dailyReportPath) throws Exception{
+	public void autoDailyGenerate(String dailyReportPath,String dailyHistoryReportPath) throws Exception{
 		List<Integer> availableMonthLists = this.selectAllAvaiableMonthFromDB();
 		if (availableMonthLists != null) {
+			//清除dailyReportPath下的.xls文件
+			FileUtils.delteThefiles(".xls",dailyReportPath);
+			//往history目录里生成一份
 			poiExcelService.generateExcelFileToAFixedPath(availableMonthLists.get(0), dailyReportPath,"D");
+			//往history目录里生成一份
+			poiExcelService.generateExcelFileToAFixedPath(availableMonthLists.get(0), dailyHistoryReportPath,"D");
 		}
 	}
 

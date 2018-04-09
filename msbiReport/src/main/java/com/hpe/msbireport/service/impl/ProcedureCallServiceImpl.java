@@ -337,7 +337,7 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
         monthReportService.formatMonthReportTableForTask(day,null, false, 0,reportType_non_pro);
 
         //生成报表文件
-        monthReportService.autoDailyGenerate(dailyReportPath);
+        monthReportService.autoDailyGenerate(dailyReportPath,monthlyReportPath);
         monthReportService.autoMonthlyGenerate(monthlyReportPath);
     }
 }

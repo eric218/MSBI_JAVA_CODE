@@ -58,6 +58,6 @@ public interface MonthReportService {
      */
     List<MonthReport> selectAll(Map map);
 
-    public void autoDailyGenerate(String dailyReportPath)throws Exception;
+    public void autoDailyGenerate(String dailyReportPath,String dailyHistoryReportPath)throws Exception;
     public void autoMonthlyGenerate(String monthlyReportPath)throws Exception;
 }

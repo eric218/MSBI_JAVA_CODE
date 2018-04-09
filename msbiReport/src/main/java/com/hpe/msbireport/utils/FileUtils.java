@@ -26,4 +26,22 @@ public  class FileUtils {
         }
         return list;
     }
+
+    /**
+     * @Author: Wang,Wei
+     * @Description: 删除文件夹里的特定文件
+     * @Param: [content: 特定文件 logLocation: 文件路径]
+     * @return: void
+     * @Date: 4/9/2018
+     * @time: 4:00 PM
+     */
+    public static void delteThefiles(String content,String logLocation) throws IOException {
+        File file = new File(logLocation);
+        File[] fileList = file.listFiles();
+        for(File fileTemp : fileList){
+            if(fileTemp.isFile() && fileTemp.getName().contains(content)){
+                fileTemp.delete();
+            }
+        }
+    }
 }

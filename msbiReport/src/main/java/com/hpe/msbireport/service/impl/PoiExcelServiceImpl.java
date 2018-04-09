@@ -79,8 +79,8 @@ public class PoiExcelServiceImpl implements PoiExcelService {
             List<TotalSummary> totalSummariesNonProd = commonUtils.computeSummaryForMonthReportContent(monthReportsNonProd);
             List<LookupSummary> lookupSummariesNonProd = commonUtils.computeSummaryForMonthReportLookup(monthReportsNonProd);
 
-            createDailyAndNonProdSheetsForWorkbook(workbook,"PROD", month, weekOfDays, commonUtils, lookups, monthReports, totalSummaries, lookupSummaries);
-            createDailyAndNonProdSheetsForWorkbook(workbook,"NON PROD", month, weekOfDays, commonUtils, lookups, monthReportsNonProd, totalSummariesNonProd, lookupSummariesNonProd);
+            createDailyAndNonProdSheetsForWorkbook(workbook,"PROD", month,getCurrentDate(), weekOfDays, commonUtils, lookups, monthReports, totalSummaries, lookupSummaries);
+            createDailyAndNonProdSheetsForWorkbook(workbook,"NON PROD", month,getCurrentDateNon(), weekOfDays, commonUtils, lookups, monthReportsNonProd, totalSummariesNonProd, lookupSummariesNonProd);
 
             if(type.equals("D")){
                 month = getCurrentDate();
@@ -108,6 +108,7 @@ public class PoiExcelServiceImpl implements PoiExcelService {
     public void createDailyAndNonProdSheetsForWorkbook(HSSFWorkbook workbook,
                                                        String sheetName,
                                                        String month,
+                                                       String logdate,
                                                        String[] weekOfDays,
                                                        CommonUtils commonUtils,
                                                        List<Lookup> lookups,
@@ -264,7 +265,7 @@ public class PoiExcelServiceImpl implements PoiExcelService {
 
         // create title row
         Row title = sheet.createRow(0);
-        title.createCell(0).setCellValue("MonthReport - Daily ( " + month + " )");
+        title.createCell(0).setCellValue("MonthReport - Daily ( " + logdate + " )");
         title.getCell(0).setCellStyle(titleStyle);
 
         int rowCount = 1;
@@ -1595,6 +1596,13 @@ public class PoiExcelServiceImpl implements PoiExcelService {
     private String getCurrentDate(){
         Map tableMap = new HashMap();
         tableMap.put("backup_log_table","backup_log");
+        Date date = monthReportService.getEndDate(tableMap);
+        return format.format(date);
+    }
+
+    private String getCurrentDateNon(){
+        Map tableMap = new HashMap();
+        tableMap.put("backup_log_table","backup_log_non_prod");
         Date date = monthReportService.getEndDate(tableMap);
         return format.format(date);
     }
