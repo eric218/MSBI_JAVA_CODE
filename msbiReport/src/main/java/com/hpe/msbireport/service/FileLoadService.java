@@ -13,4 +13,5 @@ import java.util.List;
 public interface FileLoadService {
     public List<String> getInsertFile(String logLocation, String reportType) throws IOException;
     public void insertFile(String fileName, String reportType);
+    public void deleteLaterRecord(String reportType);
 }

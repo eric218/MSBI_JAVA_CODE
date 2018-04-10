@@ -120,6 +120,7 @@
         </dependency>
     </dependencies>
     <build>
+        <!--mvn clean package-->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

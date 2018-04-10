@@ -62,4 +62,15 @@ public class FileLoadServiceImpl implements FileLoadService {
         }
 
     }
+
+    @Override
+    public void deleteLaterRecord(String reportType) {
+        Map map = new HashMap();
+        if("A".equals(reportType)){
+            map.put("files_load_table","files_load");
+        }else if("B".equals(reportType)){
+            map.put("files_load_table","files_load_non_prod");
+        }
+        filesLoadMapper.deleteLaterRecord(map);
+    }
 }

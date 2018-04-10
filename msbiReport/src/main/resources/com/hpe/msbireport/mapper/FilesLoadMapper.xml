@@ -252,4 +252,11 @@
       order by ${orderByClause}
     </if>
   </select>
+  <delete id="deleteLaterRecord" parameterType="Map" >
+    delete from ${files_load_table} where id in(
+    select temp.id from (
+    SELECT id FROM ${files_load_table}  where file_name like '%newdaily.txt%'
+    and substring(file_name,14,8)<![CDATA[ > ]]>DATE_FORMAT(CURDATE(),'%Y%m%d') ) temp
+    )
+  </delete>
 </mapper>

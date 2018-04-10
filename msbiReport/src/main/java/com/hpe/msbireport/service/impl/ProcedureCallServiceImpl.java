@@ -241,6 +241,10 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
     @Override
     @Transactional
     public void autoRun(String logLocation,String scheduleLocation,String reportType) throws Exception{
+
+        //清除客户手动添加的log信息
+        fileLoadService.deleteLaterRecord(reportType);
+
         Date startDate = new Date(System.currentTimeMillis());
         List<String> list = fileLoadService.getInsertFile(logLocation,reportType);
         boolean flag1 = this.insertLog(list,logLocation,reportType);
