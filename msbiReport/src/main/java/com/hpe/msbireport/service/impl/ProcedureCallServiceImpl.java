@@ -242,9 +242,6 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
     @Transactional
     public void autoRun(String logLocation,String scheduleLocation,String reportType) throws Exception{
 
-        //清除客户手动添加的log信息
-        fileLoadService.deleteLaterRecord(reportType);
-
         Date startDate = new Date(System.currentTimeMillis());
         List<String> list = fileLoadService.getInsertFile(logLocation,reportType);
         boolean flag1 = this.insertLog(list,logLocation,reportType);
@@ -272,6 +269,9 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
             }
 
         }
+
+        //清除客户手动添加的log信息包含今天的log,客户点一次bat，可以把今天的重新跑一次)
+        fileLoadService.deleteLaterRecord(reportType);
 
         Date endDate = new Date(System.currentTimeMillis());
         if(reportType.equals("A")){
