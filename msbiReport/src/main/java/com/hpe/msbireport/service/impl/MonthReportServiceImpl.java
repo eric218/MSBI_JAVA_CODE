@@ -17,6 +17,8 @@ import com.hpe.msbireport.domain.*;
 import com.hpe.msbireport.mapper.SpecialScheduleMapper;
 import com.hpe.msbireport.service.PoiExcelService;
 import com.hpe.msbireport.utils.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,8 @@ import com.hpe.msbireport.service.MonthReportService;
  */
 @Service
 public class MonthReportServiceImpl implements MonthReportService {
+
+	private static final Logger log = LoggerFactory.getLogger(MonthReportServiceImpl.class);
 
     @Autowired
     MonthReportMapper monthReportMapper;
@@ -53,6 +57,8 @@ public class MonthReportServiceImpl implements MonthReportService {
     private final static Map<String, Integer> Day = new HashMap<String, Integer>();
     private final static Map<String, Integer> Week = new HashMap<String, Integer>();
     private Map<String,String> specialScheduleMap = new HashMap<String,String>();
+
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     
     @Override
     public List<MonthReport> selectAllMonthReportsByMonth(Integer monthIndicator) {
@@ -1026,6 +1032,7 @@ public class MonthReportServiceImpl implements MonthReportService {
 
 	@Override
 	public void autoDailyGenerate(String dailyReportPath,String dailyHistoryReportPath) throws Exception{
+		log.info("DAILY EXCEL GENERATION START AT:  {}", dateFormat.format(new Date()));
 		List<Integer> availableMonthLists = this.selectAllAvaiableMonthFromDB();
 		if (availableMonthLists != null) {
 			//清除dailyReportPath下的.xls文件
@@ -1035,14 +1042,17 @@ public class MonthReportServiceImpl implements MonthReportService {
 			//往history目录里生成一份
 			poiExcelService.generateExcelFileToAFixedPath(availableMonthLists.get(0), dailyHistoryReportPath,"D");
 		}
+		log.info("DAILY EXCEL GENERATION END AT:  {}", dateFormat.format(new Date()));
 	}
 
 	@Override
 	public void autoMonthlyGenerate(String monthlyReportPath) throws Exception {
+		log.info("MONTHLY EXCEL GENERATION START AT:  {}", dateFormat.format(new Date()));
 		List<Integer> availableMonthLists = this.selectAllAvaiableMonthFromDB();
 		for (Integer monthIndicator : availableMonthLists) {
 			poiExcelService.generateExcelFileToAFixedPath(monthIndicator, monthlyReportPath,"H");
 		}
+		log.info("MONTHLY EXCEL GENERATION START AT:  {}", dateFormat.format(new Date()));
 	}
 
 	@Override

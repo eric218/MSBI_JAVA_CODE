@@ -98,15 +98,15 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
                 String inserLogSql = new String();
                 if(reportType.equals("A")){
                     inserLogSql = "load data local infile \"" + logLocation + logs + "\" into table logtxt(log)  set LOG_TYPE=1";
+                    log.info("@call insert_backup_log_sucessful_procedure(prod) tasks sql: "+ inserLogSql);
                     map.put("insertSql", inserLogSql);
                     insertFile(map);
-                    log.info("@call insert_backup_log_sucessful_procedure(prod) tasks sql: "+ inserLogSql);
                 }
                 else if(reportType.equals("B")){
                     inserLogSql = "load data local infile \"" + logLocation + logs + "\" into table logtxt(log)  set LOG_TYPE=4";
+                    log.info("@call insert_backup_log_sucessful_procedure(non prod) tasks sql: "+ inserLogSql);
                     map.put("insertSql", inserLogSql);
                     insertFile(map);
-                    log.info("@call insert_backup_log_sucessful_procedure(non prod) tasks sql: "+ inserLogSql);
                 }
             }
         }
@@ -122,10 +122,10 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
         insertFile(map);
         Date endDate = new Date(System.currentTimeMillis());
         if(reportType.equals("A")){
-            log.info("@call insert_backup_log_sucessful_procedure(prod) tasks complete at:  {}", dateFormat.format(new Date()));
+            //log.info("@call insert_backup_log_sucessful_procedure(prod) tasks complete at:  {}", dateFormat.format(new Date()));
             log.info("@call insert_backup_log_sucessful_procedure(prod) cost time: "+ CommonUtils.getTimeIntervalFormat1(startDate,endDate));
         } else if(reportType.equals("B")){
-            log.info("@call insert_backup_log_sucessful_procedure(non prod) tasks complete at:  {}", dateFormat.format(new Date()));
+            //log.info("@call insert_backup_log_sucessful_procedure(non prod) tasks complete at:  {}", dateFormat.format(new Date()));
             log.info("@call insert_backup_log_sucessful_procedure(non prod) cost time: "+ CommonUtils.getTimeIntervalFormat1(startDate,endDate));
         }
 
@@ -154,9 +154,11 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
             String insertSql = new String();
             if(reportType.equals("A")){
                 insertSql = "load data local infile \"" + logLocation + main + "\" into table logtxt(log)  set LOG_TYPE=3";
+                log.info("@call insert_main_procedure(prod) tasks sql: "+ insertSql);
             }
             else if(reportType.equals("B")){
                 insertSql = "load data local infile \"" + logLocation + main + "\" into table logtxt(log)  set LOG_TYPE=6";
+                log.info("@call insert_main_procedure(non prod) tasks sql: "+ insertSql);
             }
             map.put("insertSql", insertSql);
             insertFile(map);
@@ -170,14 +172,13 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
             insertFile(map);
             Date endDate = new Date(System.currentTimeMillis());
             if(reportType.equals("A")){
-                log.info("@call insert_main_procedure(prod) tasks complete at:  {}", dateFormat.format(new Date()));
+                //log.info("@call insert_main_procedure(prod) tasks complete at:  {}", dateFormat.format(new Date()));
                 log.info("@call insert_main_procedure(prod) cost time: "+ CommonUtils.getTimeIntervalFormat1(startDate,endDate));
-                log.info("@call insert_main_procedure(prod) tasks sql: "+ insertSql);
+
             }
             else if(reportType.equals("B")){
-                log.info("@call insert_main_procedure(non_prod) tasks complete at:  {}", dateFormat.format(new Date()));
+                //log.info("@call insert_main_procedure(non_prod) tasks complete at:  {}", dateFormat.format(new Date()));
                 log.info("@call insert_main_procedure(non_prod) cost time: "+ CommonUtils.getTimeIntervalFormat1(startDate,endDate));
-                log.info("@call insert_main_procedure(non_prod) tasks sql: "+ insertSql);
             }
 
         }
@@ -204,9 +205,11 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
             String insertSql = new String();
             if(reportType.equals("A")){
                 insertSql = "load data local infile \"" + logLocation + main + "\" into table logtxt(log)  set LOG_TYPE=2";
+                log.info("@call insert_schedule_procedure(prod) tasks sql: "+ insertSql);
             }
             else if(reportType.equals("B")){
                 insertSql = "load data local infile \"" + logLocation + main + "\" into table logtxt(log)  set LOG_TYPE=5";
+                log.info("@call insert_schedule_procedure(non prod) tasks sql: "+ insertSql);
             }
 
             //step2.插入最新的Schedule文件
@@ -223,14 +226,13 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
             insertFile(map);
             Date endDate = new Date(System.currentTimeMillis());
             if(reportType.equals("A")){
-                log.info("@call insert_schedule_procedure(prod) tasks complete at:  {}", dateFormat.format(new Date()));
+                //log.info("@call insert_schedule_procedure(prod) tasks complete at:  {}", dateFormat.format(new Date()));
                 log.info("@call insert_schedule_procedure(prod) cost time: "+ CommonUtils.getTimeIntervalFormat1(startDate,endDate));
-                log.info("@call insert_schedule_procedure(prod) tasks sql: "+ insertSql);
+
             }
             else if(reportType.equals("B")){
-                log.info("@call insert_schedule_procedure(non prod) tasks complete at:  {}", dateFormat.format(new Date()));
+                //log.info("@call insert_schedule_procedure(non prod) tasks complete at:  {}", dateFormat.format(new Date()));
                 log.info("@call insert_schedule_procedure(non prod) cost time: "+ CommonUtils.getTimeIntervalFormat1(startDate,endDate));
-                log.info("@call insert_schedule_procedure(non prod) tasks sql: "+ insertSql);
             }
 
         }
@@ -275,10 +277,10 @@ public class ProcedureCallServiceImpl implements ProcedureCallService {
 
         Date endDate = new Date(System.currentTimeMillis());
         if(reportType.equals("A")){
-            log.info("@call all procedure(prod) tasks complete at:  {}", dateFormat.format(new Date()));
+            //log.info("@call all procedure(prod) tasks complete at:  {}", dateFormat.format(new Date()));
             log.info("@@call all procedure(prod) cost totle time: "+ CommonUtils.getTimeIntervalFormat1(startDate,endDate));
         }else if(reportType.equals("B")){
-            log.info("@call all procedure(non prod) tasks complete at:  {}", dateFormat.format(new Date()));
+            //log.info("@call all procedure(non prod) tasks complete at:  {}", dateFormat.format(new Date()));
             log.info("@@call all procedure(non prod) cost totle time: "+ CommonUtils.getTimeIntervalFormat1(startDate,endDate));
         }
     }

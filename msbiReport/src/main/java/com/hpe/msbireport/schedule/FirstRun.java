@@ -31,7 +31,7 @@ public class FirstRun implements CommandLineRunner {
         procedureCallService.autoRunDaily();
         Date endDate = new Date(System.currentTimeMillis());
 
-        log.info("atuo run complete successful");
-        log.info("auto run cost time: "+ CommonUtils.getTimeIntervalFormat1(startDate,endDate));
+        log.info("all atuo run program has completed successfully");
+        log.info("all atuo run program cost the time: "+ CommonUtils.getTimeIntervalFormat1(startDate,endDate));
     }
 }

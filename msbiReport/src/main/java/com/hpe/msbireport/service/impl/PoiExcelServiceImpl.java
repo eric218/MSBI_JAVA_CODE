@@ -91,11 +91,11 @@ public class PoiExcelServiceImpl implements PoiExcelService {
             }
 
             try {
-                log.info("### ATTENTION PLEASE LOG INFO : EXCEL GENERATION START AT:  {}", dateFormat.format(new Date()));
+                //log.info("### ATTENTION PLEASE LOG INFO : EXCEL GENERATION START AT:  {}", dateFormat.format(new Date()));
                 FileOutputStream out = new FileOutputStream(path + month + "_MonthReport_daily.xls");
                 workbook.write(out);
                 out.close();
-                log.info("### ATTENTION PLEASE LOG INFO : Excel GENERATION COMPLETED SUCCESSFULLY:  {}", dateFormat.format(new Date()));
+                //log.info("### ATTENTION PLEASE LOG INFO : Excel GENERATION COMPLETED SUCCESSFULLY:  {}", dateFormat.format(new Date()));
                 return "200";
             } catch (Exception e) {
                 log.error("### ATTENTION PLEASE LOG INFO : Excel GENERATION FAILED:  {}", dateFormat.format(new Date()));
