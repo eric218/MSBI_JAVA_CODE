@@ -952,6 +952,13 @@ public class MonthReportServiceImpl implements MonthReportService {
 
 	@Override
 	public Date getEndDate(Map map) {
+		if(map.get("backup_log_table").equals("backup_log")){
+			//max day 间隔一天
+			map.put("interval_days",1);
+		}else if(map.get("backup_log_table").equals("backup_log_non_prod")){
+			//max day 间隔一天
+			map.put("interval_days",1);
+		}
 		BackupLog bl = backupLogMapper.selectEndDate(map);
 		return bl.getStartDate();
 	}
@@ -977,13 +984,14 @@ public class MonthReportServiceImpl implements MonthReportService {
 			tableMap.put("main_table","main");
 			tableMap.put("special_schedule_table","special_schedule");
 
-
 		}else if("B".equals(reportType)){
 			tableMap.put("month_report_table","month_report_non_prod");
 			tableMap.put("backup_log_table","backup_log_non_prod");
 			tableMap.put("schedule_table","schedule_newest_non_prod");
 			tableMap.put("main_table","main_non_prod");
 			tableMap.put("special_schedule_table","special_schedule_non_prod");
+			//max day 间隔0天
+			tableMap.put("interval_days",0);
 		}
 
 		//设置所有SpecialSchedule值

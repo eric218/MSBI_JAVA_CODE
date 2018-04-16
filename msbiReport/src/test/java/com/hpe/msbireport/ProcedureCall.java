@@ -56,13 +56,16 @@ public class ProcedureCall {
     private int day;
 
 //    @Test
-//    @Transactional
-//    public void num(){
-//        Map map = new HashMap();
-//        map.put("insertSql","load data local infile \"C:/MSBI/log/log_2017_03_30.txt_20170406_200\" into table logtxt(log)  set LOG_TYPE=1;");
-//        procedureCallService.insertFile(map);
-//        map.put("insertSql","delete from logtxt WHERE LOG_TYPE=1;");
-//        procedureCallService.insertFile(map);
+//    public void num() throws Exception{
+//        Map tableMap = new HashMap();
+//        tableMap.put("month_report_table","month_report_non_prod");
+//        tableMap.put("backup_log_table","backup_log_non_prod");
+//        tableMap.put("schedule_table","schedule_newest_non_prod");
+//        tableMap.put("main_table","main_non_prod");
+//        tableMap.put("special_schedule_table","special_schedule_non_prod");
+//        //max day 间隔0天
+//        tableMap.put("interval_days",0);
+//        monthReportService.formatMonthReportTableForTask(day,null, false, 0,"B");
 //    }
 
     @Test

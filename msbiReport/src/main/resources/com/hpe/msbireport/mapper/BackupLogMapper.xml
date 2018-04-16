@@ -223,7 +223,7 @@
 	GROUP BY bl.SCHEDULE_NAME,bl.START_DATE,bl.SERVER_NAME
   </select>
   <select id="selectEndDate" resultMap="BaseResultMap" parameterType="Map">
-  	SELECT date_sub(max(log_date),interval 1 day) as START_DATE FROM ${backup_log_table}
+  	SELECT date_sub(max(log_date),interval #{interval_days} day) as START_DATE FROM ${backup_log_table}
   </select>
   <select id="selectStartDate" resultMap="BaseResultMap" parameterType="Map">
   	SELECT min(START_DATE) as START_DATE FROM ${backup_log_table}
